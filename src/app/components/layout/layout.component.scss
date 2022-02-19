@@ -1,0 +1,84 @@
+.button-container {
+  z-index: 1;
+
+  .buttons {
+    height: calc(100vh - 180px) !important;
+  }
+}
+
+i.fa-chart-line {
+  opacity: 0.1;
+  pointer-events: none;
+
+  &.enabled {
+    opacity: 1;
+    pointer-events: all;
+    cursor: pointer;
+  }
+}
+
+.accordion {
+  .accordion-button {
+    font-size: 14pt !important;
+  }
+}
+
+.w-inherit {
+  width: inherit;
+}
+
+.mw-100 {
+  max-width: 100px;
+}
+
+.fa-plus {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.fst-italic {
+  color: inherit;
+}
+
+.data-container {
+  max-height: calc(100vh - 340px);
+  overflow: auto;
+}
+
+.list-group {
+  &.shops {
+    max-height: calc(100vh - 575px) !important;
+    overflow: auto !important;
+  }
+  &.products {
+    max-height: calc(100vh - 400px) !important;
+    overflow: auto !important;
+  }
+}
+
+.modal-content {
+  &.historial {
+    height: calc(100vh - 300px);
+  }
+}
+
+.btn-group {
+  button.btn {
+    opacity: 0.5;
+    color: #444;
+    background-color: #fff;
+    font-style: italic;
+
+    &.active {
+      opacity: 1;
+      color: #ffffff;
+      background-color: #444;
+      font-style: normal;
+    }
+  }
+}
+
+img.product-image {
+  height: calc(100vh - 510px) !important;
+}

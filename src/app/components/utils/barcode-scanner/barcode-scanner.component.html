@@ -1,0 +1,103 @@
+<div
+  class="
+    d-flex
+    justify-content-center
+    align-items-center
+    w-100
+    scanner-container
+  "
+>
+  <barcode-scanner-livestream
+    type="ean"
+    (valueChanges)="onValueChanges($event)"
+    (started)="(onStarted)"
+  ></barcode-scanner-livestream>
+</div>
+
+<div
+  class="d-flex flex-column justify-content-center align-items-center my-3"
+  *ngIf="barcodeValue; else scanInstructions"
+>
+  <div class="d-flex justify-content-center align-items-center w-100">
+    <span>Codi:</span><span class="mx-2">{{ barcodeValue }}</span
+    ><i class="fas fa-check text-success"></i>
+  </div>
+  <ng-container *ngIf="!loadingOpenFoodProduct; else loader">
+    <ng-container *ngIf="openFoodProduct; else noProductFound">
+      <div class="d-flex justify-content-center align-items-center w-100 mt-3">
+        <div class="card" style="width: 18rem;">
+          <ng-container
+            *ngIf="openFoodProduct?.product?.image_url; else noProductImage"
+            ><img
+              class="card-img-top"
+              [src]="openFoodProduct.product.image_url"
+          /></ng-container>
+
+          <div class="card-body">
+            <h5 class="card-title">
+              {{
+                openFoodProduct.product?.product_name
+                  ? capitalizeFirstLetter(openFoodProduct.product.product_name)
+                  : 'Producte desconegut'
+              }}
+            </h5>
+            <p class="card-text brand">
+              {{
+                openFoodProduct.product?.brands
+                  ? capitalizeFirstLetter(openFoodProduct.product.brands)
+                  : 'Marca desconeguda'
+              }}
+            </p>
+            <button
+              *ngIf="!productExists"
+              class="btn btn-secondary btn-lg w-100"
+              [ngClass]="{ disabled: productExists || !barcodeValue }"
+              (click)="saveProduct()"
+            >
+              Afegir
+            </button>
+            <span class="text-danger" *ngIf="productExists"
+              >Producte ja desat!</span
+            >
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #scanInstructions>
+  <div
+    class="
+      alert alert-info
+      d-flex
+      justify-content-start
+      align-items-center
+      mt-3
+      w-100
+    "
+  >
+    <i class="fas fa-info-circle me-2"></i>
+    <span>Posiciona el codi de bares del producte davant la càmera.</span>
+  </div>
+</ng-template>
+
+<ng-template #noProductFound>
+  <div class="d-flex justify-content-start align-items-center mt-3 w-100">
+    <i class="fas fa-warning me-2"></i>
+    <span>No s'ha trobat el producte</span>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <div class="d-flex justify-content-start align-items-center mt-3 w-100">
+    <i class="fas fa-spinner me-2"></i>
+    <span>Cercant producte...</span>
+  </div>
+</ng-template>
+
+<ng-template #noProductImage>
+  <div class="d-flex justify-content-start align-items-center mt-3 ms-3 w-100">
+    <i class="fas fa-image"></i>
+  </div>
+</ng-template>

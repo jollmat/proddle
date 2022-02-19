@@ -1,0 +1,36 @@
+<div
+  class="d-flex justify-content-start w-100"
+  [ngClass]="{
+    'flex-column': orientation === 'VERTICAL',
+    'align-items-start': orientation === 'VERTICAL'
+  }"
+>
+  <div class="badge">
+    <span
+      class="badge badge-light me-1"
+      *ngIf="numShops !== undefined; else noDataBadge"
+      >{{ numShops }}</span
+    >
+    Botigues
+  </div>
+  <div class="badge">
+    <span
+      class="badge badge-light me-1"
+      *ngIf="numProducts !== undefined; else noDataBadge"
+      >{{ numProducts }}</span
+    >
+    Productes
+  </div>
+  <div class="badge">
+    <span
+      class="badge badge-light me-1"
+      *ngIf="numPrices !== undefined; else noDataBadge"
+      >{{ numPrices }}</span
+    >
+    Preus
+  </div>
+</div>
+
+<ng-template #noDataBadge>
+  <span class="badge badge-light me-1">?</span>
+</ng-template>

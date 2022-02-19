@@ -1,0 +1,34 @@
+<div class="d-flex w-100 py-1 px-3 shop-standings">
+  <div class="d-flex flex-column w-100">
+    <div class="title mt-2 mb-3" *ngIf="target === 'CHEAP'">
+      Botigues preu més <strong>barat:</strong>
+    </div>
+    <div class="title mt-2 mb-3" *ngIf="target === 'EXPENSIVE'">
+      Botigues amb preu més <strong>car:</strong>
+    </div>
+    <div class="w-100 p-2" *ngIf="standings?.length > 0; else noStandings">
+      <table class="table table-hover table-sm">
+        <thead>
+          <tr>
+            <th class="text-end pe-3 w-15">#</th>
+            <th>Botiga</th>
+            <th class="text-end">Nº de cops</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let standing of standings; let i = index">
+            <td class="text-end pe-3">{{ i + 1 }}</td>
+            <td>{{ getShopName(standing.shopId) }}</td>
+            <td class="text-end">{{ standing.times }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #noStandings>
+  <div class="d-flex justify-content-start align-items-center w-100">
+    <small class="ps-2">Sense dades</small>
+  </div>
+</ng-template>

@@ -1,0 +1,897 @@
+<div
+  class="
+    button-container
+    d-flex
+    justify-content-between
+    align-items
+    center
+    w-100
+    mb-3
+  "
+>
+  <div class="d-flex flex-column w-100 buttons py-1 px-3">
+    <div class="d-flex w-100">
+      <button
+        class="btn btn-lg btn-light w-100 m-1 py-3"
+        [ngClass]="{ disabled: products.length === 0 }"
+        (click)="toggleNewShop()"
+      >
+        <div class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-magnifying-glass-dollar me-3"></i>
+          <div class="text-start">Preus producte</div>
+          <span class="ms-auto badge bg-danger text-white">Novetat!</span>
+        </div>
+      </button>
+    </div>
+    <div class="d-flex w-100">
+      <button
+        [ngClass]="{ disabled: products.length === 0 }"
+        class="btn btn-lg btn-light w-100 m-1 py-3"
+        (click)="toggleNewProduct()"
+      >
+        <div class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-barcode me-3"></i>
+          <div class="text-start">Afegir preu</div>
+          <span class="ms-auto badge bg-danger text-white">Novetat!</span>
+        </div>
+      </button>
+    </div>
+
+    <div
+      class="d-flex align-items-start w-100 my-2 alert alert-light w-100"
+      *ngIf="products.length === 0"
+    >
+      <small>
+        <i class="fas fa-warning me-2 text-warning"></i>
+      </small>
+      <small>
+        <span
+          >Introdueix productes per a poder utiltzar totes les funcionalitats
+          disponibles.</span
+        ></small
+      >
+    </div>
+
+    <div class="d-flex w-100 mt-auto">
+      <button
+        class="btn btn-lg btn-light w-100 m-1 py-3"
+        (click)="toggleShopList()"
+      >
+        <div class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-store me-3"></i>
+          <div class="text-start">Botigues ({{ shops?.length }})</div>
+        </div>
+      </button>
+    </div>
+    <div class="d-flex w-100">
+      <button
+        class="btn btn-lg btn-light w-100 m-1 py-3"
+        (click)="toggleProductList()"
+      >
+        <div class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-shopping-basket me-3"></i>
+          <div class="text-start">
+            Productes ({{ products?.length }})
+            <i
+              *ngIf="products?.length === 0"
+              class="fas fa-warning text-warning ms-2"
+            ></i>
+          </div>
+        </div>
+      </button>
+    </div>
+    <div class="d-flex w-100">
+      <button
+        [ngClass]="{ disabled: products.length === 0 }"
+        class="btn btn-lg btn-light w-100 m-1 py-3"
+        (click)="toggleStatistics()"
+      >
+        <div class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-chart-bar me-3"></i>
+          <div class="text-start">Estadístiques</div>
+          <span class="ms-auto badge bg-danger text-white">Novetat!</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Statistics -->
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showStatistics"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex align-items-center">
+      <i class="fas fa-store me-3 ms-2"></i>
+      Estadístiques<i
+        class="fas fa-close ms-auto cursor-pointer"
+        (click)="toggleStatistics()"
+      ></i>
+    </div>
+    <div class="modal-content d-flex flex-column">
+      <app-shop-standings [target]="'CHEAP'"></app-shop-standings>
+      <app-shop-standings [target]="'EXPENSIVE'"></app-shop-standings>
+    </div>
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        (click)="toggleStatistics()"
+      >
+        Tancar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Shop list -->
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showShops"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex align-items-center">
+      <i class="fas fa-store me-3 ms-2"></i>
+      Botigues<i
+        class="fas fa-close ms-auto cursor-pointer"
+        (click)="toggleShopList()"
+      ></i>
+    </div>
+    <div class="modal-content d-flex flex-column">
+      <app-shop-search
+        [shops]="shops"
+        (createShop)="toggleNewShop()"
+        (editShop)="toggleEditShop($event)"
+        (toggleFavourite)="toggleFavouriteShop($event)"
+        (remove)="removeShop($event)"
+      ></app-shop-search>
+    </div>
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        (click)="toggleShopList()"
+      >
+        Tancar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Product list -->
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showProducts"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex align-items-center">
+      <i class="fas fa-store me-3 ms-2"></i>
+      Productes<i
+        class="fas fa-close ms-auto cursor-pointer"
+        (click)="toggleProductList()"
+      ></i>
+    </div>
+    <div class="modal-content d-flex flex-column">
+      <app-product-search
+        [products]="products"
+        (createProduct)="toggleNewProduct()"
+        (editProduct)="toggleEditProduct($event)"
+        (toggleFavourite)="toggleFavouriteProduct($event)"
+        (remove)="removeProduct($event)"
+      ></app-product-search>
+    </div>
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        (click)="toggleProductList()"
+      >
+        Tancar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- New Shop -->
+
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showNewShop && shopDetail"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex align-items-center">
+      <i class="fas fa-store me-3 ms-2"></i>
+      Nova botiga<i
+        class="fas fa-close ms-auto cursor-pointer"
+        (click)="toggleNewShop()"
+      ></i>
+    </div>
+    <div class="modal-content d-flex flex-column">
+      <div class="form-group mb-3">
+        <label for="shopName">Nom</label>
+        <input
+          type="email"
+          class="form-control"
+          id="shopName"
+          [(ngModel)]="shopDetail.name"
+          placeholder="Nom de la botiga"
+        />
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="checkFavourite"
+          [(ngModel)]="shopDetail.favourite"
+        />
+        <label class="form-check-label" for="checkFavourite">Preferida</label>
+      </div>
+    </div>
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary w-50"
+        [ngClass]="{ disabled: shopDetail.name.length < 1 }"
+        (click)="createShop()"
+      >
+        Desar
+      </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        (click)="toggleNewShop()"
+      >
+        Cancel.lar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- New Product -->
+
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showNewProduct && productDetail"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex align-items-center">
+      <i class="fas fa-shopping-basket me-3 ms-2"></i>
+      Nou producte
+      <i
+        class="fas fa-close ms-auto cursor-pointer"
+        (click)="toggleNewProduct()"
+      ></i>
+    </div>
+    <div class="modal-content d-flex flex-column w-100">
+      <div class="d-flex flex-column w-inherit">
+        <div class="form-group mb-3">
+          <label for="productBarcode">Codi de barres / Identificador</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productBarcode"
+            [(ngModel)]="productDetail.barcode"
+            (change)="loadOpenFoodProduct(undefined, true)"
+            placeholder="Codi de barres"
+          />
+          <button
+            class="btn btn-lg btn-secondary mt-1 w-100 py-2"
+            (click)="toggleBarcodeSearch()"
+          >
+            <i class="me-3 fas fa-barcode"></i><span>Cercar per codi</span
+            ><span class="ms-3 badge bg-danger text-white">Novetat!</span>
+          </button>
+        </div>
+        <div class="form-group mb-3">
+          <label for="productBrand">Marca</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productBrand"
+            [(ngModel)]="productDetail.brand"
+            placeholder="Marca del producte"
+          />
+        </div>
+        <div class="form-group mb-3">
+          <label for="productName">Nom</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productName"
+            [(ngModel)]="productDetail.name"
+            placeholder="Nom del producte"
+          />
+        </div>
+        <div class="form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="checkFavourite"
+            [(ngModel)]="productDetail.favourite"
+          />
+          <label class="form-check-label" for="checkFavourite">Preferit</label>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center align-items-center w-100 mt-3">
+        <ng-container *ngIf="openFoodProduct?.product?.image_url">
+          <img
+            class="product-image"
+            [src]="openFoodProduct.product.image_url"
+          />
+        </ng-container>
+      </div>
+    </div>
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary w-50"
+        [ngClass]="{
+          disabled:
+            productDetail?.brand.length < 1 ||
+            productDetail?.name.length < 1 ||
+            productDetail?.barcode.length < 1
+        }"
+        (click)="createProduct()"
+      >
+        Desar
+      </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        (click)="toggleNewProduct()"
+      >
+        Cancel.lar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Shop -->
+
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showEditShop && shopDetail"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex justify-content-between align-items-center">
+      <div><i class="fas fa-store me-3 ms-2"></i>Editar botiga</div>
+      <i
+        class="fas fa-close ms-auto cursor-pointer"
+        (click)="toggleEditShop()"
+      ></i>
+    </div>
+    <div class="modal-content d-flex flex-column">
+      <div class="form-group mb-3">
+        <label for="shopName">Nom</label>
+        <input
+          type="email"
+          class="form-control"
+          id="shopName"
+          [(ngModel)]="shopDetail.name"
+          placeholder="Nom de la botiga"
+        />
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="checkFavourite"
+          [(ngModel)]="shopDetail.favourite"
+        />
+        <label class="form-check-label" for="checkFavourite">Preferida</label>
+      </div>
+    </div>
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary w-50"
+        [ngClass]="{ disabled: shopDetail.name.length < 1 }"
+        (click)="updateShop()"
+      >
+        Desar
+      </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        (click)="toggleEditShop()"
+      >
+        Cancel.lar
+      </button>
+    </div>
+
+    <div class="modal-footer-block d-flex flex-column w-100 mt-3">
+      <div class="d-flex justify-content-between align-items-center px-1">
+        <span class="title">Preus productes</span>
+        <i
+          class="fas fa-plus cursor-pointer p-2 me-1"
+          (click)="toggleNewShopProduct()"
+        ></i>
+      </div>
+      <ng-container
+        *ngIf="editionShopsProducts?.length > 0; else noShopsProducts"
+      >
+        <ul class="list-group products">
+          <li
+            class="list-group-item"
+            *ngFor="let shopProduct of editionShopsProducts"
+          >
+            <div class="d-flex justify-content-between align-items-start w-100">
+              <span
+                *ngIf="showEditShop"
+                class="cursor-pointer"
+                (click)="doEditProduct(shopProduct.productBarcode)"
+                [innerHtml]="getProductName(shopProduct.productBarcode)"
+                >{{ getProductName(shopProduct.productBarcode) }}</span
+              >
+              <div class="d-flex align-items-center ms-auto ps-3 nowrap">
+                <span class="">
+                  <i
+                    class="fas fa-chart-line pe-2"
+                    [ngClass]="{ enabled: true }"
+                    (click)="showHistory(shopProduct)"
+                  ></i>
+                  {{ shopProduct.price | number: '1.2-2' }} €</span
+                >
+                <span
+                  class="fas fa-trash cursor-pointer ms-3"
+                  (click)="removeShopProduct(shopProduct)"
+                ></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Product -->
+
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showEditProduct && productDetail"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex justify-content-between align-items-center">
+      <div><i class="fas fa-shopping-basket me-3 ms-2"></i>Editar producte</div>
+      <i
+        class="fas fa-close ms-auto cursor-pointer"
+        (click)="toggleEditProduct()"
+      ></i>
+    </div>
+    <div class="modal-content d-flex flex-row">
+      <ng-container *ngIf="productDetail.imageUrl"
+        ><div class="d-flex me-3">
+          <img class="mw-100" [src]="productDetail.imageUrl" /></div
+      ></ng-container>
+      <div class="d-flex flex-column w-inherit">
+        <div class="form-group mb-3">
+          <label for="productBarcode">Codi de barres / Identificador</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productBarcode"
+            [(ngModel)]="productDetail.barcode"
+            placeholder="Codi de barres"
+            readonly="readonly"
+          />
+        </div>
+        <div class="form-group mb-3">
+          <label for="productBrand">Marca</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productBrand"
+            [(ngModel)]="productDetail.brand"
+            placeholder="Marca del producte"
+          />
+        </div>
+        <div class="form-group mb-3">
+          <label for="productName">Nom</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productName"
+            [(ngModel)]="productDetail.name"
+            placeholder="Nom del producte"
+          />
+        </div>
+        <div class="form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="checkFavourite"
+            [(ngModel)]="productDetail.favourite"
+          />
+          <label class="form-check-label" for="checkFavourite">Preferit</label>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary w-50"
+        [ngClass]="{
+          disabled:
+            productDetail?.brand.length < 1 ||
+            productDetail?.name.length < 1 ||
+            productDetail?.barcode.length < 1
+        }"
+        (click)="updateProduct()"
+      >
+        Desar
+      </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        (click)="toggleEditProduct()"
+      >
+        Cancel.lar
+      </button>
+    </div>
+
+    <div class="modal-footer-block d-flex flex-column w-100 mt-3">
+      <div class="d-flex justify-content-between align-items-center px-1">
+        <span class="title">Preus a botigues</span>
+        <i
+          class="fas fa-plus cursor-pointer p-2 me-1"
+          (click)="toggleNewShopProduct()"
+        ></i>
+      </div>
+      <ng-container
+        *ngIf="editionShopsProducts?.length > 0; else noShopsProducts"
+      >
+        <ul class="list-group shops">
+          <li
+            class="list-group-item"
+            *ngFor="let shopProduct of editionShopsProducts"
+          >
+            <div class="d-flex justify-content-between align-items-start w-100">
+              <span
+                *ngIf="showEditProduct"
+                class="cursor-pointer"
+                (click)="doEditShop(shopProduct.shopId)"
+                >{{ getShopName(shopProduct.shopId) }}
+              </span>
+
+              <div class="d-flex align-items-center ms-auto nowrap">
+                <span class="ps-3">
+                  <i
+                    class="fas fa-chart-line pe-2"
+                    [ngClass]="{ enabled: true }"
+                    (click)="showHistory(shopProduct)"
+                  ></i>
+                  {{ shopProduct.price | number: '1.2-2' }} €</span
+                >
+                <span
+                  class="fas fa-trash cursor-pointer ms-3"
+                  (click)="removeShopProduct(shopProduct)"
+                ></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- ShopProduct -->
+
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showEditShopProduct && shopProductDetail"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex">Preu producte a botiga</div>
+    <div class="modal-content d-flex flex-column">
+      <div class="form-group mb-3">
+        <label for="product">Producte</label>
+        <ng-container *ngIf="showEditProduct">
+          <input
+            type="text"
+            class="form-control"
+            value="{{ productDetail.name }}"
+            readonly="readonly"
+          />
+        </ng-container>
+        <ng-container *ngIf="!showEditProduct">
+          <select
+            class="form-select"
+            [(ngModel)]="shopProductDetail.productBarcode"
+          >
+            <option
+              *ngFor="let product of products"
+              value="{{ product.barcode }}"
+            >
+              {{ product.name }}
+            </option>
+          </select>
+        </ng-container>
+      </div>
+      <div class="form-group mb-3">
+        <label for="shop">Botiga</label>
+        <ng-container *ngIf="showEditShop">
+          <input
+            type="text"
+            class="form-control"
+            value="{{ shopDetail.name }}"
+            readonly="readonly"
+          />
+        </ng-container>
+        <ng-container *ngIf="!showEditShop">
+          <select class="form-select" [(ngModel)]="shopProductDetail.shopId">
+            <option></option>
+            <option *ngFor="let shop of shops" value="{{ shop.id }}">
+              {{ shop.name }}
+            </option>
+          </select>
+        </ng-container>
+      </div>
+      <div class="form-group mb-3">
+        <label for="price">Preu</label>
+        <input
+          id="price"
+          type="number"
+          class="form-control"
+          value="{{ shopProductDetail.price }}"
+          [(ngModel)]="shopProductDetail.price"
+        />
+      </div>
+      <div
+        class="
+          modal-buttons
+          d-flex
+          justify-content-center
+          align-items-center
+          w-100
+        "
+      >
+        <button
+          type="button"
+          class="btn btn-lg btn-secondary w-50"
+          [ngClass]="{
+            disabled:
+              !shopProductDetail.price ||
+              shopProductDetail.price === 0 ||
+              !shopProductDetail.shopId ||
+              !(shopProductDetail?.productBarcode?.length > 0)
+          }"
+          (click)="saveShopProduct()"
+        >
+          Desar
+        </button>
+        <button
+          type="button"
+          class="btn btn-lg btn-light ms-2 w-50"
+          (click)="toggleNewShopProduct()"
+        >
+          Cancel.lar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="shopsProductsHistory?.length > 0"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex justify-content-between align-items-center">
+      Preu producte a botiga
+      <i (click)="hideHistory()" class="fas fa-close"></i>
+    </div>
+    <div class="modal-content historial d-flex flex-column h-100">
+      <div class="d-flex flex-column w-100">
+        <div
+          class="
+            w-100
+            d-flex
+            flex-column
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="d-flex flex-column w-100">
+            <div class="w-100 d-flex justify-content-start align-items-start">
+              <span class="fst-italic me-2">Botiga:</span>
+              <span class="fw-bold">{{ historyShopName }}</span>
+            </div>
+            <div
+              class="w-100 d-flex justify-content-start align-items-start mb-3"
+            >
+              <span class="fst-italic me-2">Producte:</span>
+              <span class="fw-bold">{{ historyProductName }}</span>
+            </div>
+          </div>
+
+          <div class="d-flex w-100">
+            <div class="btn-group" role="group">
+              <button
+                type="button"
+                class="btn btn-lg btn-secondary"
+                (click)="historyView = 'CHART'"
+                [ngClass]="{ active: historyView === 'CHART' }"
+              >
+                Gràfic
+              </button>
+              <button
+                type="button"
+                class="btn btn-lg btn-secondary"
+                (click)="historyView = 'LIST'"
+                [ngClass]="{ active: historyView === 'LIST' }"
+              >
+                Llistat
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="historyView === 'LIST'">
+        <div class="d-flex justify-content-start align-items-center w-100 mt-3">
+          <table class="table table-striped w-100">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th class="text-end">Preu</th>
+                <th></th>
+              </tr>
+              <tr *ngFor="let shopProduct of shopsProductsHistory">
+                <td>
+                  {{ shopProduct.updateDate | date: 'dd/MM/YYYY - HH:mm' }}
+                </td>
+                <td class="text-end">
+                  {{ shopProduct.price | number: '1.2-2' }} €
+                </td>
+                <td>
+                  <span
+                    class="fas fa-trash cursor-pointer ms-3"
+                    (click)="removeShopProductHistory(shopProduct)"
+                  ></span>
+                </td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="chartOptions && historyView === 'CHART'">
+        <div
+          class="
+            d-flex
+            justify-content-center
+            align-items-center
+            w-100
+            h-100
+            mt-3
+          "
+        >
+          <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="chartOptions"
+            style="width: 100%; height: 200px; display: block;"
+          ></highcharts-chart>
+        </div>
+      </ng-container>
+      <div
+        class="d-flex justify-content-center align-items-center mt-auto w-100"
+      >
+        <button class="btn btn-secondary btn-lg" (click)="hideHistory()">
+          Tancar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Barcode search -->
+
+<div
+  class="app-modal d-flex justify-content-center align-items-center"
+  *ngIf="showBarcodeSearch"
+>
+  <div class="modal-container d-flex flex-column">
+    <div class="modal-title d-flex align-items-center">
+      <i class="fas fa-barcode me-3 ms-2"></i>
+      Cerca producte<i
+        class="fas fa-close ms-auto cursor-pointer"
+        (click)="toggleBarcodeSearch()"
+      ></i>
+    </div>
+    <div class="modal-content d-flex flex-column">
+      <app-barcode-scanner
+        (onSaveProduct)="fillProduct($event)"
+      ></app-barcode-scanner>
+    </div>
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        (click)="toggleBarcodeSearch()"
+      >
+        Cancel.lar
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noShopsProducts>
+  <div class="d-flex justify-content-start align-items-center w-100">
+    <small class="ps-2">Sense dades</small>
+  </div>
+</ng-template>
+
+<ng-template #firstTime>
+  <div
+    class="d-flex flex-column justify-content-start align-items-center w-100"
+  >
+    <h3>Benvingut/da a Proddle</h3>
+    <button class="btn btn-light" (click)="doStart()">Començar!</button>
+  </div>
+</ng-template>
