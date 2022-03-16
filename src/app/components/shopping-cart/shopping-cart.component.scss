@@ -1,0 +1,74 @@
+.sticky-header {
+  position: sticky;
+  top: 88px;
+  z-index: 1;
+  width: 100% !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #ccc;
+}
+
+.alert {
+  small {
+    font-size: 10pt;
+  }
+}
+
+.shop-name {
+  font-size: 22pt;
+}
+
+img.shop-logo {
+  width: 80px;
+  max-height: 80px;
+}
+
+.totals {
+  font-size: 12pt;
+  .badge-total {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-color: #fff;
+    min-width: 100px;
+
+    &.transparent {
+      font-size: 10pt;
+      background-color: transparent;
+    }
+  }
+}
+
+.product-list-container {
+  border-top: 0px solid #ccc;
+  .product-list {
+    list-style-type: none;
+    font-size: 10pt;
+  }
+}
+
+table {
+  tr {
+    td {
+      font-size: 10pt;
+      vertical-align: top;
+
+      i.fa-times {
+        font-size: 14pt;
+      }
+    }
+  }
+}
+
+.fa-times {
+  font-size: 14pt;
+  position: relative;
+  top: -1px;
+}
+
+.badge-total {
+  &.text-success {
+    color: #fff !important;
+  }
+}

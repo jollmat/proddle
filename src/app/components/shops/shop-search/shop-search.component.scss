@@ -1,0 +1,56 @@
+.input-group-text {
+  padding: 10px;
+}
+
+.input-group {
+  .fa-star {
+    font-size: 18pt;
+  }
+}
+
+.list-group {
+  .list-group-item {
+    background-color: white;
+    opacity: 1 !important;
+
+    span.shop-action-btn {
+      font-size: 18pt;
+    }
+  }
+}
+
+.search-header-container {
+  position: sticky;
+  top: 80px;
+  z-index: 0;
+  width: 100% !important;
+  padding-top: 0px;
+  padding-bottom: 10px;
+  /* background-color: aliceblue; */
+  color: #fff;
+  border: 1px solid #ccc;
+}
+
+.search-content {
+  overflow: auto;
+  height: calc(100vh - 220px);
+}
+
+img.shop-logo {
+  width: 30px;
+  max-height: 100px;
+}
+
+i.fa-image {
+  font-size: 22pt;
+}
+
+.filter-badge {
+  font-size: 10pt;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.no-data {
+  height: calc(100vh - 660px) !important;
+}

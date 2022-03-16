@@ -1,0 +1,22 @@
+<div class="d-flex w-100">
+  <table class="table table-sm w-100">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Marca</th>
+        <th>URL imatge</th>
+        <th>Imatge</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let product of products">
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.brand }}</td>
+          <td>{{ product.imageUrl }}</td>
+          <td><img class="" [src]="product.imageUrl" /></td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

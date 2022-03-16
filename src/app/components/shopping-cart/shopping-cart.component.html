@@ -1,0 +1,207 @@
+<div class="sticky-header d-flex flex-column px-3 w-100">
+  <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
+</div>
+
+<ng-container *ngIf="cartConfig">
+  <ng-container *ngIf="cartConfig.items?.length > 0; else noShoppingCart">
+    <div class="d-flex card transparent flex-column mb-3 p-3 w-100">
+      <h4 class="ps-2 mb-2">Cistella de la compra optimitzada</h4>
+      <div
+        class="
+          alert alert-info
+          d-flex
+          justify-content-start
+          align-items-start
+          py-1
+          px-2
+          mb-4
+        "
+      >
+        <i class="fas fa-info-circle mt-1 me-2"></i>
+        <small
+          >Aqui tens la teva cistella de la compra optimitzada per botigues i
+          productes per aconseguir el màxim d'estalvi.</small
+        >
+      </div>
+
+      <!-- Totals -->
+      <div class="d-flex w-100" *ngTemplateOutlet="totals"></div>
+
+      <div
+        class="d-flex w-100 justify-content-end align-items-center ps-2 mb-3"
+      >
+        <button class="btn btn-secondary" (click)="removeCart()">
+          <span
+            ><i class="fa fa-cart-arrow-down me-2"></i>Buidar la cistella</span
+          >
+        </button>
+      </div>
+
+      <ng-container *ngFor="let cartItem of cartConfig.items">
+        <ng-container *ngIf="cartItem.shop">
+          <div
+            class="
+              modal-content
+              d-flex
+              flex-column
+              justify-content-start
+              align-items-start
+              p-3
+              flex-row
+              w-100
+              mb-2
+            "
+          >
+            <img class="shop-logo" [src]="cartItem?.shop?.imageUrl" />
+
+            <!-- <span class="shop-name ps-2">{{ cartItem.shop.name }}</span> -->
+            <div
+              class="product-list-container d-flex flex-column w-100 mt-1 pt-2"
+            >
+              <table>
+                <tbody>
+                  <tr *ngFor="let productUnits of cartItem.productsUnits">
+                    <td>
+                      <i class="fas fa-angle-right me-2 mt-1"></i>
+                    </td>
+                    <td class="pe-2">
+                      {{ productUnits.product.name }}
+                      <span>
+                        (x{{ productUnits.units | number: '1.0-2' }})</span
+                      >
+                    </td>
+                    <td>
+                      <div
+                        class="
+                          d-flex
+                          nowrap
+                          justify-content-end
+                          align-items-center
+                        "
+                      >
+                        <span class="fw-bold"
+                          >{{ productUnits.minPrice | number: '1.0-2' }} €</span
+                        >
+                        <i
+                          class="fas fa-times cursor-pointer ms-2"
+                          (click)="removeItem(productUnits.product)"
+                        ></i>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!--
+              <ul class="product-list m-0 p-0">
+                <li *ngFor="let productUnits of cartItem.productsUnits">
+                  <div class="d-flex justify-content-between w-100">
+                    <div class="pe-2">
+                      <i class="fas fa-angle-right me-2 mt-1"></i>
+                      {{ productUnits.product.name }} ({{
+                        productUnits.units | number: '1.0-2'
+                      }})
+                    </div>
+                    <div
+                      class="d-flex justify-content-start align-items-center"
+                    >
+                      <div>{{ productUnits.minPrice | number: '1.0-2' }} €</div>
+                      <i
+                        class="fas fa-times ms-2 cursor-pointer"
+                        (click)="removeItem(productUnits.product)"
+                      ></i>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              -->
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #totals>
+  <div
+    class="
+      totals
+      d-flex
+      w-100
+      justify-content-between
+      align-items-center
+      ps-2
+      mb-1
+    "
+  >
+    Total optimitzat:
+    <span class="badge-total transparent fw-bold ms-2 px-3 py-1 text-end"
+      >{{ getAmountLow() | number: '1.0-2' }} €</span
+    >
+  </div>
+
+  <div
+    class="
+      totals
+      d-flex
+      w-100
+      justify-content-between
+      align-items-center
+      ps-2
+      mb-1
+    "
+  >
+    Total sense optimitzar:
+    <span class="badge-total transparent fw-bold ms-2 px-3 py-1 text-end"
+      >{{ getAmountHigh() | number: '1.0-2' }} €</span
+    >
+  </div>
+
+  <div
+    class="
+      totals
+      d-flex
+      w-100
+      justify-content-between
+      align-items-center
+      ps-2
+      mb-3
+    "
+  >
+    Total estalviat:
+    <span
+      class="badge-total transparent fw-bold ms-2 px-3 py-1 text-end"
+      [ngClass]="{
+        'bg-success': getAmountDiff() > 0,
+        'text-success': getAmountDiff() > 0
+      }"
+      >{{
+        getAmountDiff() * (getAmountDiff() > 0 ? -1 : 1) | number: '1.0-2'
+      }}
+      €</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #noShoppingCart>
+  <div class="d-flex p-2 w-100">
+    <div
+      class="d-flex justify-content-center mt-5 mx-3 alert alert-warning w-100"
+    >
+      <small>No hi ha productes a la cistella de la compra</small>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #breadcrumb>
+  <div class="breadcrumb">
+    <span class="step">
+      <a routerLink="/home">
+        <i class="fas fa-home mx-2"></i
+        ><span class="fst-italic text-decoration-underline">Inici</span></a
+      ></span
+    >
+    <span class="divider mx-2">/</span>
+    <span class="step fw-bold">Cistella de la compra</span>
+  </div>
+</ng-template>

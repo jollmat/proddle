@@ -1,0 +1,96 @@
+<div
+  class="
+    page
+    d-flex
+    flex-column
+    justify-content-start
+    align-items-center
+    p-3
+    pt-0
+    w-100
+    ms-auto
+    me-auto
+  "
+>
+  <div
+    class="
+      d-flex
+      flex-column
+      justify-content-start
+      align-items-center
+      w-100
+      mb-2
+    "
+  >
+    <div class="d-flex w-100 my-3 justify-content-end">
+      <app-language-selector></app-language-selector>
+    </div>
+
+    <h5 class="my-3 w-100 text-center">
+      {{ 'login.welcome' | translate }}
+    </h5>
+    <small class="text-start fst-italic px-3">{{
+      'login.welcome.subtitle' | translate
+    }}</small>
+  </div>
+
+  <div class="d-flex flex-column mb-1 w-100">
+    <div class="d-flex flex-row">
+      <div class="d-flex flex-column w-100 p-3">
+        <div class="form-group mb-3 w-100">
+          <label for="username" class="fw-bold">{{
+            'login.username' | translate
+          }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            [(ngModel)]="user.username"
+            placeholder="{{ 'login.username' | translate }}"
+          />
+        </div>
+        <div class="form-group mb-3 w-100">
+          <label for="email" class="fw-bold">{{
+            'login.email' | translate
+          }}</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            [(ngModel)]="user.email"
+            placeholder="{{ 'login.email' | translate }}"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-around w-100">
+    <button
+      class="btn btn-lg btn-secondary"
+      [ngClass]="{ disabled: !canAccess() }"
+      (click)="login()"
+    >
+      {{ 'login.access' | translate }}
+    </button>
+  </div>
+
+  <ng-template *ngTemplateOutlet="carousel"></ng-template>
+</div>
+
+<ng-template #carousel>
+  <div
+    class="
+      carousel-template-container
+      d-flex
+      justify-content-center
+      align-items-center
+      py-3
+      px-0
+      mt-3
+      w-100
+    "
+  >
+    <app-carousel></app-carousel>
+  </div>
+</ng-template>

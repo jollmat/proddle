@@ -1,0 +1,19 @@
+.sticky-header {
+  position: sticky;
+  top: 88px;
+  z-index: 1;
+  width: 100% !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #ccc;
+}
+
+i.fa-user {
+  font-size: 42pt;
+}
+
+label {
+  font-weight: 500;
+}

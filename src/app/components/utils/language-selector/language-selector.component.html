@@ -1,0 +1,42 @@
+<ng-container *ngIf="currentLanguage && languages">
+  <div class="d-flex">
+    <!--
+    <ng-container *ngFor="let lang of languages">
+      <span (click)="setLanguage(lang)">{{ lang }}</span>
+    </ng-container>
+    -->
+
+    <div class="btn-group me-2">
+      <button
+        type="button"
+        class="btn btn-lg btn-light dropdown-toggle shadow-none"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <img
+          *ngIf="languageImages"
+          [src]="getImageUrl(currentLanguage)"
+          class="me-2"
+        />
+      </button>
+      <ul class="dropdown-menu">
+        <ng-container *ngFor="let lang of languages">
+          <li
+            class="user py-2"
+            (click)="setLanguage(lang)"
+            *ngIf="currentLanguage !== lang"
+          >
+            <div class="d-flex justify-content-start align-items-center mx-3">
+              <img
+                *ngIf="languageImages"
+                [src]="getImageUrl(lang)"
+                class="me-2"
+              />
+              <span>{{ getLabel(lang) }}</span>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,20 @@
+<div class="breadcrumb px-3">
+  <span class="step cursor-pointer text-decoration-underline" (click)="exit()">
+    <i class="fas fa-home mx-2"></i><span class="fst-italic">Inici</span></span
+  >
+
+  <ng-container *ngFor="let step of steps; let i = index">
+    <span class="divider mx-2">/</span>
+    <ng-container *ngIf="i < steps.length - 1">
+      <span
+        class="step cursor-pointer text-decoration-underline"
+        [routerLink]="step.pathUrl"
+      >
+        <span class="fst-italic">{{ step.label }}</span>
+      </span>
+    </ng-container>
+    <ng-container *ngIf="i === steps.length - 1">
+      <span class="step fw-bold">{{ step.label }}</span>
+    </ng-container>
+  </ng-container>
+</div>

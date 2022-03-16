@@ -1,0 +1,298 @@
+<div class="page d-flex flex-column w-100">
+  <div class="sticky-header bg-warning d-flex flex-column p-0 w-100">
+    <ng-container *ngIf="productDetail">
+      <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
+    </ng-container>
+
+    <div class="btn-group w-100" role="group" aria-label="Basic example">
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary"
+        [ngClass]="{ active: selectedTab === 0 }"
+        (click)="selectedTab = 0"
+      >
+        <i class="fas fa-check me-2" *ngIf="selectedTab === 0"></i>
+        Detall
+      </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary"
+        [ngClass]="{ active: selectedTab === 1 }"
+        (click)="selectedTab = 1"
+      >
+        <i class="fas fa-check me-2" *ngIf="selectedTab === 1"></i>
+        Preus
+        <small class="sm-2"
+          >({{ shopProducts?.length | number: '1.0-2' }})</small
+        >
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="productDetail">
+    <ng-container *ngIf="selectedTab === 0">
+      <div
+        class="d-flex card transparent flex-column p-3 w-100"
+        [ngClass]="{ 'pb-1': productDetail?.createdBy }"
+      >
+        <div class="modal-content d-flex flex-row">
+          <div class="d-flex flex-column w-100 p-3">
+            <div class="form-group mb-0 w-100">
+              <label for="productBarcode">Codi de barres / Identificador</label>
+              <input
+                type="text"
+                class="form-control"
+                id="productBarcode"
+                [(ngModel)]="productDetail.barcode"
+                placeholder="Codi de barres"
+                readonly="readonly"
+              />
+            </div>
+            <div class="form-group mb-3 w-100">
+              <label for="productName">Nom</label>
+              <ng-container *ngIf="canEdit()">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="productName"
+                  [(ngModel)]="productDetail.name"
+                  placeholder="Nom del producte"
+                />
+              </ng-container>
+              <ng-container *ngIf="!canEdit()">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="productName"
+                  [(ngModel)]="productDetail.name"
+                  placeholder="Nom del producte"
+                  readonly="readonly"
+                />
+              </ng-container>
+            </div>
+            <div class="form-group mb-3 w-100">
+              <label for="productBrand">Marca</label>
+              <ng-container *ngIf="canEdit()">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="productBrand"
+                  [(ngModel)]="productDetail.brand"
+                  placeholder="Marca del producte"
+                />
+              </ng-container>
+              <ng-container *ngIf="!canEdit()">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="productBrand"
+                  [(ngModel)]="productDetail.brand"
+                  placeholder="Marca del producte"
+                  readonly="readonly"
+                />
+              </ng-container>
+            </div>
+
+            <div class="d-flex justify-content-end form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [(ngModel)]="productDetail.favourite"
+                role="switch"
+                id="flexSwitchCheckDefault"
+              />
+              <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
+                >Preferit</label
+              >
+            </div>
+
+            <ng-container *ngIf="productDetail.imageUrl"
+              ><div
+                class="d-flex mt-3 justify-content-center align-items-start"
+              >
+                <img
+                  class="product-detail-image"
+                  [src]="productDetail.imageUrl"
+                /></div
+            ></ng-container>
+          </div>
+        </div>
+      </div>
+
+      <ng-container
+        *ngIf="
+          !productDetail?.createdBy?.isAdmin &&
+          productDetail?.createdBy?.username
+        "
+      >
+        <div class="author d-flex justify-content-end w-100 ps-3 pe-4 mb-2">
+          <span class="label me-1 fst-italic">Creat per:</span>
+          <span class="value">{{ productDetail?.createdBy?.username }}</span>
+        </div>
+      </ng-container>
+
+      <div
+        class="
+          modal-buttons
+          d-flex
+          justify-content-center
+          align-items-center
+          w-100
+          px-3
+          mt-auto
+        "
+      >
+        <button
+          type="button"
+          class="btn btn-lg btn-secondary w-100"
+          [ngClass]="{
+            disabled:
+              productDetail?.brand.length < 1 ||
+              productDetail?.name.length < 1 ||
+              productDetail?.barcode.length < 1
+          }"
+          (click)="updateProduct()"
+        >
+          <span class="fas fa-floppy-disk me-1"></span>
+          Desa
+        </button>
+        <!--
+        <button
+          type="button"
+          class="btn btn-lg btn-light ms-2 w-50"
+          [routerLink]="'../../search-products'"
+        >
+          Tanca
+        </button>
+        -->
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="selectedTab === 1">
+      <div class="shop-products d-flex flex-column w-100 my-3 px-3">
+        <div class="d-flex justify-content-between align-items-center px-1">
+          <button class="btn btn-lg btn-lg ps-0">
+            Preus a botigues
+            <small class="sm-2"
+              >({{ shopProducts?.length | number: '1.0-2' }})</small
+            >
+          </button>
+          <!--
+          <i
+            class="fas fa-plus cursor-pointer p-2 me-1"
+            (click)="toggleNewShopProduct()"
+          ></i>
+          -->
+        </div>
+        <ng-container>
+          <ng-container *ngIf="shopProducts?.length > 0; else noShopsProducts">
+            <ul class="list-group shops">
+              <ng-container *ngFor="let shopProduct of shopProducts">
+                <li class="list-group-item">
+                  <div
+                    class="d-flex justify-content-start align-items-start w-100"
+                  >
+                    <img
+                      class="shop-image"
+                      [src]="getShopImage(shopProduct.shopId)"
+                    />
+                    <a
+                      [routerLink]="['/edit-shop/' + shopProduct.shopId]"
+                      class="cursor-pointer d-flex flex-column ps-2"
+                      href="javascript://"
+                      >{{ getShopName(shopProduct.shopId) }}
+                    </a>
+
+                    <div class="d-flex align-items-center ms-auto nowrap">
+                      <span class="ps-3">
+                        <!--
+                        <span
+                          *ngIf="canRemoveShopProduct(shopProduct)"
+                          class="fas fa-trash cursor-pointer me-3"
+                          (click)="removeShopProduct(shopProduct)"
+                        ></span>
+                        -->
+                        <i
+                          [ngClass]="{
+                            disabled: !hasHistory(shopProduct)
+                          }"
+                          class="fas fa-chart-line pe-2 cursor-pointer"
+                          (click)="showHistory(shopProduct)"
+                        ></i>
+                        {{ shopProduct.price | number: '1.2-2' }} €</span
+                      >
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="list-group-item history"
+                  *ngIf="
+                    historyShopProduct?.shopId === shopProduct.shopId &&
+                    historyShopProduct?.productBarcode ===
+                      shopProduct.productBarcode
+                  "
+                >
+                  <ul class="w-100 m-0 p-0">
+                    <li
+                      *ngFor="
+                        let productPrice of historyShopProductList;
+                        let idx = index
+                      "
+                    >
+                      <div
+                        class="
+                          d-flex
+                          justify-content-between
+                          align-items-start
+                          w-100
+                          px-2
+                          py-1
+                        "
+                        [ngClass]="{ 'fw-bold': idx === 0 }"
+                      >
+                        <div class="d-flex flex-column">
+                          <span>
+                            {{
+                              productPrice.updateDate | date: 'dd.MM.YYYY HH:mm'
+                            }}
+                          </span>
+                          <span
+                            *ngIf="loggedUser.isAdmin && productPrice.createdBy"
+                            class="user ms-2"
+                            >({{ productPrice.createdBy.username }})</span
+                          >
+                        </div>
+                        <div>
+                          <span
+                            >{{ productPrice.price | number: '1.2-2' }} €</span
+                          >
+                          <span
+                            [ngClass]="{
+                              disabled: !canRemoveShopProduct(productPrice)
+                            }"
+                            class="fas fa-trash cursor-pointer ps-3"
+                            (click)="removeShopProduct(productPrice)"
+                          ></span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ng-container>
+            </ul>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #breadcrumb>
+  <app-breadcrumbs></app-breadcrumbs>
+</ng-template>
+
+<ng-template #noShopsProducts>
+  <div class="d-flex justify-content-start align-items-center w-100">
+    <small class="ps-2">Sense dades</small>
+  </div>
+</ng-template>

@@ -1,0 +1,36 @@
+<div class="carousel-container w-100 h-100">
+  <ng-container *ngIf="slides">
+    <ngb-carousel>
+      <ng-container *ngFor="let slide of slides">
+        <ng-template ngbSlide>
+          <div
+            class="
+              slide-container
+              d-flex
+              justify-content-center
+              align-items-center
+              mx-5
+              px-3
+            "
+          >
+            <i [class]="slide.iconClass"></i>
+            <div
+              class="
+                d-flex
+                flex-column
+                justify-content-start
+                align-items-start
+                w-100
+                my-0
+                ps-3
+              "
+            >
+              <strong class="w-100 mb-2">{{ slide.title }}</strong>
+              <small class="w-100 text-start">{{ slide.text }}</small>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </ngb-carousel>
+  </ng-container>
+</div>

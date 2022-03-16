@@ -1,0 +1,241 @@
+<div class="page d-flex flex-column w-100">
+  <div class="sticky-header bg-info d-flex flex-column p-0 w-100">
+    <ng-container *ngIf="shopDetail">
+      <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
+    </ng-container>
+
+    <div class="btn-group w-100" role="group" aria-label="Basic example">
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary"
+        [ngClass]="{ active: selectedTab === 0 }"
+        (click)="selectedTab = 0"
+      >
+        <i class="fas fa-check me-2" *ngIf="selectedTab === 0"></i>
+        Detall
+      </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary"
+        [ngClass]="{ active: selectedTab === 1 }"
+        (click)="selectedTab = 1"
+      >
+        <i class="fas fa-check me-2" *ngIf="selectedTab === 1"></i>
+        Preus
+        <small class="sm-2"
+          >({{ shopProducts?.length | number: '1.0-2' }})</small
+        >
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="selectedTab === 0">
+    <div
+      class="d-flex card transparent flex-column mb-0 p-3 w-100"
+      [ngClass]="{ 'pb-2': shopDetail?.createdBy }"
+      *ngIf="shopDetail"
+    >
+      <div class="modal-content d-flex flex-column p-3 flex-row">
+        <div
+          *ngIf="shopDetail?.imageUrl?.length > 0"
+          class="w-100 d-flex justify-content-center align-items-center mb-2"
+        >
+          <img class="shop-logo" [src]="shopDetail.imageUrl" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="shopName">Nom</label>
+          <input
+            *ngIf="canEdit()"
+            type="text"
+            class="form-control"
+            id="shopName"
+            [(ngModel)]="shopDetail.name"
+            placeholder="Nom de la botiga"
+          />
+          <input
+            *ngIf="!canEdit()"
+            type="text"
+            class="form-control"
+            id="shopName"
+            [(ngModel)]="shopDetail.name"
+            readonly="readonly"
+          />
+        </div>
+        <div class="d-flex justify-content-end form-check form-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="shopDetail.favourite"
+            role="switch"
+            id="flexSwitchCheckDefault"
+          />
+          <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
+            >Preferida</label
+          >
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="shopDetail?.createdBy?.username">
+      <div class="author d-flex justify-content-end w-100 ps-3 pe-4 mb-2">
+        <span class="label me-1 fst-italic">Creat per:</span>
+        <span class="value">{{ shopDetail?.createdBy?.username }}</span>
+      </div>
+    </ng-container>
+
+    <div
+      class="
+        d-flex
+        justify-content-center
+        align-items-center
+        mt-auto
+        px-3
+        w-100
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary w-50"
+        [ngClass]="{
+          disabled: shopDetail?.name.length < 1
+        }"
+        (click)="updateShop()"
+      >
+        Desa
+      </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-light ms-2 w-50"
+        [routerLink]="'../../search-shops'"
+      >
+        Tanca
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="selectedTab === 1">
+    <div class="shop-products d-flex flex-column mb-3 px-3 w-100">
+      <div class="d-flex justify-content-between align-items-center px-1">
+        <button class="btn btn-lg btn-lg ps-0">
+          Preus productes
+          <small class="sm-2"
+            >({{ shopProducts?.length | number: '1.0-2' }})</small
+          >
+        </button>
+        <!--
+        <i
+          class="fas fa-plus cursor-pointer p-2 me-1"
+          (click)="newShopProduct()"
+        ></i>
+        -->
+      </div>
+      <ng-container>
+        <ng-container *ngIf="shopProducts?.length > 0; else noShopsProducts">
+          <ul class="list-group products">
+            <ng-container *ngFor="let shopProduct of shopProducts">
+              <li class="list-group-item">
+                <div
+                  class="d-flex justify-content-start align-items-start w-100"
+                >
+                  <img
+                    class="product-image mt-2"
+                    [src]="getProductImage(shopProduct.productBarcode)"
+                  />
+                  <a
+                    href="javascript://"
+                    [routerLink]="[
+                      '/edit-product/' + shopProduct.productBarcode
+                    ]"
+                    class="cursor-pointer d-flex flex-column ps-2"
+                    [innerHtml]="getProductName(shopProduct.productBarcode)"
+                  ></a>
+                  <div class="d-flex align-items-center ms-auto ps-3 nowrap">
+                    <span>
+                      <span
+                        *ngIf="canRemoveShopProduct(shopProduct)"
+                        class="fas fa-trash cursor-pointer me-3"
+                        (click)="removeShopProduct(shopProduct)"
+                      ></span>
+                      <i
+                        class="fas fa-chart-line pe-2"
+                        [ngClass]="{
+                          disabled: !hasHistory(shopProduct)
+                        }"
+                        (click)="showHistory(shopProduct)"
+                      ></i>
+                      {{ shopProduct.price | number: '1.2-2' }} €</span
+                    >
+                  </div>
+                </div>
+              </li>
+              <li
+                class="list-group-item history"
+                *ngIf="
+                  historyShopProduct?.shopId === shopProduct.shopId &&
+                  historyShopProduct?.productBarcode ===
+                    shopProduct.productBarcode
+                "
+              >
+                <ul class="w-100 m-0 p-0">
+                  <li
+                    *ngFor="
+                      let productPrice of historyShopProductList;
+                      let idx = index
+                    "
+                  >
+                    <div
+                      class="
+                        d-flex
+                        justify-content-between
+                        align-items-start
+                        w-100
+                        px-2
+                        py-1
+                      "
+                      [ngClass]="{ 'fw-bold': idx === 0 }"
+                    >
+                      <div class="d-flex flex-column">
+                        <span>
+                          {{
+                            productPrice.updateDate | date: 'dd.MM.YYYY HH:mm'
+                          }}
+                        </span>
+                        <span
+                          *ngIf="loggedUser.isAdmin && productPrice.createdBy"
+                          class="user ms-2"
+                          >({{ productPrice.createdBy.username }})</span
+                        >
+                      </div>
+                      <div>
+                        <span
+                          >{{ productPrice.price | number: '1.2-2' }} €</span
+                        >
+                        <span
+                          [ngClass]="{
+                            disabled: !canRemoveShopProduct(productPrice)
+                          }"
+                          class="fas fa-trash cursor-pointer ps-3"
+                          (click)="removeShopProduct(productPrice)"
+                        ></span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #noShopsProducts>
+  <div class="d-flex justify-content-start align-items-center w-100">
+    <small class="ps-2">Sense preus de productes</small>
+  </div>
+</ng-template>
+
+<ng-template #breadcrumb>
+  <app-breadcrumbs></app-breadcrumbs>
+</ng-template>

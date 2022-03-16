@@ -1,0 +1,256 @@
+<ng-container *ngIf="translationsLoaded">
+  <div class="d-flex justify-content-center w-100 h-100">
+    <div
+      class="d-flex flex-column w-100"
+      [ngClass]="{
+        mobilesim: backofficeEnabled,
+        'w-100': !backofficeEnabled,
+        'h-100': !backofficeEnabled,
+        'm-5': backofficeEnabled
+      }"
+    >
+      <div
+        class="
+          header-container
+          d-flex
+          justify-content-around
+          align-items-center
+          w-100
+        "
+      >
+        <h3
+          class="
+            app-title
+            justify-content-start
+            align-items-center
+            m-0
+            py-3
+            px-1
+          "
+          (click)="goToHome()"
+        >
+          <i class="fas fa-barcode me-0"></i><span>Proddle</span>
+        </h3>
+
+        <ng-container *ngIf="loggedUser">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-lg btn-light shadow-none"
+              [ngClass]="{ disabled: !(cartConfig?.items?.length > 0) }"
+              aria-expanded="false"
+              [routerLink]="['/shoppingCart']"
+            >
+              <i
+                class="fas fa-shopping-basket"
+                title="Cistella de la compra"
+              ></i>
+            </button>
+            <div class="badge bg-warning" *ngIf="cartItemCount">
+              {{ cartItemCount | number: '1.0-2' }}
+            </div>
+          </div>
+          <div class="btn-group me-2">
+            <button
+              type="button"
+              class="btn btn-lg btn-light dropdown-toggle shadow-none"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fas fa-bars" title="Opcions"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li class="user py-2" (click)="goToUserDetail()">
+                <div
+                  class="d-flex justify-content-start align-items-center mx-3"
+                >
+                  <div>
+                    <i class="fas fa-user me-1" title="Dades usuari"></i>
+                  </div>
+                  <div class="d-flex flex-column ps-2">
+                    <span class="wrap">{{ loggedUser?.username }}</span>
+                    <small class="wrap">{{ loggedUser?.email }}</small>
+                  </div>
+                </div>
+              </li>
+
+              <li (click)="goToHome()" class="py-2">
+                <div
+                  class="d-flex justify-content-start align-items-center mx-3"
+                >
+                  <i class="fas fa-home me-1" title="Inici"></i>
+                  <a class="dropdown-item" href="javascript://">Home</a>
+                </div>
+              </li>
+
+              <li class="py-2">
+                <div
+                  class="d-flex justify-content-start align-items-center mx-3"
+                >
+                  <i class="fas fa-store me-1 text-info" title="Botigues"></i>
+                  <a
+                    class="dropdown-item"
+                    href="javascript://"
+                    [routerLink]="['/search-shops']"
+                    >Botigues<small class="ms-2"
+                      >({{ shops?.length | number: '1.0-2' }})</small
+                    ></a
+                  >
+                </div>
+              </li>
+
+              <li class="py-2">
+                <div
+                  class="d-flex justify-content-start align-items-center mx-3"
+                >
+                  <i
+                    class="fas fa-shopping-basket me-1 text-warning"
+                    title="Productes"
+                  ></i>
+                  <a
+                    class="dropdown-item"
+                    href="javascript://"
+                    [routerLink]="['/search-products']"
+                    >Productes<small class="ms-2"
+                      >({{ products?.length | number: '1.0-2' }})</small
+                    ></a
+                  >
+                </div>
+              </li>
+
+              <li class="py-2 disabled">
+                <div
+                  class="d-flex justify-content-start align-items-center mx-3"
+                >
+                  <i
+                    class="fas fa-triangle-exclamation text-danger me-1"
+                    title="Alertes"
+                  ></i>
+                  <a
+                    class="dropdown-item disabled"
+                    href="javascript://"
+                    [routerLink]="['/statistics']"
+                    >Alertes</a
+                  >
+                </div>
+              </li>
+
+              <li class="py-2">
+                <div
+                  class="d-flex justify-content-start align-items-center mx-3"
+                >
+                  <i class="fas fa-chart-line me-1" title="Estadístiques"></i>
+                  <a
+                    class="dropdown-item"
+                    href="javascript://"
+                    [routerLink]="['/statistics']"
+                    >Anàlisi</a
+                  >
+                </div>
+              </li>
+
+              <ng-container
+                *ngIf="
+                  dataSource === DataSourceOriginsEnum.LOCAL &&
+                  loggedUser?.isAdmin
+                "
+              >
+                <li><hr class="dropdown-divider" /></li>
+
+                <li (click)="toggleExport()" class="py-2">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-3"
+                  >
+                    <i
+                      class="fas fa-file-export me-1"
+                      title="Exportar dades"
+                    ></i>
+                    <a class="dropdown-item" href="javascript://"
+                      >Exportar dades</a
+                    >
+                  </div>
+                </li>
+
+                <li (click)="reset()" class="py-2">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-3"
+                  >
+                    <i class="fas fa-skull me-1" title="Reiniciar"></i>
+                    <a class="dropdown-item" href="javascript://">Reiniciar</a>
+                  </div>
+                </li>
+              </ng-container>
+
+              <li><hr class="dropdown-divider" /></li>
+
+              <li (click)="logout()" class="py-2">
+                <div
+                  class="d-flex justify-content-start align-items-center mx-3"
+                >
+                  <i class="fas fa-right-from-bracket me-1" title="Logout"></i>
+                  <a class="dropdown-item" href="javascript://">Sortir</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+
+    <ng-container *ngIf="backofficeEnabled">
+      <div class="d-flex flex-column flex-fill h-100 p-3">
+        <app-backoffice-layout
+          [shops]="shops"
+          [products]="products"
+          [shopsProducts]="shopsProducts"
+        ></app-backoffice-layout>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="doExport">
+  <ng-template *ngTemplateOutlet="export"></ng-template>
+</ng-container>
+
+<ng-template #export>
+  <div class="export d-flex flex-column p-3 w-100">
+    <div class="d-flex justify-content-between w-100">
+      <button class="btn btn-secondary btn-sm" (click)="copyToClipboard()">
+        Copiar al clipboard
+      </button>
+      <button class="btn btn-light btn-sm" (click)="toggleExport()">
+        Tancar
+      </button>
+    </div>
+    <h5 class="my-2">Botigues</h5>
+    <div class="d-flex export-content w-100 mb-2 p-2">{{ shops | json }}</div>
+    <h5 class="my-2">Productes</h5>
+    <div class="d-flex export-content w-100 mb-2 p-2">
+      {{ products | json }}
+    </div>
+    <h5 class="my-2">Preus</h5>
+    <div class="d-flex export-content w-100 mb-2 p-2">
+      {{ shopsProducts | json }}
+    </div>
+  </div>
+</ng-template>
+
+<!--
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+-->
+
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 1)"
+  size="large"
+  template="<img src='https://i.pinimg.com/originals/f5/98/76/f59876d316abc628202df9012706d68f.gif' />"
+>
+</ngx-spinner>

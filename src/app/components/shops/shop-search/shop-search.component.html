@@ -1,0 +1,187 @@
+<div
+  class="
+    d-flex
+    justify-content-start
+    align-items-center
+    w-100
+    search-header-container
+    bg-info
+  "
+>
+  <ng-container>
+    <div class="d-flex flex-column w-100">
+      <div class="d-flex flex-column px-3 w-100">
+        <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
+      </div>
+
+      <div class="d-flex flex-column align-items-center px-3">
+        <div class="input-group">
+          <input
+            #shopSearchInput
+            type="text"
+            class="form-control"
+            [readonly]="shops?.length < 1"
+            [value]="searchText"
+            placeholder="Cerca per nom"
+            aria-label="Cerca per nom"
+          />
+          <span class="input-group-text h-100"
+            ><i class="fas fa-search"></i
+          ></span>
+        </div>
+        <div
+          class="d-flex justify-content-end form-check form-switch mt-2 w-100"
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="onlyFavourites"
+            role="switch"
+            id="flexSwitchCheckDefault"
+          />
+          <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
+            >Nomès preferides</label
+          >
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<div class="search-content d-flex flex-column mb-4 px-3 pt-3 w-100">
+  <!--
+  <div class="d-flex w-100 mb-3">
+    <button
+      class="btn btn-lg btn-secondary w-100 m-1 py-3"
+      (click)="doCreateShop()"
+    >
+      <div class="d-flex align-items-center justify-content-center">
+        <i class="fas fa-plus me-3"></i>
+        <div class="text-start">Nova botiga</div>
+      </div>
+    </button>
+  </div>
+  -->
+
+  <!-- Exists data -->
+  <ng-container *ngIf="shops; else loading">
+    <ng-container
+      *ngIf="
+        shops?.length > 0 && (!onlyFavourites || hasFavourites());
+        else noData
+      "
+    >
+      <div class="d-flex flex-column w-100">
+        <ul class="list-group">
+          <li
+            class="list-group-item ps-2 py-3"
+            *ngFor="let shop of shops"
+            [hidden]="
+              (onlyFavourites && !shop.favourite) || !matchesFilter(shop)
+            "
+          >
+            <div
+              class="
+                d-flex
+                justify-content-start
+                align-items-start
+                w-100
+                flex-grow
+              "
+            >
+              <div class="me-2" (click)="doEditShop(shop)">
+                <img
+                  *ngIf="shop?.imageUrl?.length > 0"
+                  [src]="shop.imageUrl"
+                  class="shop-logo"
+                />
+                <i
+                  *ngIf="!(shop?.imageUrl?.length > 0)"
+                  class="fas fa-image"
+                ></i>
+              </div>
+
+              <ng-container>
+                <div
+                  class="d-flex flex-column flex-grow w-100"
+                  (click)="doEditShop(shop)"
+                >
+                  <a class="break-wrord ps-1 w-100" href="javascript://">{{
+                    shop.name
+                  }}</a>
+                  <div
+                    class="d-flex prices-count mt-1 px-2"
+                    *ngIf="getShopPrices(shop) > 0"
+                  >
+                    <span class="me-1">{{
+                      getShopPrices(shop) | number: '1.0-2'
+                    }}</span>
+                    <span *ngIf="getShopPrices(shop) > 1">preus</span>
+                    <span *ngIf="getShopPrices(shop) === 1">preu</span>
+                  </div>
+                </div>
+                <ng-container *ngIf="canRemoveShop(shop)">
+                  <div class="d-flex align-items-center ms-auto">
+                    <span
+                      (click)="doRemove(shop.id)"
+                      class="shop-action-btn fas fa-trash mx-3"
+                    ></span>
+                  </div>
+                </ng-container>
+                <span
+                  (click)="doToggleFavourite(shop.id)"
+                  class="shop-action-btn fa-star ms-auto"
+                  [ngClass]="{
+                    far: !shop.favourite,
+                    fas: shop.favourite,
+                    'ms-auto': !canRemoveShop(shop)
+                  }"
+                ></span>
+              </ng-container>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #noData>
+  <div
+    class="
+      mb-3
+      mt-3
+      d-flex
+      flex-column
+      justify-content-center
+      align-items-center
+      w-100
+      h-100
+      no-data
+    "
+  >
+    <small *ngIf="shops.length === 0" class="no-data-msg"
+      >Encara no has afegit cap botiga</small
+    >
+    <small *ngIf="!hasFavourites() && onlyFavourites" class="no-data-msg"
+      >No tens cap botiga preferida</small
+    >
+  </div>
+</ng-template>
+
+<ng-template #breadcrumb>
+  <div class="breadcrumb">
+    <span class="step cursor-pointer" (click)="exit()">
+      <i class="fas fa-home mx-2"></i
+      ><span class="fst-italic text-decoration-underline">Inici</span></span
+    >
+    <span class="divider mx-2">/</span>
+    <span class="step fw-bold">Botigues</span>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="page d-flex justify-content-center align-items-center w-100">
+    Carregant...
+  </div>
+</ng-template>

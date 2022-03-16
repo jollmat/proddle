@@ -1,0 +1,39 @@
+.button-container {
+  height: calc(100vh - 90px) !important;
+}
+
+.bubble-btn {
+  border-radius: 100px;
+  border: 2px solid ivory;
+
+  &.sm {
+    height: 120px !important;
+    width: 120px !important;
+    color: #fff;
+
+    span.count {
+      font-size: 22pt;
+    }
+
+    small.btn-label {
+      position: relative;
+      top: -8px;
+    }
+
+    &.statistics-btn {
+      background-color: cadetblue;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.2;
+  }
+
+  &.scan-btn {
+    height: 170px;
+
+    .fa-barcode {
+      font-size: 36pt;
+    }
+  }
+}

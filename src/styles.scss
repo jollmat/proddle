@@ -1,0 +1,436 @@
+/* Add application styles & imports to this file! */
+
+body {
+  padding: 0;
+  font-size: 16pt;
+  height: calc(100vh);
+  /* background-color: cadetblue !important; */
+}
+
+.body-bg {
+  background-image: url(https://www.javeaconnect.co.uk/wp-content/uploads/2020/03/supermarkets.jpg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.2;
+  z-index: -1;
+  background-size: cover;
+  height: calc(100vh);
+}
+
+.page {
+  height: calc(100vh - 90px) !important;
+  max-width: 500px;
+  padding-bottom: 15px;
+}
+
+.app-title {
+  display: block;
+  background-color: transparent;
+  border-radius: 35px;
+  color: #6c757d;
+
+  i {
+    font-size: 28pt;
+    position: relative;
+    top: -1px;
+  }
+
+  span {
+    font-size: 32pt;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.w-0 {
+  width: 0% !important;
+}
+.w-5 {
+  width: 5% !important;
+}
+.w-10 {
+  width: 10% !important;
+}
+.w-15 {
+  width: 15% !important;
+}
+.w-20 {
+  width: 20% !important;
+}
+.w-25 {
+  width: 25% !important;
+}
+.w-30 {
+  width: 30% !important;
+}
+.w-40 {
+  width: 40% !important;
+}
+.w-50 {
+  width: 50% !important;
+}
+.w-60 {
+  width: 60% !important;
+}
+.w-70 {
+  width: 70% !important;
+}
+.w-75 {
+  width: 75% !important;
+}
+.w-80 {
+  width: 80% !important;
+}
+.w-90 {
+  width: 90% !important;
+}
+.w-100 {
+  width: 100% !important;
+}
+
+.h-0 {
+  height: 0% !important;
+}
+.h-5 {
+  height: 5% !important;
+}
+.h-10 {
+  height: 10% !important;
+}
+.h-15 {
+  height: 15% !important;
+}
+.h-20 {
+  height: 20% !important;
+}
+.h-25 {
+  height: 25% !important;
+}
+.h-30 {
+  height: 30% !important;
+}
+.h-40 {
+  height: 40% !important;
+}
+.h-50 {
+  height: 50% !important;
+}
+.h-60 {
+  height: 60% !important;
+}
+.h-70 {
+  height: 70% !important;
+}
+.h-75 {
+  height: 75% !important;
+}
+.h-80 {
+  height: 80% !important;
+}
+.h-90 {
+  height: 90% !important;
+}
+.h-100 {
+  height: 100% !important;
+}
+
+.breadcrumb {
+  margin-top: 1rem;
+  font-size: 13pt !important;
+  flex-wrap: nowrap;
+  width: auto !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  display: block !important;
+  overflow: hidden !important;
+  span.step {
+    margin: 0;
+  }
+  span.divider {
+    margin: 0 5px;
+    color: #fff;
+    font-weight: 100;
+  }
+}
+
+.app-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  height: calc(100vh);
+  z-index: 1;
+
+  div.modal-container {
+    min-width: 350px;
+    min-height: 100px;
+    height: calc(100vh);
+    width: 100%;
+    border: 0px solid transparent;
+    background-color: #fff;
+    border-radius: 0px;
+    overflow: auto;
+
+    &.h-fit-content {
+      height: fit-content !important;
+    }
+
+    div.modal-title {
+      color: #fff;
+      background-color: #444;
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+      font-size: 16pt;
+      font-weight: 600;
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      i.fa-close {
+        font-size: 24pt;
+        margin-right: 5px;
+        color: ghostwhite;
+      }
+    }
+
+    div.modal-content {
+      color: #444;
+      padding: 10px;
+      border: 1px solid transparent;
+      /* height: calc(100vh - 160px); */
+      flex: 1 0 auto;
+    }
+
+    div.modal-buttons {
+      padding: 10px;
+    }
+
+    div.modal-footer-block {
+      padding: 10px;
+      background-color: ghostwhite;
+      border-top: 1px solid #eee;
+      font-size: 13pt;
+      height: 100%;
+
+      span.title {
+        font-size: 13pt;
+        font-weight: 600;
+        text-decoration: underline;
+      }
+
+      .list-group {
+        max-height: none;
+        overflow: auto;
+        margin-top: 5px;
+        li {
+          font-size: 13pt;
+          opacity: 1 !important;
+
+          i {
+            font-size: 15pt;
+          }
+        }
+      }
+    }
+  }
+}
+
+.badge {
+  background-color: #fff;
+  color: #444 !important;
+  border: 1px solid transparent;
+
+  .badge-light {
+    background-color: #fff;
+    color: #444;
+    border: 1px solid #ccc;
+  }
+}
+
+.form-group,
+.form-check {
+  font-size: 11pt;
+
+  label {
+    font-style: italic;
+  }
+}
+
+.list-group {
+  max-height: none;
+  overflow: auto;
+  li {
+    font-size: 13pt;
+    opacity: 1;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+div.no-data-msg {
+  color: #888;
+}
+
+.fa-star {
+  font-size: 14pt;
+  cursor: pointer;
+  &.far {
+    opacity: 1;
+  }
+  &.fas {
+    color: gold;
+  }
+}
+
+i.fa-angle-right {
+  color: #ddd !important;
+}
+
+i.fa-times {
+  color: #ddd !important;
+}
+
+.fa-close {
+  font-size: 14pt;
+  color: #888;
+  cursor: pointer;
+}
+
+.fa-plus {
+  font-size: 18pt;
+}
+
+.fa-trash,
+.fa-cart-plus,
+.fa-star {
+  color: #ccc;
+}
+
+.input-group {
+  .fa-star {
+    color: #fff !important;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.btn-light {
+  border: 1px solid #ccc !important;
+  background-color: transparent !important;
+
+  &:hover {
+    border: 1px solid #444 !important;
+  }
+
+  &.disabled {
+    opacity: 0.3 !important;
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.accordion-item {
+  h2 {
+    button {
+      font-size: 13pt !important;
+    }
+  }
+
+  .accordion-body {
+    background-color: ghostwhite;
+  }
+}
+
+.accordion-button {
+  opacity: 1;
+}
+
+.accordion-button:not(.collapsed) {
+  color: white !important;
+  background-color: #6c757d !important;
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%) !important;
+  opacity: 1;
+  &::after {
+    background-image: none !important;
+  }
+}
+
+.brand {
+  color: cadetblue;
+  font-size: 11pt;
+  font-style: italic;
+}
+
+.break-wrord {
+  word-break: break-word;
+}
+
+.card {
+  &.transparent {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+.prices-count {
+  color: coral;
+  font-size: 9pt;
+  font-style: italic;
+  border: 1px solid coral;
+  border-radius: 5px;
+  width: max-content;
+}
+
+.product-range {
+  color: #888;
+  font-size: 9pt;
+  font-style: normal;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  width: max-content;
+
+  i.fas {
+    font-size: 18px;
+  }
+}
+
+.btn-group {
+  button.active {
+    border-width: 0px !important;
+    box-shadow: none !important;
+  }
+}
+
+.btn:active,
+.btn:focus,
+.btn.active,
+.btn:active:focus {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.form-check-input:checked {
+  background-color: #000 !important;
+  border-color: #000 !important;
+}
+
+ngx-spinner {
+  opacity: 0.3;
+}

@@ -1,0 +1,19 @@
+<!-- Openfood product found -->
+<ng-container *ngIf="name || brand || imageUrl">
+  <div class="d-flex justify-content-center align-items-center w-100 my-3">
+    <div class="card" style="width: 18rem;">
+      <ng-container *ngIf="imageUrl"
+        ><img class="card-img-top" [src]="imageUrl"
+      /></ng-container>
+
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ name }}
+        </h5>
+        <p class="card-text brand">
+          {{ brand }}
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-container>

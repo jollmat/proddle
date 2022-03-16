@@ -1,0 +1,43 @@
+.title {
+  font-size: 13pt;
+}
+
+.shop-standings {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 5px 0;
+  background-color: white;
+
+  table {
+    font-size: 10pt;
+  }
+}
+
+.no-standings,
+.no-filter-matches {
+  small {
+    color: #444;
+    font-style: normal;
+
+    &.smaller {
+      font-size: 8pt;
+    }
+  }
+}
+
+ul.product-list {
+  list-style-type: none;
+  color: #888;
+
+  .product-name {
+    max-width: auto;
+  }
+}
+
+.fa-eye {
+  color: #ccc;
+
+  &.active {
+    color: #444;
+  }
+}

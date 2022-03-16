@@ -1,0 +1,184 @@
+<div class="page d-flex flex-column w-100">
+  <div class="breadcrumb-container d-flex flex-column mb- px-3 w-100">
+    <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
+  </div>
+
+  <div class="btn-group w-100 mb-3" role="group" aria-label="Basic example">
+    <button
+      type="button"
+      class="btn btn-lg btn-secondary"
+      [ngClass]="{ active: mode === 'SCANNER' }"
+      (click)="setMode('SCANNER')"
+    >
+      <i class="fas fa-check me-2" *ngIf="mode === 'SCANNER'"></i>
+      Scanner
+    </button>
+    <button
+      type="button"
+      class="btn btn-lg btn-secondary"
+      [ngClass]="{ active: mode === 'MANUAL' }"
+      (click)="setMode('MANUAL')"
+    >
+      <i class="fas fa-check me-2" *ngIf="mode === 'MANUAL'"></i>
+      Manual
+    </button>
+  </div>
+
+  <div class="d-flex flex-column px-3 w-100">
+    <ng-container *ngIf="mode === 'SCANNER'">
+      <div class="d-flex flex-column">
+        <app-barcode-scanner
+          [mode]="ProductScanModeEnum.CREATE"
+          (onSaveShopProduct)="saveShopProduct($event)"
+          (onCreateProduct)="createProduct($event)"
+          (onProductFound)="productFound = true"
+          (onBarcodeRead)="barcodeRead = true"
+        ></app-barcode-scanner>
+
+        <div
+          class="
+            d-flex
+            justify-content-center
+            align-items-start
+            alert alert-light
+          "
+          *ngIf="!productFound && !barcodeRead"
+        >
+          <i class="fas fa-hand-point-right me-2 mt-1"></i>
+          <small>
+            Cerca un producte mitjançant l'ecaneig del seu codi de barres per a
+            poder registrar-li un preu en una botiga. En cas que el producte no
+            existeixi, podràs fàcilment registrar-lo al mateix temps que es
+            desarà el preu desitjat.
+          </small>
+        </div>
+      </div>
+    </ng-container>
+    <!-- <ng-container *ngIf="mode === 'MANUAL'"> -->
+    <div
+      class="d-flex flex-column w-100"
+      [ngClass]="{ hidden: mode !== 'MANUAL' }"
+      [style.height]="mode !== 'MANUAL' ? '0px' : 'auto'"
+    >
+      <ng-container *ngTemplateOutlet="productAndPriceShopForm"></ng-container>
+    </div>
+    <!-- </ng-container> -->
+
+    <div
+      class="
+        modal-buttons
+        d-flex
+        justify-content-center
+        align-items-center
+        w-100
+        pb-2
+      "
+    >
+      <!--
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary ms-2 w-50"
+        (click)="exit()"
+      >
+        Surt
+      </button>
+    --></div>
+  </div>
+</div>
+
+<ng-template #breadcrumb>
+  <div class="breadcrumb d-flex justify-content-start align-items-center w-100">
+    <span class="step cursor-pointer" (click)="exit()">
+      <i class="fas fa-home mx-2"></i
+      ><span class="fst-italic">Inici</span></span
+    >
+    <span class="divider">/</span>
+    <span class="step fw-bold" *ngIf="mode === 'SCANNER'">Scanner</span>
+    <span class="step fw-bold" *ngIf="mode === 'MANUAL'">Manual</span>
+  </div>
+</ng-template>
+
+<ng-template #productAndPriceShopForm>
+  <div class="d-flex justify-content-center align-items-center w-100 mt-2">
+    <img class="product-image" [src]="productDetail?.imageUrl" />
+  </div>
+  <div class="d-flex flex-column w-100 mt-0">
+    <label class="fw-bold my-2">Producte</label>
+    <div class="d-flex form-group mb-1 w-100">
+      <label class="pe-3" for="prodbarcode">Codi</label>
+      <input
+        #barcodeInput
+        id="prodbarcode"
+        type="number"
+        class="form-control"
+        value="{{ productDetail?.barcode }}"
+        [(ngModel)]="productDetail.barcode"
+      />
+    </div>
+    <div class="form-group mb-1 w-100">
+      <label class="pe-3" for="prodname">Nom</label>
+      <input
+        id="prodname"
+        type="text"
+        class="form-control"
+        [ngClass]="{ readonly: lockProductEdition }"
+        value="{{ productDetail?.name }}"
+        [(ngModel)]="productDetail.name"
+      />
+    </div>
+    <div class="form-group mb-1 w-100">
+      <label class="pe-3" for="prodbrand">Marca</label>
+      <input
+        id="prodbrand"
+        type="text"
+        class="form-control"
+        [ngClass]="{ readonly: lockProductEdition }"
+        value="{{ productDetail?.brand }}"
+        [(ngModel)]="productDetail.brand"
+      />
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="d-flex flex-column w-100">
+    <label class="fw-bold my-2">Preu</label>
+    <div class="form-group mb-1 w-100">
+      <label class="pe-3" for="shop">Botiga</label>
+      <select
+        class="form-select"
+        id="shop"
+        [(ngModel)]="shopProductDetail.shopId"
+        (change)="selectPriceInput()"
+      >
+        <option></option>
+        <option *ngFor="let shop of shops" value="{{ shop.id }}">
+          {{ shop.name }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group mb-1 w-100">
+      <label class="pe-3" for="price">Preu</label>
+      <input
+        #priceInput
+        id="price"
+        type="number"
+        class="form-control"
+        value="{{ shopProductDetail?.price }}"
+        [(ngModel)]="shopProductDetail.price"
+      />
+    </div>
+  </div>
+  <button
+    class="btn btn-lg btn-secondary my-3"
+    [ngClass]="{ disabled: !canCreateProductAndPrice() }"
+    (click)="
+      createProduct({
+        product: productDetail,
+        shopProduct: shopProductDetail
+      })
+    "
+  >
+    <span>Desa</span>
+  </button>
+</ng-template>

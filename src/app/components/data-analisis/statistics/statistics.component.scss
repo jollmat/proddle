@@ -1,0 +1,16 @@
+.page-content {
+  overflow: auto;
+  height: calc(100vh - 205px);
+}
+
+.sticky-header {
+  position: sticky;
+  top: 82px;
+  z-index: 1;
+  width: 100% !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: cadetblue;
+  color: #fff;
+  border: 1px solid #ccc;
+}

@@ -1,0 +1,268 @@
+<div
+  class="
+    d-flex
+    justify-content-start
+    align-items-center
+    w-100
+    search-header-container
+    bg-warning
+  "
+>
+  <ng-container>
+    <div class="d-flex flex-column w-100">
+      <div class="d-flex flex-column px-3 w-100">
+        <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
+      </div>
+
+      <div class="d-flex flex-column align-items-center px-3">
+        <div class="input-group">
+          <input
+            #productSearchInput
+            type="text"
+            class="form-control"
+            [readonly]="products?.length < 1"
+            [value]="searchText"
+            placeholder="Cerca per nom, marca o codi de barres"
+            aria-label="Cerca per nom"
+          />
+          <span class="input-group-text h-100"
+            ><i class="fas fa-search"></i
+          ></span>
+        </div>
+        <div
+          class="d-flex justify-content-end form-check form-switch mt-2 w-100"
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="onlyFavourites"
+            role="switch"
+            id="flexSwitchCheckDefault"
+          />
+          <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
+            >Nomès preferits</label
+          >
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<div class="search-content d-flex flex-column mb-4 px-3 pt-3 w-100">
+  <div class="d-flex w-100 mb-3">
+    <button
+      class="btn btn-lg btn-dark w-100 m-1 py-3"
+      (click)="doCreateProduct()"
+    >
+      <div class="d-flex align-items-center justify-content-center">
+        <i class="fas fa-barcode me-3"></i>
+        <div class="text-start">Escaneja</div>
+      </div>
+    </button>
+  </div>
+
+  <!-- Product list -->
+  <ng-container *ngIf="products; else loading">
+    <ng-container
+      *ngIf="
+        products?.length > 0 && (!onlyFavourites || hasFavourites());
+        else noData
+      "
+    >
+      <div class="d-flex flex-column w-100">
+        <ul class="list-group">
+          <li
+            class="list-group-item py-2"
+            *ngFor="let product of products"
+            [hidden]="
+              (onlyFavourites && !product.favourite) || !matchesFilter(product)
+            "
+          >
+            <div
+              class="
+                d-flex
+                justify-content-start
+                align-items-start
+                w-100
+                h-100
+                flex-grow
+              "
+            >
+              <div
+                class="
+                  d-flex
+                  flex-column
+                  justify-content-start
+                  align-items-center
+                  pe-3
+                "
+                (click)="doEditProduct(product)"
+              >
+                <ng-container *ngIf="product.imageUrl; else noProductImage">
+                  <img class="product-image" [src]="product.imageUrl" />
+                </ng-container>
+              </div>
+              <div
+                class="d-flex flex-column flex-grow h-100 w-100"
+                (click)="doEditProduct(product)"
+              >
+                <div class="d-flex w-100">
+                  <a href="javascript://">{{ product.name }}</a>
+                </div>
+                <div class="d-flex brand mb-2 w-100">
+                  {{ product.brand }}
+                </div>
+                <div
+                  class="d-flex mt-auto justify-content-between w-100 mb-0"
+                  *ngIf="getProductPrices(product) > 0"
+                >
+                  <div
+                    class="
+                      prices-count
+                      d-flex
+                      justify-content-center
+                      align-items-center
+                      px-2
+                    "
+                  >
+                    <span class="me-1">{{
+                      getProductPrices(product) | number: '1.0-2'
+                    }}</span>
+                    <span *ngIf="getProductPrices(product) > 1">preus</span>
+                    <span *ngIf="getProductPrices(product) === 1">preu</span>
+                  </div>
+                  <ng-container *ngIf="productHasPrices(product)"
+                    ><ng-container
+                      [ngTemplateOutlet]="productPriceRanges"
+                      [ngTemplateOutletContext]="{
+                        productRange: getProductPriceRange(product)
+                      }"
+                    ></ng-container
+                  ></ng-container>
+                  <!--
+                  <span
+                    (click)="removeFromCart(product)"
+                    *ngIf="productItemsInCart(product) > 0"
+                    [ngClass]="{
+                      'with-items-in-cart': productItemsInCart(product) > 0
+                    }"
+                    class="fas fa-cart-shopping action-button mt-auto"
+                  ></span>
+                  -->
+                </div>
+              </div>
+              <div
+                class="
+                  ms-auto
+                  ps-3
+                  d-flex
+                  flex-grow
+                  h-100
+                  flex-column
+                  align-items-center
+                  justify-content-start
+                "
+              >
+                <span
+                  (click)="doToggleFavourite(product.barcode)"
+                  class="far fa-star action-button"
+                  [ngClass]="{
+                    far: !product.favourite,
+                    fas: product.favourite
+                  }"
+                ></span>
+                <ng-container *ngIf="canRemoveProduct(product)">
+                  <span
+                    (click)="doRemove(product.barcode)"
+                    class="fas fa-trash action-button mt-2"
+                  ></span>
+                </ng-container>
+                <ng-container *ngIf="productHasPrices(product)">
+                  <span
+                    (click)="addToCart(product)"
+                    [ngClass]="{
+                      'with-items-in-cart': productItemsInCart(product) > 0
+                    }"
+                    class="fas fa-cart-plus action-button mt-auto"
+                  ></span>
+                  <span
+                    class="
+                      items-in-cart
+                      me-3
+                      mb-1
+                      px-0
+                      with-items-in-cart
+                      border
+                      text-center
+                    "
+                    *ngIf="productItemsInCart(product) > 0"
+                    >{{ productItemsInCart(product) | number: '1.0-2' }}</span
+                  >
+                </ng-container>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template let-productRange="productRange" #productPriceRanges>
+  <div class="product-range d-flex justify-content-center align-items-center">
+    <ng-container *ngIf="productRange.max !== productRange.min">
+      <i class="fas fa-triangle-exclamation text-warning"></i>
+      <div class="w-100 px-2">
+        {{ productRange.min | number: '1.0-2' }} -
+        {{ productRange.max | number: '1.0-2' }} €
+      </div>
+    </ng-container>
+    <ng-container *ngIf="productRange.max === productRange.min">
+      <div class="px-2">{{ productRange.max | number: '1.0-2' }} €</div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #noData>
+  <div
+    class="
+      mb-3
+      mt-3
+      d-flex
+      flex-column
+      justify-content-center
+      align-items-center
+      w-100
+      h-100
+      no-data
+    "
+  >
+    <small *ngIf="products.length === 0" class="no-data-msg ps-4"
+      >Encara no has afegit cap producte</small
+    >
+    <small *ngIf="!hasFavourites() && onlyFavourites" class="no-data-msg"
+      >No tens cap producte preferit</small
+    >
+  </div>
+</ng-template>
+
+<ng-template #noProductImage>
+  <i class="fas fa-image no-product-image-icon"></i>
+</ng-template>
+
+<ng-template #breadcrumb>
+  <div class="breadcrumb">
+    <span class="step cursor-pointer" (click)="exit()">
+      <i class="fas fa-home mx-2"></i
+      ><span class="fst-italic text-decoration-underline">Inici</span></span
+    >
+    <span class="divider mx-2">/</span>
+    <span class="step fw-bold">Productes</span>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="page d-flex justify-content-center align-items-center w-100">
+    Carregant...
+  </div>
+</ng-template>

@@ -1,0 +1,18 @@
+.breadcrumb {
+  margin-top: 1rem;
+  font-size: 13pt !important;
+  flex-wrap: nowrap;
+  width: auto !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  display: block !important;
+  overflow: hidden !important;
+  span.step {
+    margin: 0;
+  }
+  span.divider {
+    margin: 0 5px;
+    color: #fff;
+    font-weight: 100;
+  }
+}

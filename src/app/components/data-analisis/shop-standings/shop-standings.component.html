@@ -1,0 +1,101 @@
+<div class="d-flex w-100 py-1 px-3 shop-standings">
+  <div class="d-flex flex-column w-100">
+    <div class="title mt-2 mb-1" *ngIf="target === 'CHEAP'">
+      <small>Preu més <strong class="text-success">barat:</strong></small>
+    </div>
+    <div class="title mt-2 mb-1" *ngIf="target === 'EXPENSIVE'">
+      <small>Preu més <strong class="text-danger">car:</strong></small>
+    </div>
+    <ng-container
+      *ngIf="shopsProducts.length > 0; else noStandings"
+    ></ng-container>
+    <div class="w-100 p-2" *ngIf="standings?.length > 0; else noFilterMatches">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th class="text-end pe-3 w-15">#</th>
+            <th>Botiga</th>
+            <th class="text-end">Nº productes</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let standing of standings; let i = index">
+            <tr>
+              <td class="text-end pe-3">{{ i + 1 }}</td>
+              <td class="fw-bold">{{ getShopName(standing.shopId) }}</td>
+              <td class="text-end">{{ standing.times | number: '1.0-2' }}</td>
+              <td>
+                <i
+                  class="fas fa-eye"
+                  [ngClass]="{ active: standing.showProducts }"
+                  (click)="standing.showProducts = !standing.showProducts"
+                ></i>
+              </td>
+            </tr>
+            <tr *ngIf="standing.showProducts">
+              <td colspan="4">
+                <ul class="product-list ms-2 mb-1 ps-2 ms-0">
+                  <li
+                    *ngFor="let product of standing?.products; let idx = index"
+                  >
+                    <div
+                      class="
+                        d-flex
+                        justify-items-between
+                        align-items-start
+                        w-100
+                      "
+                    >
+                      <i class="fas fa-angle-right me-3 mt-1"></i>
+                      <span class="product-name"
+                        >{{ product.name }} ({{ product.brand }})</span
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #noStandings>
+  <div
+    class="no-standings d-flex justify-content-start align-items-center w-100"
+  >
+    <i class="fas fa-warning text-warning me-2"></i>
+    <small class="p-2"
+      >Encara no tens prou dades. Necessites preus d'un mateix producte en
+      diferents botigues</small
+    >
+  </div>
+</ng-template>
+
+<ng-template #noFilterMatches>
+  <div
+    class="
+      no-filter-matches
+      d-flex
+      justify-content-start
+      align-items-start
+      w-100
+    "
+  >
+    <i class="fas fa-warning text-warning me-2 mt-2"></i>
+    <div class="d-flex flex-column mb-2">
+      <small class="p-2">No hi ha resultats. Possibles causes:</small>
+      <small class="p-1 smaller d-flex align-items-start"
+        ><span class="fas fa-angle-right mt-1 me-2"></span>No tens productes amb
+        preus diferents segons la botiga.</small
+      >
+      <small class="p-1 smaller d-flex align-items-start" *ngIf="onlyFavourites"
+        ><span class="fas fa-angle-right mt-1 me-2"></span>No tens productes
+        marcats com a preferits.</small
+      >
+    </div>
+  </div>
+</ng-template>

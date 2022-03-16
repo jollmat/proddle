@@ -1,0 +1,51 @@
+.btn-group {
+  button {
+    border-radius: 0px !important;
+    font-size: smaller;
+    font-style: italic;
+    background-color: whitesmoke;
+    color: #6c757d;
+    border-width: 0px;
+    width: 50%;
+    &.active {
+      font-size: medium;
+      font-style: normal;
+      background-color: #6c757d;
+      color: #fff;
+      border-width: 1px;
+    }
+  }
+}
+
+.hidden {
+  height: 0px;
+  overflow: hidden;
+}
+
+.readonly {
+  pointer-events: none;
+  opacity: 0.8;
+  background-color: aliceblue;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  label {
+    width: 20%;
+    text-align: right;
+  }
+}
+
+.product-image {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.breadcrumb-container {
+  color: #fff;
+  background-color: #444;
+}

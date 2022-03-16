@@ -1,0 +1,244 @@
+<ng-container *ngIf="products && shops; else loading">
+  <div
+    class="
+      button-container
+      d-flex
+      justify-content-between
+      align-items
+      center
+      w-100
+      mb-3
+    "
+  >
+    <div
+      class="
+        d-flex
+        flex-column
+        justify-content-around
+        w-100
+        buttons
+        pb-4
+        pt-3
+        px-3
+      "
+    >
+      <div class="w-100 d-flex justify-content-around pt-3">
+        <ng-container *ngIf="products.length > 0">
+          <div class="d-flex">
+            <button
+              class="bubble-btn sm shops-btn btn btn-lg bg-info w-100 m-1 py-3"
+              (click)="toggleShopList()"
+            >
+              <div
+                class="
+                  d-flex
+                  flex-column
+                  align-items-center
+                  justify-content-center
+                "
+              >
+                <div
+                  class="
+                    d-flex
+                    flex-column
+                    justify-content-center
+                    align-items-center
+                    w-100
+                  "
+                >
+                  <i class="fas fa-store"></i>
+                  <span class="count">{{
+                    shops?.length | number: '1.0-2'
+                  }}</span>
+                  <small class="btn-label">Botigues</small>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div class="d-flex">
+            <button
+              class="
+                bubble-btn
+                sm
+                products-btn
+                btn btn-lg
+                bg-warning
+                w-100
+                m-1
+                py-3
+              "
+              (click)="toggleProductList()"
+            >
+              <div
+                class="
+                  d-flex
+                  flex-column
+                  align-items-center
+                  justify-content-center
+                "
+              >
+                <div
+                  class="
+                    d-flex
+                    flex-column
+                    justify-content-center
+                    align-items-center
+                    w-100
+                  "
+                >
+                  <i class="fas fa-shopping-basket"></i>
+                  <span class="count">{{
+                    products?.length | number: '1.0-2'
+                  }}</span>
+                  <small class="btn-label">Productes</small>
+                </div>
+              </div>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="d-flex w-100 justify-content-center mb-3 mt-2">
+        <button
+          class="bubble-btn scan-btn btn btn-lg btn-dark w-50 m-1 py-3"
+          (click)="scan()"
+        >
+          <div
+            class="d-flex flex-column align-items-center justify-content-center"
+          >
+            <i class="fas fa-barcode mb-2"></i>
+            <div class="text-center fw-light">Escaneja</div>
+            <small>aqui</small>
+          </div>
+        </button>
+      </div>
+
+      <div class="w-100 d-flex justify-content-around pt-3">
+        <ng-container *ngIf="products.length > 0">
+          <div class="d-flex">
+            <button
+              class="
+                bubble-btn
+                sm
+                alerts-btn
+                btn btn-lg
+                bg-danger
+                w-100
+                m-1
+                py-3
+                disabled
+              "
+              (click)="toggleShopList()"
+            >
+              <div
+                class="
+                  d-flex
+                  flex-column
+                  align-items-center
+                  justify-content-center
+                "
+              >
+                <div
+                  class="
+                    d-flex
+                    flex-column
+                    justify-content-center
+                    align-items-center
+                    w-100
+                  "
+                >
+                  <i class="fas fa-triangle-exclamation mb-3"></i>
+                  <small class="btn-label">Alertes</small>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div class="d-flex">
+            <button
+              class="bubble-btn sm statistics-btn btn btn-lg w-100 m-1 py-3"
+              (click)="toggleStatistics()"
+            >
+              <div
+                class="
+                  d-flex
+                  flex-column
+                  align-items-center
+                  justify-content-center
+                "
+              >
+                <div
+                  class="
+                    d-flex
+                    flex-column
+                    justify-content-center
+                    align-items-center
+                    w-100
+                  "
+                >
+                  <i class="fas fa-chart-line mb-3"></i>
+
+                  <small class="btn-label">Anàlisi</small>
+                </div>
+              </div>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+
+      <!--
+      <div class="w-100 d-flex flex-column">
+        <ng-container *ngIf="products.length > 0">
+          <div class="d-flex w-100 mt-auto">
+            <button
+              class="btn btn-lg btn-light w-100 m-1 py-3"
+              (click)="toggleShopList()"
+            >
+              <div class="d-flex align-items-center justify-content-start">
+                <i class="fas fa-store text-info me-3"></i>
+                <div class="text-start">Botigues ({{ shops?.length }})</div>
+              </div>
+            </button>
+          </div>
+          <div class="d-flex w-100">
+            <button
+              class="btn btn-lg btn-light w-100 m-1 py-3"
+              (click)="toggleProductList()"
+            >
+              <div class="d-flex align-items-center justify-content-start">
+                <i class="fas fa-shopping-basket text-warning me-3"></i>
+                <div class="text-start">
+                  Productes ({{ products?.length }})
+                  <i
+                    *ngIf="products?.length === 0"
+                    class="fas fa-warning text-warning ms-2"
+                  ></i>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div class="d-flex w-100">
+            <button
+              [ngClass]="{ disabled: products.length === 0 }"
+              class="btn btn-lg btn-light w-100 m-1 py-3"
+              (click)="toggleStatistics()"
+            >
+              <div class="d-flex align-items-center justify-content-start">
+                <i class="fas fa-chart-bar me-3"></i>
+                <div class="text-start">Estadístiques</div>
+              </div>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+      -->
+    </div>
+  </div>
+</ng-container>
+
+<!-- Templates -->
+
+<ng-template #loading>
+  <div class="page d-flex justify-content-center align-items-center w-100">
+    Carregant...
+  </div>
+</ng-template>

@@ -1,0 +1,10 @@
+<div class="d-flex flex-column justify-content-center align-items-center w-100">
+  <ng-container *ngIf="false">
+    <i class="fas fa-ban text-danger mb-2"></i>
+    <span>No estàs autenticat!</span>
+  </ng-container>
+
+  <button class="btn btn-secondary mt-4" [routerLink]="['../login']">
+    <i class="fas fa-user-check me-2"></i> Identificar-me
+  </button>
+</div>

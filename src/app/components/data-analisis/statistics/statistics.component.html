@@ -1,0 +1,38 @@
+<div class="sticky-header d-flex flex-column px-3 w-100">
+  <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
+
+  <div class="d-flex justify-content-end form-check form-switch">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      [(ngModel)]="onlyFavourites"
+      role="switch"
+      id="flexSwitchCheckDefault"
+    />
+    <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
+      >Nomès productes preferits</label
+    >
+  </div>
+</div>
+
+<div class="page-content d-flex flex-column mb-4 pt-4 px-3 w-100">
+  <app-shop-standings
+    [onlyFavourites]="onlyFavourites"
+    [target]="'CHEAP'"
+  ></app-shop-standings>
+  <app-shop-standings
+    [onlyFavourites]="onlyFavourites"
+    [target]="'EXPENSIVE'"
+  ></app-shop-standings>
+</div>
+
+<ng-template #breadcrumb>
+  <div class="breadcrumb d-flex justify-content-start align-items-center w-100">
+    <span class="step cursor-pointer" (click)="exit()">
+      <i class="fas fa-home mx-2"></i
+      ><span class="fst-italic">Inici</span></span
+    >
+    <span class="divider mx-2">/</span>
+    <span class="step fw-bold">Anàlisi</span>
+  </div>
+</ng-template>

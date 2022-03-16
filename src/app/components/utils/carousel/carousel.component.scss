@@ -1,0 +1,20 @@
+.carousel-container {
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.slide-container {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  min-height: 160px;
+
+  i.fas,
+  i.fa-brands {
+    font-size: 32pt;
+  }
+}
+
+small {
+  font-size: 8pt;
+}
