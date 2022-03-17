@@ -25,4 +25,22 @@ export const i18n_ES = {
       text: 'Configura y simula listas de compra y la aplicación te dirá dónde comprar cada producto.',
     },
   },
+  menu: {
+    home: 'Inicio',
+    shops: 'Tiendas',
+    products: 'Productos',
+    alerts: 'Alertas',
+    analysis: 'Análisis',
+    export: 'Exportar',
+    reset: 'Reiniciar',
+    exit: 'Salir'
+  },
+  home: {
+    scan: 'Escanea',
+    here: 'Aquí',
+    shops: 'Tiendas',
+    products: 'Productos',
+    alerts: 'Alertas',
+    analysis: 'Análisis'
+  },
 };

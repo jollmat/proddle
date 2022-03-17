@@ -25,4 +25,22 @@ export const i18n_EN = {
       text: 'Set up and simulate shopping lists and the app will tell you where to buy each product.',
     },
   },
+  menu: {
+    home: 'Home',
+    shops: 'Shops',
+    products: 'Products',
+    alerts: 'Alerts',
+    analysis: 'Analysis',
+    export: 'Export',
+    reset: 'Reset',
+    exit: 'Exit'
+  },
+  home: {
+    scan: 'Scan',
+    here: 'Here',
+    shops: 'Shops',
+    products: 'Products',
+    alerts: 'Alerts',
+    analysis: 'Analysis'
+  },
 };

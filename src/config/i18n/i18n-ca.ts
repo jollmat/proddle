@@ -25,4 +25,22 @@ export const i18n_CA = {
       text: 'Configura i simula llistes de compra i la aplicació et dirà on comprar cada producte.',
     },
   },
+  menu: {
+    home: 'Inici',
+    shops: 'Botigues',
+    products: 'Productes',
+    alerts: 'Alertes',
+    analysis: 'Anàlisi',
+    export: 'Exportar',
+    reset: 'Reiniciar',
+    exit: 'Sortir'
+  },
+  home: {
+    scan: 'Escaneja',
+    here: 'Aquí',
+    shops: 'Botigues',
+    products: 'Productes',
+    alerts: 'Alertes',
+    analysis: 'Anàlisi'
+  },
 };

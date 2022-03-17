@@ -4,3 +4,9 @@ JSONBIN (https://jsonbin.io o https://jsonbin.io/dashboard - Google user persona
 
   JSON Bin sample https://stackblitz.com/edit/angular-wrtw6n
 
+
+GIT PAGES DEPLOY
+
+  - run: ng build --prod --deploy-url=https://jollmat.github.io/proddle/ --base-href=/proddle
+
+  - run: angular-cli-ghpages --dir=dist/demo

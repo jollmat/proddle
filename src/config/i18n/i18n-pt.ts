@@ -25,4 +25,22 @@ export const i18n_PT = {
       text: 'Configure e simule listas de compras e o aplicativo informará onde comprar cada produto.',
     },
   },
+  menu: {
+    home: 'Lar',
+    shops: 'Lojas',
+    products: 'Produtos',
+    alerts: 'Alertas',
+    analysis: 'Análise',
+    export: 'Exportar',
+    reset: 'Reiniciar',
+    exit: 'Sair'
+  },
+  home: {
+    scan: 'Varredura',
+    here: 'Aqui',
+    shops: 'Lojas',
+    products: 'Produtos',
+    alerts: 'Alertas',
+    analysis: 'Análise'
+  },
 };

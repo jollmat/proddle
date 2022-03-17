@@ -24,23 +24,23 @@ export class CarouselComponent implements OnInit {
 
     this.slides = [
       {
-        title: this.translate.instant('carousel.step1.title'),
-        text: this.translate.instant('carousel.step1.text'),
+        title: 'carousel.step1.title',
+        text: 'carousel.step1.text',
         iconClass: 'fa-brands fa-buromobelexperte',
       },
       {
-        title: this.translate.instant('carousel.step2.title'),
-        text: this.translate.instant('carousel.step2.text'),
+        title: 'carousel.step2.title',
+        text: 'carousel.step2.text',
         iconClass: 'fas fa-barcode',
       },
       {
-        title: this.translate.instant('carousel.step3.title'),
-        text: this.translate.instant('carousel.step3.text'),
+        title: 'carousel.step3.title',
+        text: 'carousel.step3.text',
         iconClass: 'fas fa-list-ol',
       },
       {
-        title: this.translate.instant('carousel.step4.title'),
-        text: this.translate.instant('carousel.step4.text'),
+        title: 'carousel.step4.title',
+        text: 'carousel.step4.text',
         iconClass: 'fas fa-pen-to-square',
       },
     ];
