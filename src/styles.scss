@@ -18,6 +18,10 @@ body {
   height: calc(100vh);
 }
 
+.my-app-container {
+  overflow-y:hidden;
+}
+
 .page {
   height: calc(100vh - 90px) !important;
   max-width: 500px;

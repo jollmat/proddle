@@ -43,4 +43,36 @@ export const i18n_EN = {
     alerts: 'Alerts',
     analysis: 'Analysis'
   },
+  user: {
+    username: 'Username',
+    email: 'E-mail',
+    role: 'Role',
+    lastLogin: 'Last login'
+  },
+  breadcrumb: {
+    home: 'Home',
+    shops: 'Shops',
+    products: 'Products',
+    analysis: 'Analysis'
+  },
+  shops: {
+    noShopAdded: 'No shops available',
+    noFavouriteShop: 'No favourite shops',
+    onlyFavouriteShops: 'Only favourites',
+    searchPlaceholder: 'Search by name'
+  },
+  products: {
+    noProductAdded: 'No products available',
+    noFavouriteProduct: 'No favourite products',
+    searchPlaceholder: 'Search by name, brand or barcode',
+    onlyFavouriteProducts: 'Only favourites',
+    scan: 'Scan'
+  },
+  commons: {
+    prices: 'prices',
+    price: 'price',
+    noData: 'No data',
+    loading: 'Loading...',
+    onlyFavouriteProducts: 'Favourite products only'
+  }
 };

@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ShopInterface } from '../model/interfaces/shop.interface';
 import { ProductInterface } from '../model/interfaces/product.interface';
+import { Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
+import { from, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreService {
-  constructor() {}
+  constructor(private firestore: Firestore) {}
+
+  addShop(shop: ShopInterface): Observable<any> {
+    const shopsRef = collection(this.firestore, 'shops');
+    return from(addDoc(shopsRef, shop));
+  }
+
+  getShops(): Observable<ShopInterface[]> {
+    const shopsRef = collection(this.firestore, 'shops');
+    return collectionData(shopsRef, {idField: 'id'}) as Observable<ShopInterface[]>;
+  }
 
   /*
-
   //Get shop
   public getShop(documentId: string) {
     return this.firestore.collection('shops').doc(documentId).snapshotChanges();

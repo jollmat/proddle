@@ -43,4 +43,36 @@ export const i18n_PT = {
     alerts: 'Alertas',
     analysis: 'Análise'
   },
+  user: {
+    username: 'Nome do usuário',
+    email: 'O email',
+    role: 'Função',
+    lastLogin: 'Último login'
+  },
+  breadcrumb: {
+    home: 'Lar',
+    shops: 'Lojas',
+    products: 'Produtos',
+    analysis: 'Análise'
+  },
+  shops: {
+    noShopAdded: 'Não há lojas',
+    noFavouriteShop: 'Você não tem loja favorita',
+    onlyFavouriteShops: 'Apenas favoritos',
+    searchPlaceholder: 'Procura por nome'
+  },
+  products: {
+    noProductAdded: 'Nenhum produto',
+    noFavouriteProduct: 'Você não tem produtos favoritos',
+    searchPlaceholder: 'Pesquise por nome, marca ou código de barras',
+    onlyFavouriteProducts: 'Apenas favoritos',
+    scan: 'Varredura'
+  },
+  commons: {
+    prices: 'preços',
+    price: 'preço',
+    noData: 'Sem dados',
+    loading: 'Carregando...',
+    onlyFavouriteProducts: 'Apenas produtos favoritos'
+  }
 };

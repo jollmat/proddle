@@ -43,4 +43,36 @@ export const i18n_CA = {
     alerts: 'Alertes',
     analysis: 'Anàlisi'
   },
+  user: {
+    username: 'Nom d\'usuari',
+    email: 'Correu electrònic',
+    role: 'Rol',
+    lastLogin: 'Últim login'
+  },
+  breadcrumb: {
+    home: 'Inici',
+    shops: 'Botigues',
+    products: 'Productes',
+    analysis: 'Anàlisi'
+  },
+  shops: {
+    noShopAdded: 'No hi ha botigues',
+    noFavouriteShop: 'No tens cap botiga preferida',
+    onlyFavouriteShops: 'Només favorites',
+    searchPlaceholder: 'Cerca per nom'
+  },
+  products: {
+    noProductAdded: 'No hi ha productes',
+    noFavouriteProduct: 'No tens cap producte preferit',
+    searchPlaceholder: 'Cerca per nom, marca o codi de barres',
+    onlyFavouriteProducts: 'Només favorits',
+    scan: 'Escanejar'
+  },
+  commons: {
+    prices: 'preus',
+    price: 'preu',
+    noData: 'No hi ha dades',
+    loading: 'Carregant...',
+    onlyFavouriteProducts: 'Només productes favorits'
+  }
 };

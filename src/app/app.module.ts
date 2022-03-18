@@ -43,6 +43,10 @@ import { BackofficeProductsComponent } from './components/backoffice/backoffice-
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from './components/utils/language-selector/language-selector.component';
 
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment.prod';
+
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -60,6 +64,8 @@ registerLocaleData(localeEs, 'es');
     TranslateModule.forRoot({
       defaultLanguage: APP_CONFIG.defaultLanguage,
     }),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore())
   ],
   declarations: [
     AppComponent,

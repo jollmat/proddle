@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { NavigationService } from '../../../services/navigation.service';
 import { ProductService } from '../../../services/product.service';
 import { ShopService } from '../../../services/shop.service';
@@ -16,7 +17,8 @@ export class BreadcrumbsComponent implements OnInit {
     private router: Router,
     private navigationService: NavigationService,
     private shopService: ShopService,
-    private productService: ProductService
+    private productService: ProductService,
+    private translate: TranslateService
   ) {}
 
   exit() {
@@ -33,9 +35,9 @@ export class BreadcrumbsComponent implements OnInit {
         return _shop.id === routeUrl.replace('/edit-shop/', '');
       }).name;
     } else if (routeUrl.match('/search-products')) {
-      return 'Productes';
+      return this.translate.instant('breadcrumb.products');
     } else if (routeUrl.match('/search-shops')) {
-      return 'Botigues';
+      return this.translate.instant('breadcrumb.shops');
     }
     return '';
   }
@@ -68,7 +70,7 @@ export class BreadcrumbsComponent implements OnInit {
         previousStep.pathUrl.indexOf('/edit-product/') > -1
       ) {
         this.steps[this.steps.length - 2] = {
-          label: 'Botigues',
+          label: this.translate.instant('breadcrumb.shops'),
           pathUrl: '/search-shops',
         };
       }

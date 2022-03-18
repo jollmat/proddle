@@ -1,6 +1,6 @@
-<div class="breadcrumb px-3">
+<div class="breadcrumb text-start px-3">
   <span class="step cursor-pointer text-decoration-underline" (click)="exit()">
-    <i class="fas fa-home mx-2"></i><span class="fst-italic">Inici</span></span
+    <i class="fas fa-home mx-2"></i><span class="fst-italic">{{'breadcrumb.home' | translate}}</span></span
   >
 
   <ng-container *ngFor="let step of steps; let i = index">

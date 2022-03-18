@@ -22,7 +22,7 @@
             class="form-control"
             [readonly]="shops?.length < 1"
             [value]="searchText"
-            placeholder="Cerca per nom"
+            placeholder="{{'shops.searchPlaceholder' | translate}}"
             aria-label="Cerca per nom"
           />
           <span class="input-group-text h-100"
@@ -40,7 +40,7 @@
             id="flexSwitchCheckDefault"
           />
           <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
-            >Nomès preferides</label
+            >{{'shops.onlyFavouriteShops' | translate}}</label
           >
         </div>
       </div>
@@ -106,7 +106,7 @@
                   class="d-flex flex-column flex-grow w-100"
                   (click)="doEditShop(shop)"
                 >
-                  <a class="break-wrord ps-1 w-100" href="javascript://">{{
+                  <a class="break-wrord ps-1 w-100 text-start" href="javascript://">{{
                     shop.name
                   }}</a>
                   <div
@@ -116,8 +116,8 @@
                     <span class="me-1">{{
                       getShopPrices(shop) | number: '1.0-2'
                     }}</span>
-                    <span *ngIf="getShopPrices(shop) > 1">preus</span>
-                    <span *ngIf="getShopPrices(shop) === 1">preu</span>
+                    <span *ngIf="getShopPrices(shop) > 1">{{'commons.prices' | translate}}</span>
+                    <span *ngIf="getShopPrices(shop) === 1">{{'commons.price' | translate}}</span>
                   </div>
                 </div>
                 <ng-container *ngIf="canRemoveShop(shop)">
@@ -161,27 +161,27 @@
     "
   >
     <small *ngIf="shops.length === 0" class="no-data-msg"
-      >Encara no has afegit cap botiga</small
+      >{{'shops.noShopAdded' | translate}}</small
     >
     <small *ngIf="!hasFavourites() && onlyFavourites" class="no-data-msg"
-      >No tens cap botiga preferida</small
+      >{{'shops.noFavouriteShop' | translate}}</small
     >
   </div>
 </ng-template>
 
 <ng-template #breadcrumb>
-  <div class="breadcrumb">
+  <div class="breadcrumb text-start">
     <span class="step cursor-pointer" (click)="exit()">
       <i class="fas fa-home mx-2"></i
-      ><span class="fst-italic text-decoration-underline">Inici</span></span
+      ><span class="fst-italic text-decoration-underline">{{'breadcrumb.home' | translate}}</span></span
     >
     <span class="divider mx-2">/</span>
-    <span class="step fw-bold">Botigues</span>
+    <span class="step fw-bold">{{'breadcrumb.shops' | translate}}</span>
   </div>
 </ng-template>
 
 <ng-template #loading>
   <div class="page d-flex justify-content-center align-items-center w-100">
-    Carregant...
+    {{'commons.loading' | translate}}
   </div>
 </ng-template>

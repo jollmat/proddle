@@ -43,4 +43,36 @@ export const i18n_ES = {
     alerts: 'Alertas',
     analysis: 'Análisis'
   },
+  user: {
+    username: 'Nombre de usuario',
+    email: 'Correo electrónico',
+    role: 'Rol',
+    lastLogin: 'Último login'
+  },
+  breadcrumb: {
+    home: 'Inicio',
+    shops: 'Tiendas',
+    products: 'Productos',
+    analysis: 'Análisis'
+  },
+  shops: {
+    noShopAdded: 'No hay tiendas',
+    noFavouriteShop: 'No tienes ninguna tienda favorita',
+    onlyFavouriteShops: 'Solamente favoritas',
+    searchPlaceholder: 'Busca por nombre'
+  },
+  products: {
+    noProductAdded: 'No hay productos',
+    noFavouriteProduct: 'No tienes ningún producto favorito',
+    searchPlaceholder: 'Busca por nombre, marca o código de barras',
+    onlyFavouriteProducts: 'Solamente favoritos',
+    scan: 'Escanear'
+  },
+  commons: {
+    prices: 'precios',
+    price: 'precio',
+    noData: 'No hay datos',
+    loading: 'Cargando...',
+    onlyFavouriteProducts: 'Solamente productos favoritos'
+  }
 };

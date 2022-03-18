@@ -4,5 +4,4 @@ import { FirebaseConfig } from './firebase-config.interface';
 export interface AppConfigInterface {
   defaultLanguage: string;
   source: DataSourceOriginsEnum;
-  firebaseConfig: FirebaseConfig;
 }

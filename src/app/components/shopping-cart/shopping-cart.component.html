@@ -5,7 +5,7 @@
 <ng-container *ngIf="cartConfig">
   <ng-container *ngIf="cartConfig.items?.length > 0; else noShoppingCart">
     <div class="d-flex card transparent flex-column mb-3 p-3 w-100">
-      <h4 class="ps-2 mb-2">Cistella de la compra optimitzada</h4>
+      <h4 class="ps-2 mb-2 text-start">Cistella de compra optimitzada</h4>
       <div
         class="
           alert alert-info
@@ -14,11 +14,12 @@
           align-items-start
           py-1
           px-2
+          mt-3
           mb-4
         "
       >
         <i class="fas fa-info-circle mt-1 me-2"></i>
-        <small
+        <small class="text-start"
           >Aqui tens la teva cistella de la compra optimitzada per botigues i
           productes per aconseguir el màxim d'estalvi.</small
         >
@@ -194,7 +195,7 @@
 </ng-template>
 
 <ng-template #breadcrumb>
-  <div class="breadcrumb">
+  <div class="breadcrumb text-start">
     <span class="step">
       <a routerLink="/home">
         <i class="fas fa-home mx-2"></i
@@ -202,6 +203,6 @@
       ></span
     >
     <span class="divider mx-2">/</span>
-    <span class="step fw-bold">Cistella de la compra</span>
+    <span class="step fw-bold">Cistella de compra</span>
   </div>
 </ng-template>
