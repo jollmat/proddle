@@ -1,6 +1,6 @@
 .sticky-header {
   position: sticky;
-  top: 88px;
+  top: 85px;
   z-index: 1;
   width: 100% !important;
   padding-top: 10px;
@@ -8,6 +8,11 @@
   background-color: #444;
   color: #fff;
   border: 1px solid #ccc;
+}
+
+.shopping-cart-content {
+  overflow: auto;
+  height: calc(100vh - 190px);
 }
 
 .alert {
