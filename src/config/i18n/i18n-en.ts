@@ -121,6 +121,10 @@ export const i18n_EN = {
     price: 'price',
     noData: 'No data',
     loading: 'Loading...',
-    onlyFavouriteProducts: 'Favourite products only'
+    onlyFavouriteProducts: 'Favourite products only',
+    role: {
+      admin: 'Administrator',
+      user: 'User'
+    }
   }
 };

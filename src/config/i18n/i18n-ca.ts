@@ -121,6 +121,10 @@ export const i18n_CA = {
     price: 'preu',
     noData: 'No hi ha dades',
     loading: 'Carregant...',
-    onlyFavouriteProducts: 'Només productes favorits'
+    onlyFavouriteProducts: 'Només productes favorits',
+    role: {
+      admin: 'Administrador',
+      user: 'Usuari'
+    }
   }
 };

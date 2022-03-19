@@ -19,7 +19,8 @@
       </div>
       <div class="d-flex flex-column justify-content-between align-items-start w-100 form-group mb-3">
         <label>{{'user.role' | translate}}</label>
-        <span>{{ user.isAdmin ? 'Administrador' : 'Usuari' }}</span>
+        <span *ngIf="user.isAdmin">{{ 'commons.role.admin' | translate }}</span>
+        <span *ngIf="!user.isAdmin">{{ 'commons.role.user' | translate }}</span>
       </div>
       <div class="d-flex flex-column justify-content-between align-items-start w-100 form-group mb-3">
         <label>{{'user.lastLogin' | translate}}</label>

@@ -121,6 +121,10 @@ export const i18n_PT = {
     price: 'preço',
     noData: 'Sem dados',
     loading: 'Carregando...',
-    onlyFavouriteProducts: 'Apenas produtos favoritos'
+    onlyFavouriteProducts: 'Apenas produtos favoritos',
+    role: {
+      admin: 'Administrador',
+      user: 'Utilizador'
+    }
   }
 };
