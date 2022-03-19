@@ -116,6 +116,29 @@ export const i18n_ES = {
     noProductsWithPrices: 'No tienes productos con precios diferentes segúns la tienda',
     noFavouriteProducts: 'No tienes productos marcados com a favoritos'
   },
+  scanner: {
+    init: 'Inicializando scanner',
+    initError: 'Ha habido un error inicializando el scanner',
+    code: 'Código',
+    name: 'Nombre',
+    shop: 'Tienda',
+    product: 'Producto',
+    brand: 'Marca',
+    price: 'Precio',
+    productRegistered: 'Producto ya registrado',
+    productNotRegistered: 'Producto no registrado',
+    productUnknown: 'Producto desconocido',
+    productPriceSave: 'Guarda producto y precio',
+    save: 'Guarda',
+    instructions: 'Sitúa el código de barras del producto delante de la cámara.',
+    searchInstructions: 'Busca un producto mediante el escaneo de su código de barras para poder registrarle un precio en una tienda. En caso de que el producto no exista, podrás fácilmente registrarlo a la vez que se guardará el precio deseado.',
+    productNotFound: 'No se ha encontrado el producto.',
+    searchingProduct: 'Buscando producto...',
+    scanner: 'Scanner',
+    manual: 'Manual',
+    createUnknownProductConfirm: 'Producto no registrado. Se creará y se guardará el precio para la tienda indicada.',
+    addExistingShopProductConfirm: 'Ya existe el producto para la tienda. Deseas actualizarlo con fecha de hoy (el precio anterior se añadirá a un historial)?'
+  },
   commons: {
     prices: 'precios',
     price: 'precio',
@@ -126,5 +149,6 @@ export const i18n_ES = {
       admin: 'Administrador',
       user: 'Usuario'
     }
+    
   }
 };

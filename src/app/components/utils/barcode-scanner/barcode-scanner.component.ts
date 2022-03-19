@@ -7,6 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { DEFAULT_IMAGE_URL } from '../../../model/constants/default-image.constant';
@@ -53,6 +54,8 @@ export class BarcodeScannerComponent implements AfterViewInit {
 
   @ViewChild('priceInput') priceInput: ElementRef;
 
+  DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
+
   loggedUser: UserInterface;
 
   barcodeScannerStarted: boolean = false;
@@ -85,7 +88,8 @@ export class BarcodeScannerComponent implements AfterViewInit {
     private productService: ProductService,
     private shopService: ShopService,
     private shopProductService: ShopProductService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private translate: TranslateService
   ) {
     this.barcodeChanged
       .pipe(debounceTime(500), distinctUntilChanged())
@@ -167,16 +171,16 @@ export class BarcodeScannerComponent implements AfterViewInit {
         barcode: this.barcodeValue,
         brand: this.openFoodProduct?.product?.brands
           ? this.capitalizeFirstLetter(this.openFoodProduct.product.brands)
-          : 'Marca desconeguda',
+          : '?',
         favourite: false,
         name: this.openFoodProduct?.product?.product_name
           ? this.capitalizeFirstLetter(
               this.openFoodProduct.product.product_name
             )
-          : 'Nom desconegut',
+          : '?',
         imageUrl: this.openFoodProduct?.product?.image_url
           ? this.openFoodProduct.product.image_url
-          : undefined,
+          : DEFAULT_IMAGE_URL,
       };
       this.onSaveProduct.emit(product);
     } else {
@@ -211,18 +215,16 @@ export class BarcodeScannerComponent implements AfterViewInit {
       this.onSaveShopProduct.emit(this.shopProduct);
     } else {
       if (
-        confirm(
-          'Producte no registrat. Es crearà i es desarà el preu per al a botiga indicada.'
-        )
+        confirm(this.translate.instant('scanner.createUnknownProductConfirm'))
       ) {
         if (this.openFoodProductFound) {
           this.products.push({
             barcode: this.shopProduct.productBarcode,
-            brand: this.openFoodProduct?.product?.brands || 'Marca desconeguda',
+            brand: this.openFoodProduct?.product?.brands || '?',
             favourite: false,
             name:
-              this.openFoodProduct?.product?.product_name || 'Nom desconegut',
-            imageUrl: this.openFoodProduct?.product?.image_url || '',
+              this.openFoodProduct?.product?.product_name || '?',
+            imageUrl: this.openFoodProduct?.product?.image_url || DEFAULT_IMAGE_URL,
             createdBy: this.loggedUser,
           });
         } else {
@@ -259,7 +261,7 @@ export class BarcodeScannerComponent implements AfterViewInit {
       productBarcode: undefined,
       shopId: undefined,
       updateDate: new Date().getTime(),
-      createdBy: this.loggedUser,
+      createdBy: this.loggedUser
     };
 
     this.shopProductService.shopsProducts.subscribe((_shopsProducts) => {

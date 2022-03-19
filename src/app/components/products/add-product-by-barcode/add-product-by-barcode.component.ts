@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -66,7 +67,8 @@ export class AddProductByBarcodeComponent implements OnInit {
     private productService: ProductService,
     private loginService: LoginService,
     private shopService: ShopService,
-    private openFoodService: OpenFoodService
+    private openFoodService: OpenFoodService,
+    private translate: TranslateService
   ) {}
 
   setMode(mode: 'SCANNER' | 'MANUAL') {
@@ -214,9 +216,7 @@ export class AddProductByBarcodeComponent implements OnInit {
 
       if (
         !existsShopProduct ||
-        confirm(
-          "Ja existeix el producte per a la botiga. Desitges actualitzar-lo amb data d'avui (el preu anterior s'afegirà a un historial)?"
-        )
+        confirm(this.translate.instant('scanner.addExistingShopProductConfirm'))
       ) {
         this.shopsProducts.push(this.shopProductDetail);
         this.shopProductService

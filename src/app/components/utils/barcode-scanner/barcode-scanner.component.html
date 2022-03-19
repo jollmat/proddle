@@ -19,7 +19,7 @@
       *ngIf="!barcodeScannerStarted"
     >
       <i class="mb-2 fas fa-spinner fa-spin"></i>
-      <small class="fst-italic">Inicialitzant scanner</small>
+      <small class="fst-italic">{{'scanner.init' | translate}}</small>
     </div>
     <div
       class="d-flex flex-column w-100 justify-content-center align-items-center"
@@ -27,7 +27,7 @@
     >
       <i class="mb-2 fas fa-warning text-danger"></i>
       <small class="fst-italic"
-        >Hi ha hagut un error inicialitzant el scanner</small
+        >{{'scanner.initError' | translate}}</small
       >
     </div>
   </div>
@@ -41,23 +41,23 @@
     class="d-flex flex-column justify-content-center align-items-center w-100"
   >
     <div *ngIf="!isSavedProduct && !openFoodProductFound">
-      <span>Codi:</span><span class="mx-2">{{ barcodeValue }}</span>
+      <span>{{'scanner.code' | translate}}:</span><span class="mx-2">{{ barcodeValue }}</span>
     </div>
     <div class="d-flex w-100 justify-content-center align-items-center my-2">
       <small>
         <ng-container *ngIf="isSavedProduct">
           <i class="fas fa-check text-success me-2"></i>
-          <span *ngIf="isSavedProduct">Producte ja enregistrat</span>
+          <span *ngIf="isSavedProduct">{{'scenner.productRegistered' | translate}}</span>
         </ng-container>
         <ng-container *ngIf="!isSavedProduct && openFoodProductFound">
           <i class="fas fa-info-circle text-info me-2"></i>
-          <span>Producte no enregistrat</span>
+          <span>{{'scanner.productNotRegistered' | translate}}</span>
         </ng-container>
         <ng-container *ngIf="!isSavedProduct && !openFoodProductFound">
           <div class="d-flex flex-column w-100 justify-content-start">
             <div class="d-flex w-100 justify-content-center align-items-center">
               <i class="fas fa-circle-question text-warning me-2"></i>
-              <span>Producte desconegut</span>
+              <span>{{'scanner.productUnknown' | translate}}</span>
             </div>
           </div>
         </ng-container>
@@ -99,9 +99,9 @@
   </ng-container>
   <ng-container *ngIf="!savedProduct && !openFoodProductFound">
     <app-product-scan-result
-      [name]="'Producte desconegut'"
-      [brand]="'Marca desconeguda'"
-      [imageUrl]="''"
+      [name]="'?'"
+      [brand]="'?'"
+      [imageUrl]="DEFAULT_IMAGE_URL"
     ></app-product-scan-result>
   </ng-container>
   <ng-container *ngIf="mode === ProductScanModeEnum.CREATE">
@@ -118,7 +118,7 @@
 <ng-template #productAndPriceShopForm>
   <div class="d-flex flex-column w-100 mt-2">
     <div class="form-group mb-3 w-100">
-      <label for="prodbarcode">Codi</label>
+      <label for="prodbarcode">{{'scanner.code' | translate}}</label>
       <input
         id="prodbarcode"
         type="text"
@@ -128,7 +128,7 @@
       />
     </div>
     <div class="form-group mb-3 w-100">
-      <label for="prodname">Nom</label>
+      <label for="prodname">{{'scanner.name' | translate}}</label>
       <input
         id="prodname"
         type="text"
@@ -138,7 +138,7 @@
       />
     </div>
     <div class="form-group mb-3 w-100">
-      <label for="prodbrand">Marca</label>
+      <label for="prodbrand">{{'scanner.brand' | translate}}</label>
       <input
         id="prodbrand"
         type="text"
@@ -150,7 +150,7 @@
   </div>
   <div class="d-flex flex-column w-100 mt-2">
     <div class="form-group mb-3 w-100">
-      <label for="shop">Botiga</label>
+      <label for="shop">{{'scanner.shop' | translate}}</label>
       <select
         class="form-select"
         id="shop"
@@ -164,7 +164,7 @@
       </select>
     </div>
     <div class="form-group mb-3 w-100">
-      <label for="price">Preu</label>
+      <label for="price">{{'scanner.proce' | translate}}</label>
       <input
         #priceInput
         id="price"
@@ -180,14 +180,14 @@
     [ngClass]="{ disabled: !canCreateProductAndPrice() }"
     (click)="createProduct()"
   >
-    <i class="fas fa-shopping-basket me-3"></i><span>Desa producte i preu</span>
+    <i class="fas fa-shopping-basket me-3"></i><span>{{'scanner.productPriceSave' | translate}}</span>
   </button>
 </ng-template>
 
 <ng-template #priceShopForm>
   <div class="d-flex flex-column w-100 mt-2">
     <div class="form-group mb-3 w-100">
-      <label for="shop">Botiga</label>
+      <label for="shop">{{'scanner.shop' | translate}}</label>
       <select
         class="form-select"
         id="shop"
@@ -222,7 +222,7 @@
       }"
       (click)="saveShopProduct()"
     >
-      Desa
+    {{'scanner.save' | translate}}
     </button>
   </div>
 </ng-template>
@@ -242,7 +242,7 @@
   >
     <i class="fas fa-info-circle me-3"></i>
     <small class="fst-italic"
-      >Posiciona el codi de barres del producte davant la càmera.</small
+      >{{'scanner.instructions' | translate}}</small
     >
   </div>
 </ng-template>
@@ -250,14 +250,14 @@
 <ng-template #noProductFound>
   <div class="d-flex justify-content-center align-items-center mt-3 w-100">
     <i class="fas fa-warning me-2"></i>
-    <span>No s'ha trobat el producte</span>
+    <span>{{'scanner.productNotFound' | translate}}</span>
   </div>
 </ng-template>
 
 <ng-template #loader>
   <div class="d-flex justify-content-center align-items-center mt-3 w-100">
     <i class="fas fa-spinner me-2"></i>
-    <span>Cercant producte...</span>
+    <span>{{'scanner.searchingProduct' | translate}}</span>
   </div>
 </ng-template>
 

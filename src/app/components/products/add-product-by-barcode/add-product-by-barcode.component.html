@@ -11,7 +11,7 @@
       (click)="setMode('SCANNER')"
     >
       <i class="fas fa-check me-2" *ngIf="mode === 'SCANNER'"></i>
-      Scanner
+      {{'scanner.scanner' | translate}}
     </button>
     <button
       type="button"
@@ -20,7 +20,7 @@
       (click)="setMode('MANUAL')"
     >
       <i class="fas fa-check me-2" *ngIf="mode === 'MANUAL'"></i>
-      Manual
+      {{'scanner.manual' | translate}}
     </button>
   </div>
 
@@ -46,10 +46,7 @@
         >
           <i class="fas fa-hand-point-right me-2 mt-1"></i>
           <small>
-            Cerca un producte mitjançant l'ecaneig del seu codi de barres per a
-            poder registrar-li un preu en una botiga. En cas que el producte no
-            existeixi, podràs fàcilment registrar-lo al mateix temps que es
-            desarà el preu desitjat.
+            {{'scanner.searchInstructions' | translate}}
           </small>
         </div>
       </div>
@@ -90,11 +87,11 @@
   <div class="breadcrumb d-flex justify-content-start align-items-center w-100">
     <span class="step cursor-pointer" (click)="exit()">
       <i class="fas fa-home mx-2"></i
-      ><span class="fst-italic">Inici</span></span
+      ><span class="fst-italic">{{'breadcrumb.home' | translate}}</span></span
     >
     <span class="divider">/</span>
-    <span class="step fw-bold" *ngIf="mode === 'SCANNER'">Scanner</span>
-    <span class="step fw-bold" *ngIf="mode === 'MANUAL'">Manual</span>
+    <span class="step fw-bold" *ngIf="mode === 'SCANNER'">{{'scanner.scanner' | translate}}</span>
+    <span class="step fw-bold" *ngIf="mode === 'MANUAL'">{{'scanner.manual' | translate}}</span>
   </div>
 </ng-template>
 
@@ -103,9 +100,9 @@
     <img class="product-image" [src]="productDetail?.imageUrl" />
   </div>
   <div class="d-flex flex-column w-100 mt-0">
-    <label class="fw-bold my-2">Producte</label>
+    <label class="fw-bold my-2">{{'scanner.product' | translate}}</label>
     <div class="d-flex form-group mb-1 w-100">
-      <label class="pe-3" for="prodbarcode">Codi</label>
+      <label class="pe-3" for="prodbarcode">{{'scanner.code' | translate}}</label>
       <input
         #barcodeInput
         id="prodbarcode"
@@ -113,6 +110,7 @@
         class="form-control"
         value="{{ productDetail?.barcode }}"
         [(ngModel)]="productDetail.barcode"
+        placeholder="{{'scanner.code' | translate}}"
       />
     </div>
     <div class="form-group mb-1 w-100">
@@ -124,10 +122,11 @@
         [ngClass]="{ readonly: lockProductEdition }"
         value="{{ productDetail?.name }}"
         [(ngModel)]="productDetail.name"
+        placeholder="{{'scanner.name' | translate}}"
       />
     </div>
     <div class="form-group mb-1 w-100">
-      <label class="pe-3" for="prodbrand">Marca</label>
+      <label class="pe-3" for="prodbrand">{{'scanner.brand' | translate}}</label>
       <input
         id="prodbrand"
         type="text"
@@ -135,6 +134,7 @@
         [ngClass]="{ readonly: lockProductEdition }"
         value="{{ productDetail?.brand }}"
         [(ngModel)]="productDetail.brand"
+        placeholder="{{'scanner.brand' | translate}}"
       />
     </div>
   </div>
@@ -142,9 +142,9 @@
   <hr />
 
   <div class="d-flex flex-column w-100">
-    <label class="fw-bold my-2">Preu</label>
+    <label class="fw-bold my-2">{{'scanner.price' | translate}}</label>
     <div class="form-group mb-1 w-100">
-      <label class="pe-3" for="shop">Botiga</label>
+      <label class="pe-3" for="shop">{{'scanner.shop' | translate}}</label>
       <select
         class="form-select"
         id="shop"
@@ -158,7 +158,7 @@
       </select>
     </div>
     <div class="form-group mb-1 w-100">
-      <label class="pe-3" for="price">Preu</label>
+      <label class="pe-3" for="price">{{'scanner.price' | translate}}</label>
       <input
         #priceInput
         id="price"
@@ -166,6 +166,7 @@
         class="form-control"
         value="{{ shopProductDetail?.price }}"
         [(ngModel)]="shopProductDetail.price"
+        placeholder="{{'scanner.price' | translate}}"
       />
     </div>
   </div>
@@ -179,6 +180,6 @@
       })
     "
   >
-    <span>Desa</span>
+    <span>{{'scanner.save' | translate}}</span>
   </button>
 </ng-template>
