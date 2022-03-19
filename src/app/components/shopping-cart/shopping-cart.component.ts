@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductInterface } from '../../model/interfaces/product.interface';
 import { ShoppingCartConfigInterface } from '../../model/interfaces/shopping-cart-config.interface';
@@ -12,7 +13,8 @@ import { ShoppingCartService } from '../../services/shopping-cart.service';
 export class ShoppingCartComponent implements OnInit {
   constructor(
     private shoppingCartService: ShoppingCartService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private translate: TranslateService
   ) {}
 
   cartConfig: ShoppingCartConfigInterface;
@@ -53,7 +55,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   removeCart(): void {
-    if (confirm('Es buidarà tota la cistella de la compra. Continuar?')) {
+    if (confirm(this.translate.instant('shoppingCart.confirmEmpty'))) {
       this.spinner.show();
       this.shoppingCartService.removeCart();
     }

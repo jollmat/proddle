@@ -12,7 +12,7 @@
         (click)="selectedTab = 0"
       >
         <i class="fas fa-check me-2" *ngIf="selectedTab === 0"></i>
-        Detall
+        {{'product.detail' | translate}}
       </button>
       <button
         type="button"
@@ -21,7 +21,7 @@
         (click)="selectedTab = 1"
       >
         <i class="fas fa-check me-2" *ngIf="selectedTab === 1"></i>
-        Preus
+        {{'product.prices' | translate}}
         <small class="sm-2"
           >({{ shopProducts?.length | number: '1.0-2' }})</small
         >
@@ -37,8 +37,8 @@
       >
         <div class="modal-content d-flex flex-row">
           <div class="d-flex flex-column w-100 p-3">
-            <div class="form-group mb-0 w-100">
-              <label for="productBarcode">Codi de barres / Identificador</label>
+            <div class="form-group mb-3 w-100">
+              <label for="productBarcode" class="text-start w-100">{{'product.barcode' | translate}}</label>
               <input
                 type="text"
                 class="form-control"
@@ -49,14 +49,14 @@
               />
             </div>
             <div class="form-group mb-3 w-100">
-              <label for="productName">Nom</label>
+              <label for="productName" class="text-start w-100">{{'product.name' | translate}}</label>
               <ng-container *ngIf="canEdit()">
                 <input
                   type="text"
                   class="form-control"
                   id="productName"
                   [(ngModel)]="productDetail.name"
-                  placeholder="Nom del producte"
+                  placeholder="{{'product.name' | translate}}"
                 />
               </ng-container>
               <ng-container *ngIf="!canEdit()">
@@ -65,20 +65,20 @@
                   class="form-control"
                   id="productName"
                   [(ngModel)]="productDetail.name"
-                  placeholder="Nom del producte"
+                  placeholder="{{'product.name' | translate}}"
                   readonly="readonly"
                 />
               </ng-container>
             </div>
             <div class="form-group mb-3 w-100">
-              <label for="productBrand">Marca</label>
+              <label for="productBrand" class="text-start w-100">{{'product.brand' | translate}}</label>
               <ng-container *ngIf="canEdit()">
                 <input
                   type="text"
                   class="form-control"
                   id="productBrand"
                   [(ngModel)]="productDetail.brand"
-                  placeholder="Marca del producte"
+                  placeholder="{{'product.brand' | translate}}"
                 />
               </ng-container>
               <ng-container *ngIf="!canEdit()">
@@ -87,7 +87,7 @@
                   class="form-control"
                   id="productBrand"
                   [(ngModel)]="productDetail.brand"
-                  placeholder="Marca del producte"
+                  placeholder="{{'product.brand' | translate}}"
                   readonly="readonly"
                 />
               </ng-container>
@@ -102,7 +102,7 @@
                 id="flexSwitchCheckDefault"
               />
               <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
-                >Preferit</label
+                >{{'product.favourite' | translate}}</label
               >
             </div>
 
@@ -126,7 +126,7 @@
         "
       >
         <div class="author d-flex justify-content-end w-100 ps-3 pe-4 mb-2">
-          <span class="label me-1 fst-italic">Creat per:</span>
+          <span class="label me-1 fst-italic">{{'product.createdBy' | translate}}:</span>
           <span class="value">{{ productDetail?.createdBy?.username }}</span>
         </div>
       </ng-container>
@@ -154,7 +154,7 @@
           (click)="updateProduct()"
         >
           <span class="fas fa-floppy-disk me-1"></span>
-          Desa
+          {{'product.save' | translate}}
         </button>
         <!--
         <button
@@ -162,7 +162,7 @@
           class="btn btn-lg btn-light ms-2 w-50"
           [routerLink]="'../../search-products'"
         >
-          Tanca
+          {{'product.dcloseetail' | translate}}
         </button>
         -->
       </div>
@@ -172,7 +172,7 @@
       <div class="shop-products d-flex flex-column w-100 my-3 px-3">
         <div class="d-flex justify-content-between align-items-center px-1">
           <button class="btn btn-lg btn-lg ps-0">
-            Preus a botigues
+            {{'product.pricesInShops' | translate}}
             <small class="sm-2"
               >({{ shopProducts?.length | number: '1.0-2' }})</small
             >
@@ -293,6 +293,6 @@
 
 <ng-template #noShopsProducts>
   <div class="d-flex justify-content-start align-items-center w-100">
-    <small class="ps-2">Sense dades</small>
+    <small class="ps-2">{{'product.noData' | translate}}</small>
   </div>
 </ng-template>

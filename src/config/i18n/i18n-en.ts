@@ -53,7 +53,8 @@ export const i18n_EN = {
     home: 'Home',
     shops: 'Shops',
     products: 'Products',
-    analysis: 'Analysis'
+    analysis: 'Analysis',
+    shoppingCart: 'Shopping cart'
   },
   shops: {
     noShopAdded: 'No shops available',
@@ -61,12 +62,59 @@ export const i18n_EN = {
     onlyFavouriteShops: 'Only favourites',
     searchPlaceholder: 'Search by name'
   },
+  shop: {
+    detail: 'Detail',
+    prices: 'Prices',
+    name: 'Name',
+    favourite: 'Favourite',
+    createdBy: 'Created by',
+    save: 'Save',
+    close: 'Close',
+    productPrices: 'Product prices',
+    noProductPrices: 'There are no product prices'
+  },
   products: {
     noProductAdded: 'No products available',
     noFavouriteProduct: 'No favourite products',
     searchPlaceholder: 'Search by name, brand or barcode',
     onlyFavouriteProducts: 'Only favourites',
     scan: 'Scan'
+  },
+  product: {
+    detail: 'Detail',
+    prices: 'Prices',
+    barcode: 'Barcode / identifier',
+    name: 'Name',
+    brand: 'Branch',
+    favourite: 'Favourite',
+    createdBy: 'Created by',
+    save: 'Save',
+    close: 'Close',
+    pricesInShops: 'Prices in shops',
+    noData: 'No data'
+  },
+  shoppingCart: {
+    title: 'Optimized shopping cart',
+    description: 'Here is your shopping cart optimized for stores and products for maximum savings.',
+    doEmpty: 'Empty cart',
+    amountOptimized: 'Total optimized',
+    amountNoOptimized: 'Total NOT optimized',
+    amountSaved: 'Total saved',
+    noProducts: 'There are no products in the shopping cart.',
+    confirmEmpty: 'The entire shopping cart will be emptied. Continue?'
+  },
+  shopStandings: {
+    title: {
+      cheap: 'Cheaper prices',
+      expensive: 'More expensive prices'
+    },
+    numProducts: 'Number of products',
+    shop: 'Shop',
+    noDataEnough: 'Not enough data yet. You need different prices of prducts in different shops.',
+    noResults: 'No results',
+    possibleReasons: 'Possible causes',
+    noProductsWithPrices: 'You do not have products with different prices depending on the store',
+    noFavouriteProducts: 'You have no products marked as favorites'
   },
   commons: {
     prices: 'prices',

@@ -1,11 +1,10 @@
 .scanner-container {
   border-radius: 10px;
   overflow: hidden;
-  height: 200px !important;
   border: 2px solid #fff;
+  min-height: 200px;
   color: #fff;
   font-weight: 300;
-  /* background-color: rgba(231, 231, 231, 0.4); */
   background-color: rgba(44, 44, 44, 0.4);
 }
 

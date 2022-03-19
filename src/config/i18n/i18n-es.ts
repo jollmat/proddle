@@ -53,7 +53,8 @@ export const i18n_ES = {
     home: 'Inicio',
     shops: 'Tiendas',
     products: 'Productos',
-    analysis: 'Análisis'
+    analysis: 'Análisis',
+    shoppingCart: 'Cesta de compra'
   },
   shops: {
     noShopAdded: 'No hay tiendas',
@@ -61,12 +62,59 @@ export const i18n_ES = {
     onlyFavouriteShops: 'Solamente favoritas',
     searchPlaceholder: 'Busca por nombre'
   },
+  shop: {
+    detail: 'Detalle',
+    prices: 'Precios',
+    name: 'Nombre',
+    favourite: 'Favorita',
+    createdBy: 'Creada por',
+    save: 'Guarda',
+    close: 'Cierra',
+    productPrices: 'Precios productos',
+    noProductPrices: 'No hay precios de productos'
+  },
   products: {
     noProductAdded: 'No hay productos',
     noFavouriteProduct: 'No tienes ningún producto favorito',
     searchPlaceholder: 'Busca por nombre, marca o código de barras',
     onlyFavouriteProducts: 'Solamente favoritos',
     scan: 'Escanear'
+  },
+  product: {
+    detail: 'Detalle',
+    prices: 'Precios',
+    barcode: 'Código de barras / identificador',
+    name: 'Nombre',
+    brand: 'Marca',
+    favourite: 'Favorito',
+    createdBy: 'Creado por',
+    save: 'Guarda',
+    close: 'Cierra',
+    pricesInShops: 'Precios en tiendas',
+    noData: 'Sin datos'
+  },
+  shoppingCart: {
+    title: 'Cesta de compra optimizada',
+    description: 'Aquí tienes tu cesta de la compra optimizada para tiendas y productos para conseguir el máximo ahorro.',
+    doEmpty: 'Vaciar la cesta',
+    amountOptimized: 'Total optimizado',
+    amountNoOptimized: 'Total NO optimizado',
+    amountSaved: 'Total ahorrado',
+    noProducts: 'No hay productos en la cesta.',
+    confirmEmpty: 'Se vaciará toda la cesta de la compra. ¿Continuar?'
+  },
+  shopStandings: {
+    title: {
+      cheap: 'Precios más baratos',
+      expensive: 'Precios más caros'
+    },
+    numProducts: 'Nº productos',
+    shop: 'Tienda',
+    noDataEnough: 'Todavía no hay suficientes datos. Necesitas precios de un mismo producto en diferentes tiendas',
+    noResults: 'No hay resultados',
+    possibleReasons: 'Posibles causas',
+    noProductsWithPrices: 'No tienes productos con precios diferentes segúns la tienda',
+    noFavouriteProducts: 'No tienes productos marcados com a favoritos'
   },
   commons: {
     prices: 'precios',

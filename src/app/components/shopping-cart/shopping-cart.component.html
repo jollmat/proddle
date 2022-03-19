@@ -5,7 +5,7 @@
 <ng-container *ngIf="cartConfig">
   <ng-container *ngIf="cartConfig.items?.length > 0; else noShoppingCart">
     <div class="shopping-cart-content d-flex card transparent flex-column mb-3 p-3 w-100">
-      <h4 class="ps-2 mb-2 text-start">Cistella de compra optimitzada</h4>
+      <h4 class="ps-2 mb-2 text-start">{{'shoppingCart.title' | translate}}</h4>
       <div
         class="
           alert alert-info
@@ -20,8 +20,7 @@
       >
         <i class="fas fa-info-circle mt-1 me-2"></i>
         <small class="text-start"
-          >Aqui tens la teva cistella de la compra optimitzada per botigues i
-          productes per aconseguir el màxim d'estalvi.</small
+          >{{'shoppingCart.description' | translate}}</small
         >
       </div>
 
@@ -33,7 +32,7 @@
       >
         <button class="btn btn-secondary" (click)="removeCart()">
           <span
-            ><i class="fa fa-cart-arrow-down me-2"></i>Buidar la cistella</span
+            ><i class="fa fa-cart-arrow-down me-2"></i>{{'shoppingCart.doEmpty' | translate}}</span
           >
         </button>
       </div>
@@ -135,7 +134,7 @@
       mb-1
     "
   >
-    Total optimitzat:
+  {{'shoppingCart.amountOptimized' | translate}}:
     <span class="badge-total transparent fw-bold ms-2 px-3 py-1 text-end"
       >{{ getAmountLow() | number: '1.0-2' }} €</span
     >
@@ -152,7 +151,7 @@
       mb-1
     "
   >
-    Total sense optimitzar:
+  {{'shoppingCart.amountNoOptimized' | translate}}:
     <span class="badge-total transparent fw-bold ms-2 px-3 py-1 text-end"
       >{{ getAmountHigh() | number: '1.0-2' }} €</span
     >
@@ -169,7 +168,7 @@
       mb-3
     "
   >
-    Total estalviat:
+  {{'shoppingCart.amountSaved' | translate}}:
     <span
       class="badge-total transparent fw-bold ms-2 px-3 py-1 text-end"
       [ngClass]="{
@@ -189,7 +188,7 @@
     <div
       class="d-flex justify-content-center mt-5 mx-3 alert alert-warning w-100"
     >
-      <small>No hi ha productes a la cistella de la compra</small>
+      <small>{{'shoppingCart.noProducts' | translate}}</small>
     </div>
   </div>
 </ng-template>
@@ -199,10 +198,10 @@
     <span class="step">
       <a routerLink="/home">
         <i class="fas fa-home mx-2"></i
-        ><span class="fst-italic text-decoration-underline">Inici</span></a
+        ><span class="fst-italic text-decoration-underline">{{'breadcrumb.home' | translate}}</span></a
       ></span
     >
     <span class="divider mx-2">/</span>
-    <span class="step fw-bold">Cistella de compra</span>
+    <span class="step fw-bold">{{'breadcrumb.shoppingCart' | translate}}</span>
   </div>
 </ng-template>

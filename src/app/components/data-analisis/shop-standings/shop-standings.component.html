@@ -1,10 +1,10 @@
 <div class="d-flex w-100 py-1 px-3 shop-standings">
   <div class="d-flex flex-column w-100">
     <div class="title mt-2 mb-1" *ngIf="target === 'CHEAP'">
-      <small>Preu més <strong class="text-success">barat:</strong></small>
+      <small>{{'shopStandings.title.cheap' | translate}}</small>
     </div>
     <div class="title mt-2 mb-1" *ngIf="target === 'EXPENSIVE'">
-      <small>Preu més <strong class="text-danger">car:</strong></small>
+      <small>{{'shopStandings.title.expensive' | translate}}</small>
     </div>
     <ng-container
       *ngIf="shopsProducts.length > 0; else noStandings"
@@ -14,8 +14,8 @@
         <thead>
           <tr>
             <th class="text-end pe-3 w-15">#</th>
-            <th>Botiga</th>
-            <th class="text-end">Nº productes</th>
+            <th>{{'shopStandings.shop' | translate}}</th>
+            <th class="text-end">{{'shopStandings.numProducts' | translate}}</th>
             <th></th>
           </tr>
         </thead>
@@ -69,8 +69,7 @@
   >
     <i class="fas fa-warning text-warning me-2"></i>
     <small class="p-2"
-      >Encara no tens prou dades. Necessites preus d'un mateix producte en
-      diferents botigues</small
+      >{{'shopStandings.noDataEnough' | translate}}</small
     >
   </div>
 </ng-template>
@@ -87,14 +86,12 @@
   >
     <i class="fas fa-warning text-warning me-2 mt-2"></i>
     <div class="d-flex flex-column mb-2">
-      <small class="p-2 text-start">No hi ha resultats. Possibles causes:</small>
+      <small class="p-2 text-start">{{'shopStandings.noResults' | translate}}. {{'shopStandings.possibleReasons' | translate}}:</small>
       <small class="p-1 smaller d-flex align-items-start text-start"
-        ><span class="fas fa-angle-right mt-1 me-2"></span><span>No tens productes amb
-        preus diferents segons la botiga.</span></small
+        ><span class="fas fa-angle-right mt-1 me-2"></span><span>{{'shopStandings.noProductsWithPrices' | translate}}.</span></small
       >
       <small class="p-1 smaller d-flex align-items-start text-start" *ngIf="onlyFavourites"
-        ><span class="fas fa-angle-right mt-1 me-2"></span><span>No tens productes
-        marcats com a preferits.</span></small
+        ><span class="fas fa-angle-right mt-1 me-2"></span><span>{{'shopStandings.noFavouriteProducts' | translate}}.</span></small
       >
     </div>
   </div>

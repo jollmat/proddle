@@ -53,7 +53,8 @@ export const i18n_PT = {
     home: 'Lar',
     shops: 'Lojas',
     products: 'Produtos',
-    analysis: 'Análise'
+    analysis: 'Análise',
+    shoppingCart: 'Carrinho de compras'
   },
   shops: {
     noShopAdded: 'Não há lojas',
@@ -61,12 +62,59 @@ export const i18n_PT = {
     onlyFavouriteShops: 'Apenas favoritos',
     searchPlaceholder: 'Procura por nome'
   },
+  shop: {
+    detail: 'Detalhe',
+    prices: 'Preços',
+    name: 'Nome',
+    favourite: 'Favorito',
+    createdBy: 'Criado por',
+    save: 'Salvar',
+    close: 'Fechar',
+    productPrices: 'Preços dos produtos',
+    noProductPrices: 'Não há preços de produtos'
+  },
   products: {
     noProductAdded: 'Nenhum produto',
     noFavouriteProduct: 'Você não tem produtos favoritos',
     searchPlaceholder: 'Pesquise por nome, marca ou código de barras',
     onlyFavouriteProducts: 'Apenas favoritos',
     scan: 'Varredura'
+  },
+  product: {
+    detail: 'Detalhe',
+    prices: 'Preços',
+    barcode: 'Código de barras / identificador',
+    name: 'Nome',
+    brand: 'Marca',
+    favourite: 'Favorito',
+    createdBy: 'Criado por',
+    save: 'Salvar',
+    close: 'Fechar',
+    pricesInShops: 'Preços nas lojas',
+    noData: 'Sem dados'
+  },
+  shoppingCart: {
+    title: 'Carrinho de compras otimizado',
+    description: 'Aqui está seu carrinho de compras otimizado para lojas e produtos para economia máxima.',
+    doEmpty: 'Esvazie a cesta',
+    amountOptimized: 'Total otimizado',
+    amountNoOptimized: 'Total NÃO otimizado',
+    amountSaved: 'Total salvo',
+    noProducts: 'Não há produtos no carrinho de compras.',
+    confirmEmpty: 'Todo o carrinho de compras será esvaziado. Continuar?'
+  },
+  shopStandings: {
+    title: {
+      cheap: 'Preços mais baratos',
+      expensive: 'Preços mais caros'
+    },
+    numProducts: 'Número de produtos',
+    shop: 'Loja',
+    noDataEnough: 'Você ainda não tem dados suficientes. Você precisa de preços para o mesmo produto em diferentes lojas',
+    noResults: 'Sem resultados',
+    possibleReasons: 'Causas possíveis',
+    noProductsWithPrices: 'Você não tem produtos com preços diferentes dependendo da loja',
+    noFavouriteProducts: 'Você não tem produtos marcados como favoritos'
   },
   commons: {
     prices: 'preços',
