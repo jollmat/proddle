@@ -33,6 +33,7 @@ export class ShopSearchComponent implements OnInit, AfterViewInit {
 
   loggedUser: UserInterface;
 
+  loading: boolean = true;
   shops: ShopInterface[];
 
   onlyFavourites: boolean = false;
@@ -132,29 +133,21 @@ export class ShopSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.spinner.show();
-
-    this.onlyFavourites = this.shopService.getFavourites().length > 0;
+    
+    // this.onlyFavourites = this.shopService.getFavourites().length > 0;
 
     this.searchText = localStorage.getItem(this.STORED_SEARCH_KEY) || '';
     this.loggedUser = this.loginService.getLoggedUser();
+
     this.shopService.shops.subscribe(
       (_shops) => {
+        console.log(_shops);
         this.shops = _shops.sort((a, b) => (a.name > b.name ? 1 : -1));
-        setTimeout(() => {
-          this.spinner.hide();
-        }, 500);
-      },
-      () => {
-        this.spinner.hide();
       }
     );
 
-    this.shopService.getShops().subscribe((_shops) => {
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 500);
-    });
+    this.shops = this.shopService._shops;
+    this.loading = false;
   }
 
   ngAfterViewInit(): void {

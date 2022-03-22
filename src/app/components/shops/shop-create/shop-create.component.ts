@@ -43,8 +43,9 @@ export class ShopCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shopService.getShops().subscribe((_shops) => {
+    this.shopService.shops.subscribe((_shops) => {
       this.shops = _shops;
     });
+    this.shops = this.shopService._shops;
   }
 }

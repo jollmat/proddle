@@ -186,7 +186,7 @@ export class ShopStandingsComponent implements OnInit, OnChanges {
     this.shopService.shops.subscribe((_shops) => {
       this.shops = _shops.sort((a, b) => (a.name > b.name ? 1 : -1));
     });
-    this.shopService.getShops().subscribe(() => {});
+    this.shops = this.shopService._shops;
 
     if (this.shopsProductsSubscription) {
       this.shopsProductsSubscription.unsubscribe();
@@ -202,8 +202,6 @@ export class ShopStandingsComponent implements OnInit, OnChanges {
         this.calculateStandings();
       });
 
-    this.shopProductService
-      .getShopsProducts()
-      .subscribe((_shopsProducts) => {});
+      this.shopsProducts = this.shopProductService._shopsProducts;
   }
 }

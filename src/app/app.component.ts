@@ -97,26 +97,6 @@ export class AppComponent implements OnInit {
     this.router.navigate(['user']);
   }
 
-  reset() {
-    if (
-      confirm(
-        "S'esborraràn totes les dades excepte les botigues per defecte. Desitges continuar?"
-      )
-    ) {
-      const calls: Observable<any> = forkJoin({
-        resetShopsProducts: this.shopProductService.setShopsProducts(
-          DEFAULT_SHOPS_PRODUCTS
-        ),
-        resetShops: this.shopService.setShops(DEFAULT_SHOPS),
-        resetProducts: this.productService.setProducts(DEFAULT_PRODUCTS),
-      });
-
-      calls.subscribe((res) => {
-        this.goToHome();
-      });
-    }
-  }
-
   toggleExport() {
     this.copyToClipboard();
   }
@@ -172,7 +152,7 @@ export class AppComponent implements OnInit {
 
     this.shoppingCartService.cartConfig.subscribe((_cartConfig) => {
       this.cartConfig = _cartConfig;
-      console.log(this.cartConfig);
+      // console.log(this.cartConfig);
       this.calcCartItems();
     });
     this.shoppingCartService.buildCartConfig();
@@ -191,9 +171,9 @@ export class AppComponent implements OnInit {
       );
     });
 
-    this.shopService.getShops().subscribe(() => {});
-    this.productService.getProducts().subscribe(() => {});
-    this.shopProductService.getShopsProducts().subscribe(() => {});
+    this.shops = this.shopService._shops;
+    this.products = this.productService._products;
+    this.shopsProducts = this.shopProductService._shopsProducts;
 
     this.loginService.user.subscribe((_user) => {
       this.loggedUser = _user;

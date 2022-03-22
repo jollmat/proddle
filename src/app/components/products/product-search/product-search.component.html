@@ -173,7 +173,7 @@
                 ></span>
                 <ng-container *ngIf="canRemoveProduct(product)">
                   <span
-                    (click)="doRemove(product.barcode)"
+                    (click)="doRemove(product)"
                     class="fas fa-trash action-button mt-2"
                   ></span>
                 </ng-container>
@@ -237,10 +237,10 @@
       no-data
     "
   >
-    <small *ngIf="products.length === 0" class="no-data-msg ps-4"
+    <small *ngIf="products.length === 0 && !loading" class="no-data-msg ps-4"
       >{{'products.noProductAdded' | translate}}</small
     >
-    <small *ngIf="!hasFavourites() && onlyFavourites" class="no-data-msg"
+    <small *ngIf="!hasFavourites() && onlyFavourites && !loading" class="no-data-msg"
       >{{'products.noFavouriteProduct' | translate}}</small
     >
   </div>

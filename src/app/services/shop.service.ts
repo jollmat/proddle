@@ -10,6 +10,7 @@ import { APP_CONFIG } from '../../config/app-config.constant';
 import { LoginService } from './login.service';
 import { DEFAULT_IMAGE_URL } from '../model/constants/default-image.constant';
 import { ShopStandingsComponent } from '../components/data-analisis/shop-standings/shop-standings.component';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({ providedIn: 'root' })
 export class ShopService {
@@ -19,13 +20,14 @@ export class ShopService {
 
   _favouriteShopsIds: string[] = [];
 
-  source: DataSourceOriginsEnum = APP_CONFIG.source;
-
   constructor(
-    private jsonBinService: JsonBinService,
+    private firestoreService: FirestoreService,
     private loginService: LoginService
   ) {
     this.shops.subscribe((_shops) => {
+      _shops.map((_s) => {
+        _s.favourite = this._favouriteShopsIds.includes(_s.id);
+      });
       this._shops = _shops;
     });
 
@@ -36,7 +38,12 @@ export class ShopService {
     this._favouriteShopsIds = favouriteShopsIds ? eval(favouriteShopsIds) : [];
     this.setFavourites(this._favouriteShopsIds);
 
-    this.getShops();
+    this.loadShops().subscribe((_shops) => {
+      if(!_shops || _shops.length === 0) {
+        _shops = DEFAULT_SHOPS;
+      }
+      this.shops.next(_shops);
+    });
   }
 
   toggleFavourite(shop: ShopInterface): Observable<boolean> {
@@ -52,51 +59,15 @@ export class ShopService {
     return of(true);
   }
 
-  getShops(): Observable<ShopInterface[]> {
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShops = localStorage.getItem(STORE_KEYS_CONSTANTS.PS_SHOPS);
-      let shops: ShopInterface[] = storedShops
-        ? (eval(storedShops) as ShopInterface[])
-        : JSON.parse(JSON.stringify(DEFAULT_SHOPS));
-
-      const defaultShops: ShopInterface[] = JSON.parse(
-        JSON.stringify(DEFAULT_SHOPS)
-      );
-
-      if (storedShops) {
-        shops = (eval(storedShops) as ShopInterface[]).filter((_shop) => {
-          return _shop.default === false || _shop.favourite;
-        });
-        defaultShops.forEach((_shop) => {
-          const existingShop = shops.find((__shop) => {
-            return _shop.id === __shop.id;
-          });
-          if (!existingShop) {
-            shops.push(_shop);
-          } else {
-            existingShop.imageUrl = _shop.imageUrl;
-          }
-        });
-      } else {
-        shops = defaultShops;
-        this.setShops(shops);
-      }
-
-      this.setDefaultImages(shops);
-
-      this.checkFavourites(shops);
-
-      this.shops.next(shops);
-      return of(shops);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      return this.jsonBinService.getShops().pipe(
-        tap((shops) => {
-          this.setDefaultImages(shops);
-          this.checkFavourites(shops);
-          this.shops.next(shops);
-        })
-      );
-    }
+  loadShops(): Observable<ShopInterface[]> {
+    console.log('ShopService.loadShops()');
+    return this.firestoreService.getShops().pipe(
+      tap((shops) => {
+        this.setDefaultImages(shops);
+        this.checkFavourites(shops);
+        this.shops.next(shops);
+      })
+    );
   }
 
   setDefaultImages(shops: ShopInterface[]) {
@@ -108,117 +79,32 @@ export class ShopService {
     });
   }
 
-  setShops(shops: ShopInterface[]): Observable<boolean> {
-    console.log('ShopService.setShops()', shops);
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      if (shops && shops.length > 0) {
-        localStorage.setItem(
-          STORE_KEYS_CONSTANTS.PS_SHOPS,
-          JSON.stringify(shops)
-        );
-        this.shops.next(shops);
-      } else {
-        localStorage.setItem(
-          STORE_KEYS_CONSTANTS.PS_SHOPS,
-          JSON.stringify(DEFAULT_SHOPS)
-        );
-        shops = DEFAULT_SHOPS;
-        this.shops.next(JSON.parse(JSON.stringify(DEFAULT_SHOPS)));
-      }
-      return of(true);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      if (shops.length === 0) {
-        shops = DEFAULT_SHOPS;
-      }
-      this.shops.next(shops);
-      return this.jsonBinService.setShops(shops);
-    }
-  }
-
   updateShop(shop: ShopInterface): Observable<boolean> {
     console.log('ShopService.updateShop()', shop);
     this.toggleFavourite(shop).subscribe();
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShops = eval(
-        localStorage.getItem(STORE_KEYS_CONSTANTS.PS_SHOPS)
-      ) as ShopInterface[];
-
-      const shopIdx = storedShops.findIndex((_shop) => {
-        return _shop.id === shop.id;
-      });
-      storedShops[shopIdx] = shop;
-
-      localStorage.setItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS,
-        JSON.stringify(storedShops)
-      );
-      this.shops.next(storedShops);
-      return of(true);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      const shops = this._shops;
-
-      const shopIdx2 = shops.findIndex((_shop) => {
-        return _shop.id === shop.id;
-      });
-      shops[shopIdx2] = shop;
-
-      this.shops.next(shops);
-      return this.jsonBinService.setShops(shops);
-    }
+    return this.firestoreService.updateShop(shop).pipe(tap(() => {
+      const index = this._shops.findIndex((_s) => { return _s.id = shop.id; });
+      this._shops[index] = shop;
+      this.shops.next(this._shops);
+    }));
   }
 
   createShop(shop: ShopInterface): Observable<boolean> {
     console.log('ShopService.createShop()', shop);
     shop.createdBy = this.loginService.getLoggedUser();
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      console.log('local');
-      const storedShops = eval(
-        localStorage.getItem(STORE_KEYS_CONSTANTS.PS_SHOPS)
-      ) as ShopInterface[];
-
-      storedShops.push(shop);
-
-      localStorage.setItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS,
-        JSON.stringify(storedShops)
-      );
-      this.shops.next(storedShops);
-      return of(true);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      const shops = this._shops;
-      shops.push(shop);
-      this.shops.next(shops);
-      return this.jsonBinService.setShops(shops);
-    }
+    return this.firestoreService.addShop(shop).pipe(tap(() => {
+      this._shops.push(shop);
+      this.shops.next(this._shops);
+    }));
   }
 
   removeShop(shopId: string): Observable<boolean> {
     console.log('ShopService.removeShop()', shopId);
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      let storedShops = eval(
-        localStorage.getItem(STORE_KEYS_CONSTANTS.PS_SHOPS)
-      ) as ShopInterface[];
-
-      storedShops = storedShops.filter((_shop) => {
-        return _shop.id !== shopId;
-      });
-
-      localStorage.setItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS,
-        JSON.stringify(storedShops)
-      );
-      this.shops.next(storedShops);
-      return of(true);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      let shops = this._shops;
-
-      shops = shops.filter((_shop) => {
-        return _shop.id !== shopId;
-      });
-
-      this.shops.next(shops);
-      return this.jsonBinService.setShops(shops);
-    }
+    this.shops.next(this._shops.filter((_shop) => { return _shop.id !== shopId }));
+    return this.firestoreService.deleteShop(shopId).pipe(tap(() => {
+      this._shops = this._shops.filter((_s) => { return _s.id !== shopId });
+      this.shops.next(this._shops);
+    }));
   }
 
   setFavourites(favourites: string[]) {

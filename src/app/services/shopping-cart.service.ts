@@ -64,14 +64,14 @@ export class ShoppingCartService {
       items: [],
     };
 
-    this.productService.getProducts().subscribe((_products) => {
+    this.productService.products.subscribe((_products) => {
       if (this._cart?.productsBarcodesUnits?.length > 0) {
         this._cart.productsBarcodesUnits.forEach((_productBarcodeUnits) => {
           const product = _products.find((_product) => {
             return _product.barcode === _productBarcodeUnits.barcode;
           });
           if (!product) {
-            console.error('Undefined product');
+            // console.error('Undefined product');
           }
           const cheaperShops =
             this.shopProductService.getProductCheaperShop(product);

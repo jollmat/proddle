@@ -20,7 +20,7 @@ export const DEFAULT_SHOPS: ShopInterface[] = [
   {
     id: 'ametller',
     name: 'Ametller Origen',
-    favourite: true,
+    favourite: false,
     default: true,
     imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROwKa28Sqrl0fWFGunslp82-lyocGHzu21UQnT2gt625cM7Q3tAmtUTFZGcMx7bYIEUt8&usqp=CAU',
@@ -28,7 +28,7 @@ export const DEFAULT_SHOPS: ShopInterface[] = [
   {
     id: 'bonpreu',
     name: 'Bonpreu Esclat',
-    favourite: true,
+    favourite: false,
     default: true,
     imageUrl:
       'http://www.worldcoo.com/blog/wp-content/uploads/2018/01/bonpreu-esclat.png',
@@ -52,7 +52,7 @@ export const DEFAULT_SHOPS: ShopInterface[] = [
   {
     id: 'carrefour',
     name: 'Carrefour',
-    favourite: true,
+    favourite: false,
     default: true,
     imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5pkE4ZM9yedZMjMpaSS66aCSjVMpTY03YUSEGvplUTeiGhGfzf3CY3uocvtVRtfPWFj8&usqp=CAU',
@@ -68,7 +68,7 @@ export const DEFAULT_SHOPS: ShopInterface[] = [
   {
     id: 'condis',
     name: 'Condis',
-    favourite: true,
+    favourite: false,
     default: true,
     imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbPqN4hQB9goxYwrNouiUGP-JaictWMt5o4bVXLq7AOsm5zO7jAFwSNHeBlihvQx635GI&usqp=CAU',
@@ -132,7 +132,7 @@ export const DEFAULT_SHOPS: ShopInterface[] = [
   {
     id: 'mercadona',
     name: 'Mercadona',
-    favourite: true,
+    favourite: false,
     default: true,
     imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHnXNkyr60Ou-399tjzyWEf6mdkOWSxaHmZ6vkJ21zBvxiIBeMaJUjqGwITmCuY7iKFYo&usqp=CAU',

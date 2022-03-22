@@ -35,6 +35,7 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
   loggedUser: UserInterface;
 
   products: ProductInterface[];
+  loading: boolean = true;
 
   onlyFavourites: boolean = false;
   searchText: string = localStorage.getItem(this.STORED_SEARCH_KEY) || '';
@@ -65,15 +66,15 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
     this.productService.toggleFavourite(product).subscribe(() => {});
   }
 
-  doRemove(productBarcode: string) {
+  doRemove(product: ProductInterface) {
     if (
       confirm(
         "Si esborres el producte també s'esborraràn els preus que tingui en les botigues. Continuar?"
       )
     ) {
-      this.productService.removeProduct(productBarcode).subscribe(() => {
+      this.productService.removeProduct(product.id).subscribe(() => {
         this.shopProductService
-          .removeProductShopProducts(productBarcode)
+          .removeProductShopProducts(product.barcode)
           .subscribe(() => {});
       });
     }
@@ -174,28 +175,18 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.spinner.show();
     this.searchText = localStorage.getItem(this.STORED_SEARCH_KEY) || '';
     this.loggedUser = this.loginService.getLoggedUser();
 
-    this.onlyFavourites = this.productService.getFavourites().length > 0;
+    // this.onlyFavourites = this.productService.getFavourites().length > 0;
 
     this.productService.products.subscribe(
       (_products) => {
-        this.products = _products.sort((a, b) => (a.name > b.name ? 1 : -1));
-        setTimeout(() => {
-          this.spinner.hide();
-        }, 500);
-      },
-      () => {
-        this.spinner.hide();
+       this.products = _products.sort((a, b) => (a.name > b.name ? 1 : -1));
       }
     );
-    this.productService.getProducts().subscribe((_products) => {
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 500);
-    });
+    this.products = this.productService._products;
+    this.loading = false;
   }
 
   ngAfterViewInit(): void {

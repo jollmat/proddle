@@ -1,6 +1,7 @@
 import { UserInterface } from './user.interface';
 
 export interface ProductInterface {
+  id?: string,
   barcode: string;
   name: string;
   brand: string;

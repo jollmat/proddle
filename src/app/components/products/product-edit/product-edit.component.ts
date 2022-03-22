@@ -166,29 +166,30 @@ export class ProductEditComponent implements OnInit {
     this.loggedUser = this.loginService.getLoggedUser();
 
     const productBarcode = this.route.snapshot.params['barcode'];
-    this.productService.getProducts().subscribe((_products) => {
-      this.products = _products;
 
-      this.productDetail = _products.find((_product) => {
-        return _product.barcode === productBarcode;
+    this.products = this.productService._products;
+
+    console.log(this.products);
+
+    this.productDetail = this.products.find((_product) => {
+      return _product.barcode === productBarcode;
+    });
+
+    this.getShopProducts();
+
+    this.shopsProductsService
+      .getProductShops(this.productDetail.barcode)
+      .subscribe((_shops) => {
+        this.shops = _shops;
       });
 
-      this.getShopProducts();
-
+    // Sincronize product prices
+    this.shopsProductsService.shopsProducts.subscribe((_shopsProducts) => {
       this.shopsProductsService
-        .getProductShops(this.productDetail.barcode)
-        .subscribe((_shops) => {
-          this.shops = _shops;
+        .getProductShopProducts(this.productDetail.barcode)
+        .subscribe((_shopProducts) => {
+          this.shopProducts = _shopProducts;
         });
-
-      // Sincronize product prices
-      this.shopsProductsService.shopsProducts.subscribe((_shopsProducts) => {
-        this.shopsProductsService
-          .getProductShopProducts(this.productDetail.barcode)
-          .subscribe((_shopProducts) => {
-            this.shopProducts = _shopProducts;
-          });
-      });
     });
   }
 }

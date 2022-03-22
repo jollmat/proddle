@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject, tap } from 'rxjs';
 import { APP_CONFIG } from '../../config/app-config.constant';
-import { DEFAULT_SHOPS_PRODUCTS } from '../model/constants/default-shops-products.constant';
-import { STORE_KEYS_CONSTANTS } from '../model/constants/store-keys.constants';
 import { DataSourceOriginsEnum } from '../model/enums/data-source-origins.enum';
 import { ProductInterface } from '../model/interfaces/product.interface';
 import { ShopProductInterface } from '../model/interfaces/shop-product.interface';
 import { ShopInterface } from '../model/interfaces/shop.interface';
-import { JsonBinService } from './json-bin.service';
+import { FirestoreService } from './firestore.service';
 import { ProductService } from './product.service';
 import { ShopService } from './shop.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({ providedIn: 'root' })
 export class ShopProductService {
@@ -22,104 +21,82 @@ export class ShopProductService {
   _shopsProducts: ShopProductInterface[] = [];
 
   constructor(
-    private jsonBinService: JsonBinService,
     private productService: ProductService,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private firestoreService: FirestoreService
   ) {
     this.shopsProducts.subscribe((_shopsProducts) => {
       this._shopsProducts = _shopsProducts;
     });
 
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[])
-        : [];
+    this.loadShopsProducts().subscribe((_shopsProducts) => {
+      this.shopsProducts.next(_shopsProducts);
+    });
+  }
 
-      if (!shopsProducts || shopsProducts.length === 0) {
-        shopsProducts = DEFAULT_SHOPS_PRODUCTS;
-      }
+  loadShopsProducts(): Observable<ShopProductInterface[]> {
+    return this.firestoreService.getShopsProducts();
+  }
 
-      this.setShopsProducts(shopsProducts);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      this.getShopsProducts().subscribe((_shopsProducts) => {
-        if (!_shopsProducts || _shopsProducts.length === 0) {
-          this.setShopsProducts(DEFAULT_SHOPS_PRODUCTS);
-        } else {
-          this.setShopsProducts(_shopsProducts);
-        }
+  addShopProduct(shopProduct: ShopProductInterface) {
+    if (!shopProduct.id) {
+      shopProduct.id = uuidv4();
+    }
+    return this.firestoreService.addShopProduct(shopProduct).pipe(tap(() => {
+      this._shopsProducts.push(shopProduct);
+      this.shopsProducts.next(this._shopsProducts);
+    }));
+  }
+
+  removeShopProduct(shopProduct: ShopProductInterface): Observable<boolean> {
+    console.log('ShopProductService.removeShopProduct()', shopProduct);
+    return this.firestoreService.deleteShopProduct(shopProduct).pipe(tap(() => {
+      this._shopsProducts = this._shopsProducts.filter((_sp) => {
+        return _sp.productBarcode !== shopProduct.productBarcode || _sp.shopId !== shopProduct.shopId;
       });
-    }
+      this.shopsProducts.next(this._shopsProducts);
+    }));
   }
 
-  getShopsProducts(): Observable<ShopProductInterface[]> {
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[])
-        : [];
-
-      if (!shopsProducts || shopsProducts.length === 0) {
-        shopsProducts = DEFAULT_SHOPS_PRODUCTS;
+  removeShopShopProducts(shopId: string): Observable<boolean> {
+    console.log('ShopProductService.removeShopShopProducts()', shopId);
+    const shopProductsToRemove: ShopProductInterface[] = [];
+    const shopProductsToKeep: ShopProductInterface[] = [];
+    this._shopsProducts.forEach((_shopProduct) => {
+      if (_shopProduct.shopId === shopId) {
+        shopProductsToRemove.push(_shopProduct);
+      } else {
+        shopProductsToKeep.push(_shopProduct);
       }
-
-      this._shopsProducts = shopsProducts;
-      this.shopsProducts.next(shopsProducts);
-      return of(shopsProducts);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      return this.jsonBinService.getShopsProducts().pipe(
-        tap((_shopsProducts) => {
-          this._shopsProducts = _shopsProducts;
-          this.shopsProducts.next(_shopsProducts);
-        })
-      );
-    }
+    });
+    return this.firestoreService.deleteShopProducts(shopProductsToRemove).pipe(tap(() => {
+      this._shopsProducts = shopProductsToKeep;
+      this.shopsProducts.next(this._shopsProducts);
+    }));
   }
 
-  setShopsProducts(shopsProducts: ShopProductInterface[]): Observable<boolean> {
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      localStorage.setItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS,
-        JSON.stringify(shopsProducts)
-      );
-      this._shopsProducts = shopsProducts;
-      this.shopsProducts.next(shopsProducts);
-      return of(true);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      return this.jsonBinService.setShopsProducts(shopsProducts).pipe(
-        tap(() => {
-          this._shopsProducts = shopsProducts;
-          this.shopsProducts.next(shopsProducts);
-        })
-      );
-    }
+  removeProductShopProducts(barcode: string): Observable<boolean> {
+    console.log('ShopProductService.removeProductShopProducts()', barcode);
+    const shopProductsToRemove: ShopProductInterface[] = [];
+    const shopProductsToKeep: ShopProductInterface[] = [];
+    this._shopsProducts.forEach((_shopProduct) => {
+      if (_shopProduct.productBarcode === barcode) {
+        shopProductsToRemove.push(_shopProduct);
+      } else {
+        shopProductsToKeep.push(_shopProduct);
+      }
+    });
+    return this.firestoreService.deleteShopProducts(shopProductsToRemove).pipe(tap(() => {
+      this._shopsProducts = shopProductsToKeep;
+      this.shopsProducts.next(this._shopsProducts);
+    }));
   }
 
   getShopProduct(
     shopId: string,
     productBarcode: string
   ): Observable<ShopProductInterface> {
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[])
-        : [];
-      return of(
-        shopsProducts.find((_shopProduct) => {
-          return (
-            _shopProduct.shopId === shopId &&
-            _shopProduct.productBarcode === productBarcode
-          );
-        })
-      );
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      const shopProductList = this._shopsProducts
+    const shopProductList = this._shopsProducts
         .filter((_shopProduct) => {
           return (
             _shopProduct.productBarcode === productBarcode &&
@@ -128,40 +105,10 @@ export class ShopProductService {
         })
         .sort((a, b) => (a.updateDate < b.updateDate ? 1 : -1));
       return of(shopProductList.length > 0 ? shopProductList[0] : undefined);
-    }
   }
 
   getShopProducts(shopId: string): Observable<ProductInterface[]> {
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-      const storedProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_PRODUCTS
-      );
-
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[]).filter(
-            (_shopProduct) => {
-              return _shopProduct.shopId === shopId;
-            }
-          )
-        : [];
-      let products = storedProducts
-        ? (eval(storedProducts) as ProductInterface[])
-        : [];
-
-      let productsBarcodes = shopsProducts.map((_shopProduct) => {
-        return _shopProduct.productBarcode;
-      });
-
-      return of(
-        products.filter((_product) => {
-          return productsBarcodes.indexOf(_product.barcode) >= 0;
-        })
-      );
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      const productBarcodes = this._shopsProducts
+    const productBarcodes = this._shopsProducts
         .filter((_shopProduct) => {
           return _shopProduct.shopId === shopId;
         })
@@ -173,36 +120,10 @@ export class ShopProductService {
           return productBarcodes.indexOf(_product.barcode) > -1;
         })
       );
-    }
   }
 
   getProductShops(barcode: string): Observable<ShopInterface[]> {
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-      const storedShops = localStorage.getItem(STORE_KEYS_CONSTANTS.PS_SHOPS);
-
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[]).filter(
-            (_shopProduct) => {
-              return _shopProduct.productBarcode === barcode;
-            }
-          )
-        : [];
-      let shops = storedShops ? (eval(storedShops) as ShopInterface[]) : [];
-
-      let shopsIds = shopsProducts.map((_shopProduct) => {
-        return _shopProduct.shopId;
-      });
-
-      return of(
-        shops.filter((_shop) => {
-          return shopsIds.indexOf(_shop.id) >= 0;
-        })
-      );
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      const shopIds = this._shopsProducts
+    const shopIds = this._shopsProducts
         .filter((_shopProduct) => {
           return _shopProduct.productBarcode === barcode;
         })
@@ -214,160 +135,22 @@ export class ShopProductService {
           return shopIds.indexOf(_shop.id) > -1;
         })
       );
-    }
   }
 
   getShopShopProducts(shopId: string): Observable<ShopProductInterface[]> {
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[]).filter(
-            (_shopProduct) => {
-              return _shopProduct.shopId === shopId;
-            }
-          )
-        : [];
-
-      return of(shopsProducts);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      return of(
-        this._shopsProducts.filter((_shopProduct) => {
-          return _shopProduct.shopId === shopId;
-        })
-      );
-    }
+    return of(
+      this._shopsProducts.filter((_shopProduct) => {
+        return _shopProduct.shopId === shopId;
+      })
+    );
   }
 
   getProductShopProducts(barcode: string): Observable<ShopProductInterface[]> {
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[]).filter(
-            (_shopProduct) => {
-              return _shopProduct.productBarcode === barcode;
-            }
-          )
-        : [];
-      return of(shopsProducts);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      return of(
-        this._shopsProducts.filter((_shopProduct) => {
-          return _shopProduct.productBarcode === barcode;
-        })
-      );
-    }
-  }
-
-  removeShopProduct(shopProduct: ShopProductInterface): Observable<boolean> {
-    console.log('ShopProductService.removeShopProduct()', shopProduct);
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-      let shopsProducts = storedShopsProducts
-        ? (JSON.parse(storedShopsProducts) as ShopProductInterface[])
-        : DEFAULT_SHOPS_PRODUCTS;
-
-      shopsProducts = shopsProducts.filter((_shopProduct) => {
-        return (
-          _shopProduct.productBarcode !== shopProduct.productBarcode ||
-          _shopProduct.shopId !== shopProduct.shopId
-        );
-      });
-
-      this._shopsProducts = shopsProducts;
-      localStorage.setItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS,
-        JSON.stringify(shopsProducts)
-      );
-      this.shopsProducts.next(shopsProducts);
-      return of(true);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      this.getShopsProducts().pipe(
-        tap((_shopsProducts) => {
-          this.setShopsProducts(
-            _shopsProducts.filter((_shopProduct) => {
-              return (
-                _shopProduct.productBarcode !== shopProduct.productBarcode &&
-                _shopProduct.shopId !== shopProduct.shopId
-              );
-            })
-          );
-        })
-      );
-    }
-  }
-
-  removeShopShopProducts(shopId: string): Observable<boolean> {
-    console.log('ShopProductService.removeShopShopProducts()', shopId);
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[])
-        : DEFAULT_SHOPS_PRODUCTS;
-
-      shopsProducts = shopsProducts.filter((_shopProduct) => {
-        return _shopProduct.shopId !== shopId;
-      });
-
-      localStorage.setItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS,
-        JSON.stringify(shopsProducts)
-      );
-      this.shopsProducts.next(shopsProducts);
-      return of(true);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      this.getShopsProducts().pipe(
-        tap((_shopsProducts) => {
-          this.setShopsProducts(
-            _shopsProducts.filter((_shopProduct) => {
-              return _shopProduct.shopId !== shopId;
-            })
-          );
-        })
-      );
-    }
-  }
-
-  removeProductShopProducts(barcode: string): Observable<boolean> {
-    console.log('ShopProductService.removeProductShopProducts()', barcode);
-    if (this.source === DataSourceOriginsEnum.LOCAL) {
-      const storedShopsProducts = localStorage.getItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS
-      );
-      let shopsProducts = storedShopsProducts
-        ? (eval(storedShopsProducts) as ShopProductInterface[])
-        : DEFAULT_SHOPS_PRODUCTS;
-
-      shopsProducts = shopsProducts.filter((_shopProduct) => {
-        return _shopProduct.productBarcode !== barcode;
-      });
-
-      localStorage.setItem(
-        STORE_KEYS_CONSTANTS.PS_SHOPS_PRODUCTS,
-        JSON.stringify(shopsProducts)
-      );
-      this.shopsProducts.next(shopsProducts);
-      return of(true);
-    } else if (this.source === DataSourceOriginsEnum.JSON_BIN) {
-      this.getShopsProducts().pipe(
-        tap((_shopsProducts) => {
-          this.setShopsProducts(
-            _shopsProducts.filter((_shopProduct) => {
-              return _shopProduct.productBarcode !== barcode;
-            })
-          );
-        })
-      );
-    }
+    return of(
+      this._shopsProducts.filter((_shopProduct) => {
+        return _shopProduct.productBarcode === barcode;
+      })
+    );
   }
 
   getShopProductLast(shopId: string, barcode: string): ShopProductInterface {

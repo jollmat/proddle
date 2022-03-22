@@ -59,18 +59,12 @@ export class HomeComponent implements OnInit {
       }, 500);
     });
 
-    this.shopService.getShops().subscribe((_shops) => {});
-    this.productService.getProducts().subscribe((_products) => {});
+    this.shops = this.shopService._shops;
+    this.products = this.productService._products;
 
     setTimeout(() => {
       this.spinner.hide();
     }, 500);
-
-    /*
-    this.firestoreService.getShops().subscribe((_res) => {
-      console.log('Firestore cats:');
-      console.log(_res);
-    });
-    */
+    
   }
 }

@@ -20,6 +20,7 @@ import { OpenFoodService } from '../../../services/openfood.service';
 import { ProductService } from '../../../services/product.service';
 import { ShopProductService } from '../../../services/shop-product.service';
 import { ShopService } from '../../../services/shop.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-add-product-by-barcode',
@@ -38,6 +39,7 @@ export class AddProductByBarcodeComponent implements OnInit {
   shopsProducts: ShopProductInterface[];
 
   productDetail: ProductInterface = {
+    id: uuidv4(),
     barcode: '',
     brand: '',
     favourite: false,
@@ -82,6 +84,7 @@ export class AddProductByBarcodeComponent implements OnInit {
 
   getNewProduct(): ProductInterface {
     return {
+      id: uuidv4(),
       barcode: '',
       brand: '',
       favourite: false,
@@ -198,12 +201,9 @@ export class AddProductByBarcodeComponent implements OnInit {
     if (shopProduct) {
       console.log('saveShopProduct()', shopProduct);
       shopProduct.createdBy = this.loggedUser;
-      this.shopsProducts.push(shopProduct);
-      this.shopProductService
-        .setShopsProducts(this.shopsProducts)
-        .subscribe(() => {
-          this.exit();
-        });
+      this.shopProductService.addShopProduct(shopProduct).subscribe(() => {
+        this.exit();
+      });
     } else {
       console.log('saveShopProduct()', this.shopProductDetail);
       const existsShopProduct = this.shopsProducts.some((_shopProduct) => {
@@ -219,11 +219,9 @@ export class AddProductByBarcodeComponent implements OnInit {
         confirm(this.translate.instant('scanner.addExistingShopProductConfirm'))
       ) {
         this.shopsProducts.push(this.shopProductDetail);
-        this.shopProductService
-          .setShopsProducts(this.shopsProducts)
-          .subscribe(() => {
-            this.exit();
-          });
+        this.shopProductService.addShopProduct(shopProduct).subscribe(() => {
+          this.exit();
+        });
       } else {
         this.exit();
       }
@@ -239,30 +237,16 @@ export class AddProductByBarcodeComponent implements OnInit {
     if (!this.lockProductEdition) {
       this.productService.createProduct(data.product).subscribe(() => {
         if (data.shopProduct) {
-          this.shopProductService
-            .getShopsProducts()
-            .subscribe((_shopsProducts) => {
-              let shopsProducts = [..._shopsProducts];
-              shopsProducts.push(data.shopProduct);
-              this.shopProductService
-                .setShopsProducts(shopsProducts)
-                .subscribe(() => {
-                  this.exit();
-                });
-            });
+          this.shopProductService.addShopProduct(data.shopProduct).subscribe(() => {
+            this.exit();
+          });
         } else {
           this.exit();
         }
       });
     } else if (data.shopProduct) {
-      this.shopProductService.getShopsProducts().subscribe((_shopsProducts) => {
-        let shopsProducts = [..._shopsProducts];
-        shopsProducts.push(data.shopProduct);
-        this.shopProductService
-          .setShopsProducts(shopsProducts)
-          .subscribe(() => {
-            this.exit();
-          });
+      this.shopProductService.addShopProduct(data.shopProduct).subscribe(() => {
+        this.exit();
       });
     } else {
       this.exit();
@@ -279,11 +263,11 @@ export class AddProductByBarcodeComponent implements OnInit {
     this.shopProductService.shopsProducts.subscribe((_shopsProducts) => {
       this.shopsProducts = _shopsProducts;
     });
-    this.shopProductService.getShopsProducts().subscribe(() => {});
+    this.shopsProducts = this.shopProductService._shopsProducts;
 
     this.shopService.shops.subscribe((_shops) => {
       this.shops = _shops;
     });
-    this.shopService.getShops().subscribe(() => {});
+    this.shops = this.shopService._shops;
   }
 }

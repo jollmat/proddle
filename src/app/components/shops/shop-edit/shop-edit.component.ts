@@ -201,7 +201,9 @@ export class ShopEditComponent implements OnInit {
 
     const shopId = this.route.snapshot.params['id'];
 
-    this.shopService.getShops().subscribe((_shops) => {
+    this.shops = this.shopService._shops;
+
+    this.shopService.shops.subscribe((_shops) => {
       this.shops = _shops;
 
       this.shopDetail = _shops.find((_shop) => {
@@ -214,5 +216,11 @@ export class ShopEditComponent implements OnInit {
     this.shopsProductsService.shopsProducts.subscribe((_shopsProducts) => {
       this.configShopsProducts();
     });
+
+    this.shops = this.shopService._shops;
+    this.shopDetail = this.shops.find((_shop) => {
+      return _shop.id === shopId;
+    });
+    this.configShopsProducts();
   }
 }

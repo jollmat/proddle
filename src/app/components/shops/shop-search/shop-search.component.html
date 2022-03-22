@@ -160,10 +160,10 @@
       no-data
     "
   >
-    <small *ngIf="shops.length === 0" class="no-data-msg"
+    <small *ngIf="shops.length === 0 && !loading" class="no-data-msg"
       >{{'shops.noShopAdded' | translate}}</small
     >
-    <small *ngIf="!hasFavourites() && onlyFavourites" class="no-data-msg"
+    <small *ngIf="!hasFavourites() && onlyFavourites && !loading" class="no-data-msg"
       >{{'shops.noFavouriteShop' | translate}}</small
     >
   </div>

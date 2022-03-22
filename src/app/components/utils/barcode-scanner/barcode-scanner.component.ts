@@ -22,6 +22,7 @@ import { OpenFoodService } from '../../../services/openfood.service';
 import { ProductService } from '../../../services/product.service';
 import { ShopProductService } from '../../../services/shop-product.service';
 import { ShopService } from '../../../services/shop.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-barcode-scanner',
@@ -168,6 +169,7 @@ export class BarcodeScannerComponent implements AfterViewInit {
   saveProduct() {
     if (!this.savedProduct) {
       const product: ProductInterface = {
+        id: uuidv4(),
         barcode: this.barcodeValue,
         brand: this.openFoodProduct?.product?.brands
           ? this.capitalizeFirstLetter(this.openFoodProduct.product.brands)
@@ -218,7 +220,8 @@ export class BarcodeScannerComponent implements AfterViewInit {
         confirm(this.translate.instant('scanner.createUnknownProductConfirm'))
       ) {
         if (this.openFoodProductFound) {
-          this.products.push({
+          this.newProduct = {
+            id: uuidv4(),
             barcode: this.shopProduct.productBarcode,
             brand: this.openFoodProduct?.product?.brands || '?',
             favourite: false,
@@ -226,13 +229,14 @@ export class BarcodeScannerComponent implements AfterViewInit {
               this.openFoodProduct?.product?.product_name || '?',
             imageUrl: this.openFoodProduct?.product?.image_url || DEFAULT_IMAGE_URL,
             createdBy: this.loggedUser,
-          });
+          };
+          this.products.push(this.newProduct);
         } else {
           this.newProduct.barcode = this.shopProduct.productBarcode;
           this.products.push(this.newProduct);
         }
-
-        this.productService.setProducts(this.products).subscribe(() => {
+        console.log(this.newProduct);
+        this.productService.createProduct(this.newProduct).subscribe(() => {
           this.onSaveShopProduct.emit(this.shopProduct);
         });
       }
@@ -248,6 +252,7 @@ export class BarcodeScannerComponent implements AfterViewInit {
     this.barcodeScanner.start();
 
     this.newProduct = {
+      id: uuidv4(),
       barcode: '',
       name: '',
       brand: '',
@@ -267,21 +272,17 @@ export class BarcodeScannerComponent implements AfterViewInit {
     this.shopProductService.shopsProducts.subscribe((_shopsProducts) => {
       this.shopsProducts = _shopsProducts;
     });
-    this.shopProductService.getShopsProducts().subscribe(() => {
-      // console.log('ShopProducts loaded!');
-    });
     this.productService.products.subscribe((_products) => {
       this.products = _products;
-    });
-    this.productService.getProducts().subscribe(() => {
-      // console.log('Products loaded!');
     });
     this.shopService.shops.subscribe((_shops) => {
       this.shops = _shops;
     });
-    this.shopService.getShops().subscribe(() => {
-      // console.log('Shops loaded!');
-    });
+
+    this.shopsProducts = this.shopProductService._shopsProducts;
+    this.shops = this.shopService._shops;
+    this.products = this.productService._products;
+    
   }
 
   onStarted(started) {
