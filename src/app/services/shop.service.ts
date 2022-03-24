@@ -40,6 +40,7 @@ export class ShopService {
 
     this.loadShops().subscribe((_shops) => {
       if(!_shops || _shops.length === 0) {
+        this.firestoreService.addShops(DEFAULT_SHOPS);
         _shops = DEFAULT_SHOPS;
       }
       this.shops.next(_shops);

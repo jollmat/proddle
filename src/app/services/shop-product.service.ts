@@ -9,6 +9,7 @@ import { FirestoreService } from './firestore.service';
 import { ProductService } from './product.service';
 import { ShopService } from './shop.service';
 import { v4 as uuidv4 } from 'uuid';
+import { DEFAULT_SHOPS_PRODUCTS } from '../model/constants/default-shops-products.constant';
 
 @Injectable({ providedIn: 'root' })
 export class ShopProductService {
@@ -30,6 +31,9 @@ export class ShopProductService {
     });
 
     this.loadShopsProducts().subscribe((_shopsProducts) => {
+      if(!_shopsProducts || _shopsProducts.length === 0){
+        this.firestoreService.addShopProducts(DEFAULT_SHOPS_PRODUCTS);
+      }
       this.shopsProducts.next(_shopsProducts);
     });
   }

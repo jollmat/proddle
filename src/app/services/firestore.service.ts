@@ -3,7 +3,7 @@ import { ShopInterface } from '../model/interfaces/shop.interface';
 import { ProductInterface } from '../model/interfaces/product.interface';
 import { Firestore, collection, addDoc, collectionData, doc } from '@angular/fire/firestore';
 import { from, Observable, of } from 'rxjs';
-import { CollectionReference, deleteDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { CollectionReference, deleteDoc, setDoc, updateDoc, writeBatch } from 'firebase/firestore';
 import { ShopProductInterface } from '../model/interfaces/shop-product.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -15,6 +15,21 @@ export class FirestoreService {
     console.log('FirestoreService.addShop()', shop);
     const shopsRef = collection(this.firestore, 'shops');
     return from(addDoc(shopsRef, shop));
+  }
+
+  addShops(shops: ShopInterface[]): Observable<boolean>{
+    console.log('FirestoreService.addShops()', shops);
+    const batch = writeBatch(this.firestore);
+    
+    shops.forEach((_shop) => {
+      const colRef = collection(this.firestore, 'shops');
+      const newShopRef = doc(colRef);
+      batch.set(newShopRef, _shop);
+    });
+
+    batch.commit();
+
+    return of(true);
   }
 
   deleteShop(shopId: string): Observable<any> {
@@ -47,6 +62,21 @@ export class FirestoreService {
     console.log('FirestoreService.addProduct()', product);
     const productsRef = collection(this.firestore, 'products');
     return from(addDoc(productsRef, product));
+  }
+
+  addProducts(products: ProductInterface[]): Observable<boolean>{
+    console.log('FirestoreService.addProducts()', products);
+    const batch = writeBatch(this.firestore);
+    
+    products.forEach((_product) => {
+      const colRef = collection(this.firestore, 'products');
+      const newProductRef = doc(colRef);
+      batch.set(newProductRef, _product);
+    });
+
+    batch.commit();
+
+    return of(true);
   }
 
   deleteProduct(id: string): Observable<any> {
@@ -86,6 +116,21 @@ export class FirestoreService {
     console.log('FirestoreService.addShopProduct()', shopProduct);
     const productsRef = collection(this.firestore, 'shopsProducts');
     return from(addDoc(productsRef, shopProduct));
+  }
+
+  addShopProducts(shopProducts: ShopProductInterface[]): Observable<boolean>{
+    console.log('FirestoreService.addShopProducts()', shopProducts);
+    const batch = writeBatch(this.firestore);
+    
+    shopProducts.forEach((_shopProduct) => {
+      const colRef = collection(this.firestore, 'shopsProducts');
+      const newShopProductRef = doc(colRef);
+      batch.set(newShopProductRef, _shopProduct);
+    });
+
+    batch.commit();
+
+    return of(true);
   }
 
 }

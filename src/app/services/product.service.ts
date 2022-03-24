@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject, tap } from 'rxjs';
 import { APP_CONFIG } from '../../config/app-config.constant';
 import { DEFAULT_IMAGE_URL } from '../model/constants/default-image.constant';
+import { DEFAULT_PRODUCTS } from '../model/constants/default-products.constant';
 import { STORE_KEYS_CONSTANTS } from '../model/constants/store-keys.constants';
 import { DataSourceOriginsEnum } from '../model/enums/data-source-origins.enum';
 import { ProductInterface } from '../model/interfaces/product.interface';
@@ -30,6 +31,11 @@ export class ProductService {
     });
 
     this.loadProducts().subscribe((_products) => {
+      if (!_products || _products.length === 0) {
+        this.firestoreService.addProducts(DEFAULT_PRODUCTS);
+        _products = DEFAULT_PRODUCTS;
+      }
+
       this.products.next(_products);
     })
 
