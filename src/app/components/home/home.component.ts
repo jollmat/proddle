@@ -20,8 +20,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private shopService: ShopService,
-    private spinner: NgxSpinnerService,
-    private firestoreService: FirestoreService
+    private spinner: NgxSpinnerService
   ) {}
 
   toggleShopList() {
@@ -45,7 +44,7 @@ export class HomeComponent implements OnInit {
 
     this.shopService.shops.subscribe((_shops) => {
       this.spinner.show();
-      this.shops = _shops.sort((a, b) => (a.name > b.name ? 1 : -1));
+      this.shops = _shops.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
@@ -53,7 +52,7 @@ export class HomeComponent implements OnInit {
 
     this.productService.products.subscribe((_products) => {
       this.spinner.show();
-      this.products = _products.sort((a, b) => (a.name > b.name ? 1 : -1));
+      this.products = _products.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
       setTimeout(() => {
         this.spinner.hide();
       }, 500);

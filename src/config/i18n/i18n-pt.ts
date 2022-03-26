@@ -101,7 +101,11 @@ export const i18n_PT = {
     amountNoOptimized: 'Total NÃO otimizado',
     amountSaved: 'Total salvo',
     noProducts: 'Não há produtos no carrinho de compras.',
-    confirmEmpty: 'Todo o carrinho de compras será esvaziado. Continuar?'
+    confirmEmpty: 'Todo o carrinho de compras será esvaziado. Continuar?',
+    trick: {
+      title: 'Dica útil',
+      text: 'Clique em qualquer item da lista para marcar/desmarcar como compra pendente.'
+    }
   },
   shopStandings: {
     title: {

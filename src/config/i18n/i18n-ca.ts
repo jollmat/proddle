@@ -101,7 +101,11 @@ export const i18n_CA = {
     amountNoOptimized: 'Total NO optimitzat',
     amountSaved: 'Total estalviat',
     noProducts: 'No hi ha productes a la cistella de la compra.',
-    confirmEmpty: 'Es buidarà tota la cistella de la compra. Continuar?'
+    confirmEmpty: 'Es buidarà tota la cistella de la compra. Continuar?',
+    trick: {
+      title: 'Consell útil',
+      text: 'Fes clic sobre qualsevol element de la llista per a marcar/desmarcar com a pendent de compra.'
+    }
   },
   shopStandings: {
     title: {

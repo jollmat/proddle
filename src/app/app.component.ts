@@ -1,11 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
 import { APP_CONFIG } from '../config/app-config.constant';
-import { DEFAULT_SHOPS_PRODUCTS } from './model/constants/default-shops-products.constant';
-import { DEFAULT_SHOPS } from './model/constants/default-shops.constant';
-import { DEFAULT_PRODUCTS } from './model/constants/default-products.constant';
-import { DataSourceOriginsEnum } from './model/enums/data-source-origins.enum';
 import { ProductInterface } from './model/interfaces/product.interface';
 import { ShopProductInterface } from './model/interfaces/shop-product.interface';
 import { ShopInterface } from './model/interfaces/shop.interface';
@@ -34,9 +29,8 @@ export class AppComponent implements OnInit {
     this.checkBackofficeMode();
   }
 
-  DataSourceOriginsEnum = DataSourceOriginsEnum;
-  dataSource: DataSourceOriginsEnum = APP_CONFIG.source;
-
+  APP_CONFIG = APP_CONFIG;
+  
   shops: ShopInterface[];
   products: ProductInterface[];
   shopsProducts: ShopProductInterface[];
@@ -44,12 +38,16 @@ export class AppComponent implements OnInit {
   doExport: boolean = false;
 
   loggedUser: UserInterface;
-  backofficeEnabled: boolean = false;
+  backofficeMode: boolean = false;
 
   cartConfig: ShoppingCartConfigInterface;
   cartItemCount: number;
 
   translationsLoaded: boolean = false;
+
+  shopsLoaded: boolean = false;
+  productsLoaded: boolean = false;
+  shopsProductsLoaded: boolean = false;
 
   constructor(
     private router: Router,
@@ -62,6 +60,7 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     private translationsService: TranslationsService
   ) {
+
     this.translate.setDefaultLang(APP_CONFIG.defaultLanguage);
 
     console.log('Loading translations');
@@ -79,7 +78,6 @@ export class AppComponent implements OnInit {
           APP_CONFIG.defaultLanguage
         );
       }
-
       this.translationsLoaded = true;
 
       console.log(
@@ -129,9 +127,9 @@ export class AppComponent implements OnInit {
 
   checkBackofficeMode() {
     if (this.loggedUser?.isAdmin) {
-      this.backofficeEnabled = window.innerWidth > 768;
+      this.backofficeMode = window.innerWidth > 568;
     } else {
-      this.backofficeEnabled = false;
+      this.backofficeMode = false;
     }
   }
 
@@ -150,30 +148,36 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
 
-    this.shoppingCartService.cartConfig.subscribe((_cartConfig) => {
-      this.cartConfig = _cartConfig;
-      // console.log(this.cartConfig);
-      this.calcCartItems();
-    });
-    this.shoppingCartService.buildCartConfig();
-
     this.shopService.shops.subscribe((_shops) => {
-      this.shops = _shops.sort((a, b) => (a.name > b.name ? 1 : -1));
+      this.shops = _shops.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
+      console.log(this.shops);
     });
-
     this.productService.products.subscribe((_products) => {
-      this.products = _products.sort((a, b) => (a.name > b.name ? 1 : -1));
+      this.products = _products.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
     });
-
     this.shopProductService.shopsProducts.subscribe((_shopsProducts) => {
       this.shopsProducts = _shopsProducts.sort((a, b) =>
         a.updateDate > b.updateDate ? 1 : -1
       );
     });
 
-    this.shops = this.shopService._shops;
-    this.products = this.productService._products;
-    this.shopsProducts = this.shopProductService._shopsProducts;
+    this.shopsLoaded = this.shopService._shops && this.shopService._shops.length > 0;
+    this.productsLoaded = this.productService._products && this.productService._products.length > 0;
+    this.shopsProductsLoaded = this.shopProductService._shopsProducts && this.shopProductService._shopsProducts.length > 0;
+
+    // Shopping cart
+
+    setTimeout(() => {
+      this.shoppingCartService.loadShoppingCart();
+
+      this.shoppingCartService.cartConfig.subscribe((_cartConfig) => {
+        this.cartConfig = _cartConfig;
+        this.calcCartItems();
+      });
+      this.shoppingCartService.buildCartConfig();
+    }, 500);
+
+    // Logged user
 
     this.loginService.user.subscribe((_user) => {
       this.loggedUser = _user;
@@ -184,8 +188,6 @@ export class AppComponent implements OnInit {
 
     this.loginService.refreshUser();
 
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 500);
+    this.spinner.hide();
   }
 }

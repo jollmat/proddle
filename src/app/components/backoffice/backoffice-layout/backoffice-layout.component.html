@@ -45,7 +45,7 @@
   </ul>
 
   <!-- TABS CONTENTS -->
-  <div class="tab-content p-3 h-100">
+  <div class="tab-content">
     <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 0">
       <app-backoffice-dashboard
         [shops]="shops"
@@ -55,7 +55,10 @@
     </div>
     <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 1">Botigues</div>
     <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 2">
-      <app-backoffice-products [products]="products"></app-backoffice-products>
+      <app-backoffice-products 
+        [products]="products"
+        (onSortEmitter)="sortProducts($event)"
+        class="w-100"></app-backoffice-products>
     </div>
     <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 3">Usuaris</div>
   </div>

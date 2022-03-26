@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject, tap } from 'rxjs';
-import { APP_CONFIG } from '../../config/app-config.constant';
-import { DataSourceOriginsEnum } from '../model/enums/data-source-origins.enum';
 import { ProductInterface } from '../model/interfaces/product.interface';
 import { ShopProductInterface } from '../model/interfaces/shop-product.interface';
 import { ShopInterface } from '../model/interfaces/shop.interface';
@@ -10,14 +8,13 @@ import { ProductService } from './product.service';
 import { ShopService } from './shop.service';
 import { v4 as uuidv4 } from 'uuid';
 import { DEFAULT_SHOPS_PRODUCTS } from '../model/constants/default-shops-products.constant';
+import { APP_CONFIG } from 'src/config/app-config.constant';
 
 @Injectable({ providedIn: 'root' })
 export class ShopProductService {
   shopsProducts: Subject<ShopProductInterface[]> = new Subject<
     ShopProductInterface[]
   >();
-
-  source: DataSourceOriginsEnum = APP_CONFIG.source;
 
   _shopsProducts: ShopProductInterface[] = [];
 
@@ -30,36 +27,64 @@ export class ShopProductService {
       this._shopsProducts = _shopsProducts;
     });
 
-    this.loadShopsProducts().subscribe((_shopsProducts) => {
-      if(!_shopsProducts || _shopsProducts.length === 0){
-        this.firestoreService.addShopProducts(DEFAULT_SHOPS_PRODUCTS);
-      }
-      this.shopsProducts.next(_shopsProducts);
-    });
+    this.loadShopsProducts().subscribe();
   }
 
   loadShopsProducts(): Observable<ShopProductInterface[]> {
-    return this.firestoreService.getShopsProducts();
+    console.log('ShopProductService.loadShopsProducts()');
+
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.getShopsProducts().pipe(tap((shopsProducts) => {
+        if(!shopsProducts || shopsProducts.length === 0){
+          shopsProducts = DEFAULT_SHOPS_PRODUCTS;
+          this.firestoreService.addShopProducts(shopsProducts);
+        }
+        this.shopsProducts.next(shopsProducts);
+      }));
+    } else {
+      return of(DEFAULT_SHOPS_PRODUCTS).pipe(tap((shopsProducts) => {
+        if(!shopsProducts || shopsProducts.length === 0){
+          shopsProducts = DEFAULT_SHOPS_PRODUCTS;
+          this.firestoreService.addShopProducts(shopsProducts);
+        }
+        this.shopsProducts.next(shopsProducts);
+      }));
+    }
   }
 
   addShopProduct(shopProduct: ShopProductInterface) {
     if (!shopProduct.id) {
       shopProduct.id = uuidv4();
     }
-    return this.firestoreService.addShopProduct(shopProduct).pipe(tap(() => {
+
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.addShopProduct(shopProduct).pipe(tap(() => {
+        this._shopsProducts.push(shopProduct);
+        this.shopsProducts.next(this._shopsProducts);
+      }));
+    } else {
       this._shopsProducts.push(shopProduct);
       this.shopsProducts.next(this._shopsProducts);
-    }));
+    }
+    return of(true);
   }
 
   removeShopProduct(shopProduct: ShopProductInterface): Observable<boolean> {
     console.log('ShopProductService.removeShopProduct()', shopProduct);
-    return this.firestoreService.deleteShopProduct(shopProduct).pipe(tap(() => {
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.deleteShopProduct(shopProduct).pipe(tap(() => {
+        this._shopsProducts = this._shopsProducts.filter((_sp) => {
+          return _sp.productBarcode !== shopProduct.productBarcode || _sp.shopId !== shopProduct.shopId;
+        });
+        this.shopsProducts.next(this._shopsProducts);
+      }));
+    } else {
       this._shopsProducts = this._shopsProducts.filter((_sp) => {
         return _sp.productBarcode !== shopProduct.productBarcode || _sp.shopId !== shopProduct.shopId;
       });
       this.shopsProducts.next(this._shopsProducts);
-    }));
+    }
+    return of(true);
   }
 
   removeShopShopProducts(shopId: string): Observable<boolean> {
@@ -73,10 +98,16 @@ export class ShopProductService {
         shopProductsToKeep.push(_shopProduct);
       }
     });
-    return this.firestoreService.deleteShopProducts(shopProductsToRemove).pipe(tap(() => {
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.deleteShopProducts(shopProductsToRemove).pipe(tap(() => {
+        this._shopsProducts = shopProductsToKeep;
+        this.shopsProducts.next(this._shopsProducts);
+      }));
+    } else {
       this._shopsProducts = shopProductsToKeep;
       this.shopsProducts.next(this._shopsProducts);
-    }));
+    }
+    return of(true);
   }
 
   removeProductShopProducts(barcode: string): Observable<boolean> {
@@ -90,10 +121,16 @@ export class ShopProductService {
         shopProductsToKeep.push(_shopProduct);
       }
     });
-    return this.firestoreService.deleteShopProducts(shopProductsToRemove).pipe(tap(() => {
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.deleteShopProducts(shopProductsToRemove).pipe(tap(() => {
+        this._shopsProducts = shopProductsToKeep;
+        this.shopsProducts.next(this._shopsProducts);
+      }));
+    } else {
       this._shopsProducts = shopProductsToKeep;
       this.shopsProducts.next(this._shopsProducts);
-    }));
+    }
+    return of(true);
   }
 
   getShopProduct(
@@ -176,6 +213,7 @@ export class ShopProductService {
     if (!product) {
       return [];
     }
+
     this._shopsProducts
       .filter((_shopProduct) => {
         return _shopProduct.productBarcode === product.barcode;

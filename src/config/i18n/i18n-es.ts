@@ -101,7 +101,11 @@ export const i18n_ES = {
     amountNoOptimized: 'Total NO optimizado',
     amountSaved: 'Total ahorrado',
     noProducts: 'No hay productos en la cesta.',
-    confirmEmpty: 'Se vaciará toda la cesta de la compra. ¿Continuar?'
+    confirmEmpty: 'Se vaciará toda la cesta de la compra. ¿Continuar?',
+    trick: {
+      title: 'Consejo útil',
+      text: 'Haz clic sobre cualquier elemento de la lista para marcar/desmarcar como pendiente de compra.'
+    }
   },
   shopStandings: {
     title: {

@@ -58,20 +58,20 @@ export class ShoppingCartService {
   }
 
   buildCartConfig(): void {
-    console.log('buildCartConfig()', this._cart);
+    // console.log('buildCartConfig()', this._cart);
 
     this._cartConfig = {
       items: [],
     };
 
-    this.productService.products.subscribe((_products) => {
+    this.productService.getProducts().subscribe((_products) => {
       if (this._cart?.productsBarcodesUnits?.length > 0) {
         this._cart.productsBarcodesUnits.forEach((_productBarcodeUnits) => {
           const product = _products.find((_product) => {
             return _product.barcode === _productBarcodeUnits.barcode;
           });
           if (!product) {
-            // console.error('Undefined product');
+            console.error('Undefined product');
           }
           const cheaperShops =
             this.shopProductService.getProductCheaperShop(product);
@@ -84,12 +84,13 @@ export class ShoppingCartService {
               noShopsItem.productsUnits.push({
                 product: product,
                 units: _productBarcodeUnits.units,
+                checked: _productBarcodeUnits.checked
               });
             } else {
               this._cartConfig.items.push({
                 shop: undefined,
                 productsUnits: [
-                  { product: product, units: _productBarcodeUnits.units },
+                  { product: product, units: _productBarcodeUnits.units, checked: _productBarcodeUnits.checked },
                 ],
               });
             }
@@ -107,6 +108,7 @@ export class ShoppingCartService {
                 units: _productBarcodeUnits.units,
                 minPrice: lowestPrice,
                 maxPrice: highestPrice,
+                checked: _productBarcodeUnits.checked
               };
               if (shopCartItem) {
                 shopCartItem.productsUnits.push(productUnits);
@@ -130,6 +132,21 @@ export class ShoppingCartService {
       return productBarcodeUnits.barcode === product.barcode;
     }).units = units;
     this._cart.updateDate = new Date().getTime();
+    this.cart.next(this._cart);
+  }
+
+  toggleCartProductMarked(productUnitsItem: {
+    product: ProductInterface;
+    units: number;
+    minPrice?: number;
+    maxPrice?: number;
+    checked: boolean
+  }) {
+    this._cart.productsBarcodesUnits.find(
+      (productBarcodeUnits) => {
+        return productBarcodeUnits.barcode === productUnitsItem.product.barcode;
+      }
+    ).checked = !productUnitsItem.checked;
     this.cart.next(this._cart);
   }
 
@@ -165,6 +182,7 @@ export class ShoppingCartService {
         cart.productsBarcodesUnits.push({
           barcode: product.barcode,
           units: 1,
+          checked: false
         });
       }
     } else {
@@ -173,6 +191,7 @@ export class ShoppingCartService {
           {
             barcode: product.barcode,
             units: 1,
+            checked: false
           },
         ],
         createDate: new Date().getTime(),

@@ -1,13 +1,8 @@
-<ng-container *ngIf="translationsLoaded">
+<ng-container *ngIf="translationsLoaded && shopsLoaded && productsLoaded && shopsProductsLoaded">
   <div class="d-flex justify-content-center w-100 h-100">
     <div
+      *ngIf="!backofficeMode"
       class="d-flex flex-column w-100"
-      [ngClass]="{
-        mobilesim: backofficeEnabled,
-        'w-100': !backofficeEnabled,
-        'h-100': !backofficeEnabled,
-        'm-5': backofficeEnabled
-      }"
     >
       <div
         class="
@@ -151,7 +146,7 @@
 
               <ng-container
                 *ngIf="
-                  dataSource === DataSourceOriginsEnum.LOCAL &&
+                  !APP_CONFIG.cloudMode &&
                   loggedUser?.isAdmin
                 "
               >
@@ -198,8 +193,8 @@
       <router-outlet></router-outlet>
     </div>
 
-    <ng-container *ngIf="backofficeEnabled">
-      <div class="d-flex flex-column flex-fill h-100 p-3">
+    <ng-container *ngIf="backofficeMode">
+      <div class="backoffice d-flex flex-column h-100 w-100 p-3">
         <app-backoffice-layout
           [shops]="shops"
           [products]="products"

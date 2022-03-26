@@ -27,6 +27,20 @@ export class BackofficeLayoutComponent implements OnInit, OnChanges {
 
   constructor(private loginService: LoginService) {}
 
+  sortProducts(sortConfig: {sortBy: string, sortDir: 'ASC' | 'DESC'}) {
+    console.log('sortProducts()', sortConfig);
+    if (sortConfig) {
+      this.products = this.products.sort((a, b) => {
+        if (sortConfig.sortDir === 'DESC') {
+          return a[sortConfig.sortBy].toUpperCase() > b[sortConfig.sortBy].toUpperCase() ? -1 : 1;
+        } else {
+          return a[sortConfig.sortBy].toUpperCase() > b[sortConfig.sortBy].toUpperCase() ? 1 : -1;
+        }
+        
+      });
+    }
+  }
+
   refreshUsers() {
     let users: UserInterface[] = [this.loginService.getLoggedUser()];
 

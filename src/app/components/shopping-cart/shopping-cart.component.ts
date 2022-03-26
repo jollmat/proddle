@@ -49,6 +49,16 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
+  toggleCartProductMarked(productUnitsItem: {
+    product: ProductInterface;
+    units: number;
+    minPrice?: number;
+    maxPrice?: number;
+    checked: boolean
+  }) {
+    this.shoppingCartService.toggleCartProductMarked(productUnitsItem);
+  }
+
   removeItem(product: ProductInterface): void {
     this.spinner.show();
     this.shoppingCartService.removeCartProduct(product);

@@ -4,8 +4,8 @@
 
 <ng-container *ngIf="cartConfig">
   <ng-container *ngIf="cartConfig.items?.length > 0; else noShoppingCart">
-    <div class="shopping-cart-content d-flex card transparent flex-column mb-3 p-3 w-100">
-      <h4 class="ps-2 mb-2 text-start">{{'shoppingCart.title' | translate}}</h4>
+    <div class="shopping-cart-content d-flex card transparent flex-column mb-3 p-3 w-100 alert-dismissible fade show">
+      <h4 class="ps-2 mb-2 text-start mb-3">{{'shoppingCart.title' | translate}}</h4>
       <div
         class="
           alert alert-info
@@ -14,14 +14,34 @@
           align-items-start
           py-1
           px-2
-          mt-3
-          mb-4
+          mt-0
+          mb-2
         "
       >
         <i class="fas fa-info-circle mt-1 me-2"></i>
         <small class="text-start"
           >{{'shoppingCart.description' | translate}}</small
         >
+        <button type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+      <div
+        class="
+          alert alert-light
+          d-flex
+          justify-content-start
+          align-items-start
+          py-1
+          px-2
+          mt-0
+          mb-2
+        "
+      >
+        <i class="fas fa-wand-magic-sparkles mt-1 me-2"></i>
+        <small class="text-start pe-4"
+          ><strong class="me-2">{{'shoppingCart.trick.title' | translate}}</strong><p class="m-0">{{'shoppingCart.trick.text' | translate}}</p></small
+        >
+        <button type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
 
       <!-- Totals -->
@@ -64,7 +84,7 @@
                     <td>
                       <i class="fas fa-angle-right me-2 mt-1"></i>
                     </td>
-                    <td class="pe-2">
+                    <td class="pe-2" [ngClass]="{'checked-product':productUnits.checked}" (click)="toggleCartProductMarked(productUnits)">
                       {{ productUnits.product.name }}
                       <span>
                         (x{{ productUnits.units | number: '1.0-2' }})</span
@@ -131,6 +151,7 @@
       justify-content-between
       align-items-center
       ps-2
+      mt-3
       mb-1
     "
   >

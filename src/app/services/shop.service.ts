@@ -3,14 +3,11 @@ import { Observable, of, Subject, tap } from 'rxjs';
 import { STORE_KEYS_CONSTANTS } from '../model/constants/store-keys.constants';
 import { ShopInterface } from '../model/interfaces/shop.interface';
 
-import { JsonBinService } from './json-bin.service';
-import { DataSourceOriginsEnum } from '../model/enums/data-source-origins.enum';
 import { DEFAULT_SHOPS } from '../model/constants/default-shops.constant';
-import { APP_CONFIG } from '../../config/app-config.constant';
 import { LoginService } from './login.service';
 import { DEFAULT_IMAGE_URL } from '../model/constants/default-image.constant';
-import { ShopStandingsComponent } from '../components/data-analisis/shop-standings/shop-standings.component';
 import { FirestoreService } from './firestore.service';
+import { APP_CONFIG } from 'src/config/app-config.constant';
 
 @Injectable({ providedIn: 'root' })
 export class ShopService {
@@ -24,12 +21,6 @@ export class ShopService {
     private firestoreService: FirestoreService,
     private loginService: LoginService
   ) {
-    this.shops.subscribe((_shops) => {
-      _shops.map((_s) => {
-        _s.favourite = this._favouriteShopsIds.includes(_s.id);
-      });
-      this._shops = _shops;
-    });
 
     // Favourites
     const favouriteShopsIds = localStorage.getItem(
@@ -38,13 +29,46 @@ export class ShopService {
     this._favouriteShopsIds = favouriteShopsIds ? eval(favouriteShopsIds) : [];
     this.setFavourites(this._favouriteShopsIds);
 
-    this.loadShops().subscribe((_shops) => {
-      if(!_shops || _shops.length === 0) {
-        this.firestoreService.addShops(DEFAULT_SHOPS);
-        _shops = DEFAULT_SHOPS;
-      }
-      this.shops.next(_shops);
+    this.shops.subscribe((_shops) => {
+      this._shops = _shops;
     });
+
+    this.loadShops().subscribe();
+    
+  }
+
+  loadShops(): Observable<ShopInterface[]> {
+    console.log('ShopService.loadShops()');
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.getShops().pipe(
+        tap((shops) => {
+  
+          if(!shops || shops.length === 0) {
+            shops = DEFAULT_SHOPS;
+            this.firestoreService.addShops(shops);          
+          }
+  
+          this.setDefaultImages(shops);
+          this.checkFavourites(shops);
+          this.shops.next(shops);
+        })
+      );
+    } else {
+      return of(DEFAULT_SHOPS).pipe(
+        tap((shops) => {
+  
+          if(!shops || shops.length === 0) {
+            shops = DEFAULT_SHOPS;
+            this.firestoreService.addShops(shops);          
+          }
+  
+          this.setDefaultImages(shops);
+          this.checkFavourites(shops);
+          this.shops.next(shops);
+        })
+      );
+    }
+    
   }
 
   toggleFavourite(shop: ShopInterface): Observable<boolean> {
@@ -60,17 +84,6 @@ export class ShopService {
     return of(true);
   }
 
-  loadShops(): Observable<ShopInterface[]> {
-    console.log('ShopService.loadShops()');
-    return this.firestoreService.getShops().pipe(
-      tap((shops) => {
-        this.setDefaultImages(shops);
-        this.checkFavourites(shops);
-        this.shops.next(shops);
-      })
-    );
-  }
-
   setDefaultImages(shops: ShopInterface[]) {
     shops.map((_shop) => {
       if (!_shop.imageUrl) {
@@ -83,29 +96,41 @@ export class ShopService {
   updateShop(shop: ShopInterface): Observable<boolean> {
     console.log('ShopService.updateShop()', shop);
     this.toggleFavourite(shop).subscribe();
-    return this.firestoreService.updateShop(shop).pipe(tap(() => {
-      const index = this._shops.findIndex((_s) => { return _s.id = shop.id; });
-      this._shops[index] = shop;
-      this.shops.next(this._shops);
-    }));
+
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.updateShop(shop).pipe(tap(() => {}));
+    }
+    return of (true);
   }
 
   createShop(shop: ShopInterface): Observable<boolean> {
     console.log('ShopService.createShop()', shop);
     shop.createdBy = this.loginService.getLoggedUser();
-    return this.firestoreService.addShop(shop).pipe(tap(() => {
+
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.addShop(shop).pipe(tap(() => {
+        this._shops.push(shop);
+        this.shops.next(this._shops);
+      }));
+    } else {
       this._shops.push(shop);
       this.shops.next(this._shops);
-    }));
+    }
+    return of(true);
   }
 
   removeShop(shopId: string): Observable<boolean> {
     console.log('ShopService.removeShop()', shopId);
-    this.shops.next(this._shops.filter((_shop) => { return _shop.id !== shopId }));
-    return this.firestoreService.deleteShop(shopId).pipe(tap(() => {
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.deleteShop(shopId).pipe(tap(() => {
+        this._shops = this._shops.filter((_s) => { return _s.id !== shopId });
+        this.shops.next(this._shops);
+      }));
+    } else {
       this._shops = this._shops.filter((_s) => { return _s.id !== shopId });
       this.shops.next(this._shops);
-    }));
+    }
+    return of(true);
   }
 
   setFavourites(favourites: string[]) {

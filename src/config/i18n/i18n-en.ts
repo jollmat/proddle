@@ -101,7 +101,11 @@ export const i18n_EN = {
     amountNoOptimized: 'Total NOT optimized',
     amountSaved: 'Total saved',
     noProducts: 'There are no products in the shopping cart.',
-    confirmEmpty: 'The entire shopping cart will be emptied. Continue?'
+    confirmEmpty: 'The entire shopping cart will be emptied. Continue?',
+    trick: {
+      title: 'Useful tip',
+      text: 'Click on any item in the list to mark / unmark as pending purchase.'
+    }
   },
   shopStandings: {
     title: {

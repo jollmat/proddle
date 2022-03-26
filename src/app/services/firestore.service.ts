@@ -47,7 +47,7 @@ export class FirestoreService {
   getShops(): Observable<ShopInterface[]> {
     console.log('FirestoreService.getShops()');
     const shopsRef = collection(this.firestore, 'shops');
-    return collectionData(shopsRef, {idField: 'id'}) as Observable<ShopInterface[]>;
+    return collectionData(shopsRef) as Observable<ShopInterface[]>;
   }
 
 
@@ -87,7 +87,7 @@ export class FirestoreService {
 
   updateProduct(product: ProductInterface): Observable<any> {
     console.log('FirestoreService.updateProduct()', product);
-    const productDocRef = doc(this.firestore, `products/${product.barcode}`);
+    const productDocRef = doc(this.firestore, `products/${product.id}`);
     return from(setDoc(productDocRef, product));
   }
 
@@ -107,8 +107,14 @@ export class FirestoreService {
 
   deleteShopProducts(shopProducts: ShopProductInterface[]): Observable<any> {
     console.log('FirestoreService.deleteShopProducts()', shopProducts);
-    // const shopProductDocRef = doc(this.firestore, `shopsProducts/${shopProduct.id}`);
-    // return from(deleteDoc(shopProductDocRef));
+    const batch = writeBatch(this.firestore);
+    
+    shopProducts.forEach((_shopProduct) => {
+      const colRef = collection(this.firestore, 'shopsProducts');
+      const shopProductDocRef = doc(this.firestore, `shopsProducts/${_shopProduct.id}`);
+      batch.delete(shopProductDocRef);
+    });
+    batch.commit();
     return of(true);
   }
 

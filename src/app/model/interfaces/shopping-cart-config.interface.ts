@@ -9,6 +9,7 @@ export interface ShoppingCartConfigInterface {
       units: number;
       minPrice?: number;
       maxPrice?: number;
+      checked: boolean
     }[];
   }[];
 }

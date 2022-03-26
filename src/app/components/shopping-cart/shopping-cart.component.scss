@@ -19,6 +19,11 @@
   small {
     font-size: 10pt;
   }
+  button {
+    &.btn-close{
+      font-size: 10pt;
+    }
+  }
 }
 
 .shop-name {
@@ -76,4 +81,9 @@ table {
   &.text-success {
     color: #fff !important;
   }
+}
+
+.checked-product{
+  text-decoration: line-through;
+  opacity: 0.5;
 }

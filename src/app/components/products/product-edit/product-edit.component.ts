@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ShopService } from 'src/app/services/shop.service';
 import { DEFAULT_IMAGE_URL } from '../../../model/constants/default-image.constant';
 import { ProductInterface } from '../../../model/interfaces/product.interface';
 import { ShopProductInterface } from '../../../model/interfaces/shop-product.interface';
@@ -31,6 +32,7 @@ export class ProductEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
+    private shopService: ShopService,
     private shopsProductsService: ShopProductService,
     private loginService: LoginService
   ) {}
@@ -74,9 +76,13 @@ export class ProductEditComponent implements OnInit {
   }
 
   getShopName(shopId: string) {
-    return this.shops.find((_shop) => {
+    const shop = this.shops.find((_shop) => {
       return _shop.id === shopId;
-    })?.name;
+    });
+    console.log(shopId);
+    console.log(this.shops);
+    console.log(shop);
+    return shop?.name;
   }
 
   getShopImage(shopId: string) {
@@ -126,28 +132,23 @@ export class ProductEditComponent implements OnInit {
   }
 
   getShopProducts() {
-    this.shopsProductsService
+    if (this.productDetail) {
+      this.shopsProductsService
       .getProductShopProducts(this.productDetail.barcode)
       .subscribe((_shopProducts) => {
         this.shopProducts = [];
         const shopIds = [];
-        _shopProducts = _shopProducts.sort((a, b) =>
-          a.updateDate < b.updateDate ? 1 : -1
-        );
         _shopProducts.forEach((_shopProduct) => {
           if (shopIds.indexOf(_shopProduct.shopId) === -1) {
             shopIds.push(_shopProduct.shopId);
           }
         });
         shopIds.forEach((_shopId) => {
-          this.shopProducts.push(
-            _shopProducts.find((_shopProduct) => {
-              return _shopId === _shopProduct.shopId;
-            })
-          );
+          this.shopProducts.push(this.shopsProductsService.getShopProductLast(_shopId, this.productDetail.barcode));
         });
         this.shopProducts.sort((a, b) => (a.price > b.price ? 1 : -1));
       });
+    }
   }
 
   getProductPriceRange(product: ProductInterface): {
@@ -168,28 +169,19 @@ export class ProductEditComponent implements OnInit {
     const productBarcode = this.route.snapshot.params['barcode'];
 
     this.products = this.productService._products;
+    this.shops = this.shopService._shops;
 
-    console.log(this.products);
+    this.productService.products.subscribe((_p) => {
+      this.products = _p;
+    });
+    this.shopService.shops.subscribe((_s) => {
+      this.shops = _s;
+    });
 
     this.productDetail = this.products.find((_product) => {
       return _product.barcode === productBarcode;
     });
 
     this.getShopProducts();
-
-    this.shopsProductsService
-      .getProductShops(this.productDetail.barcode)
-      .subscribe((_shops) => {
-        this.shops = _shops;
-      });
-
-    // Sincronize product prices
-    this.shopsProductsService.shopsProducts.subscribe((_shopsProducts) => {
-      this.shopsProductsService
-        .getProductShopProducts(this.productDetail.barcode)
-        .subscribe((_shopProducts) => {
-          this.shopProducts = _shopProducts;
-        });
-    });
   }
 }

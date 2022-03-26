@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject, tap } from 'rxjs';
-import { APP_CONFIG } from '../../config/app-config.constant';
+import { APP_CONFIG } from 'src/config/app-config.constant';
 import { DEFAULT_IMAGE_URL } from '../model/constants/default-image.constant';
 import { DEFAULT_PRODUCTS } from '../model/constants/default-products.constant';
 import { STORE_KEYS_CONSTANTS } from '../model/constants/store-keys.constants';
-import { DataSourceOriginsEnum } from '../model/enums/data-source-origins.enum';
 import { ProductInterface } from '../model/interfaces/product.interface';
 import { FirestoreService } from './firestore.service';
 import { LoginService } from './login.service';
@@ -17,27 +16,10 @@ export class ProductService {
 
   _favouriteProductsBarcodes: string[] = [];
 
-  source: DataSourceOriginsEnum = APP_CONFIG.source;
-
   constructor(
     private loginService: LoginService,
     private firestoreService: FirestoreService
   ) {
-    this.products.subscribe((_products) => {
-      _products.map((_p) => {
-        _p.favourite = this._favouriteProductsBarcodes.includes(_p.barcode);
-      });
-      this._products = _products;
-    });
-
-    this.loadProducts().subscribe((_products) => {
-      if (!_products || _products.length === 0) {
-        this.firestoreService.addProducts(DEFAULT_PRODUCTS);
-        _products = DEFAULT_PRODUCTS;
-      }
-
-      this.products.next(_products);
-    })
 
     // Favourites
     const favouriteProductsBarcodes = localStorage.getItem(
@@ -47,6 +29,55 @@ export class ProductService {
       ? eval(favouriteProductsBarcodes)
       : [];
     this.setFavourites(this._favouriteProductsBarcodes);
+
+    this.products.subscribe((_products) => {
+     this._products = _products;
+    });
+
+    this.loadProducts().subscribe(() => {
+
+    }, error => {
+      console.log('Error carregant productes');
+    });
+
+  }
+
+  loadProducts(): Observable<ProductInterface[]> {
+    console.log('ProductService.loadProducts()');
+
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.getProducts().pipe(
+        tap((products) => {
+  
+          if(!products || products.length === 0) {
+            products = DEFAULT_PRODUCTS;
+            this.firestoreService.addProducts(products);
+          }
+  
+          this.setDefaultImages(products);
+          this.checkFavourites(products);
+          this.products.next(products);
+        }));
+    } else {
+      return of(DEFAULT_PRODUCTS).pipe(
+        tap((products) => {
+  
+          if(!products || products.length === 0) {
+            products = DEFAULT_PRODUCTS;
+            this.firestoreService.addProducts(products);
+          }
+  
+          this.setDefaultImages(products);
+          this.checkFavourites(products);
+          this.products.next(products);
+        })
+      );
+    }
+    
+  }
+
+  getProducts(): Observable<ProductInterface[]> {
+    return of(this._products);
   }
 
   toggleFavourite(product: ProductInterface): Observable<boolean> {
@@ -62,11 +93,6 @@ export class ProductService {
     return of(true);
   }
 
-  loadProducts(): Observable<ProductInterface[]> {
-    console.log('ShopService.loadProducts()');
-    return this.firestoreService.getProducts();
-  }
-
   setDefaultImages(products: ProductInterface[]) {
     products.map((_product) => {
       if (!_product.imageUrl) {
@@ -76,35 +102,50 @@ export class ProductService {
     });
   }
 
-  updateProduct(product: ProductInterface): Observable<boolean> {
+  updateProduct(product: ProductInterface, avoidToggleFavourite?: boolean): Observable<boolean> {
     console.log('ProductService.updateProduct()', product);
-    this.toggleFavourite(product).subscribe();
-    return this.firestoreService.updateProduct(product).pipe(tap(() => {
-      const index = this._products.findIndex((_p) => {
-        return _p.barcode === product.barcode;
-      });
-      this._products[index] = product;
-      this.products.next(this._products);
-    }));
+    if (!avoidToggleFavourite) {
+      this.toggleFavourite(product).subscribe();
+    }
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.updateProduct(product).pipe(tap(() => {}));
+    }
+    return of(true);
   }
 
   createProduct(product: ProductInterface): Observable<boolean> {
     console.log('ProductService.createProduct()', product);
     product.createdBy = this.loginService.getLoggedUser();
-   return this.firestoreService.addProduct(product).pipe(tap(() => {
-    this._products.push(product);
-    this.products.next(this._products);
-    }));
+
+    if (APP_CONFIG.cloudMode) {
+      return this.firestoreService.addProduct(product).pipe(tap(() => {
+        this._products.push(product);
+        this.products.next(this._products);
+        }));
+    } else {
+      this._products.push(product);
+      this.products.next(this._products);
+    }
+    return of(true);
   }
 
   removeProduct(id: string): Observable<boolean> {
     console.log('ProductService.removeProduct()', id);
+
+    if (APP_CONFIG.cloudMode) {
     return this.firestoreService.deleteProduct(id).pipe(tap(() => {
       this._products = this._products.filter((_p) => {
         return _p.id !== id
       });
       this.products.next(this._products);
-      }));;
+      }));
+    } else {
+      this._products = this._products.filter((_p) => {
+        return _p.id !== id
+      });
+      this.products.next(this._products);
+    }
+    return of(true);
   }
 
   setFavourites(favourites: string[]) {

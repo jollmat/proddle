@@ -25,7 +25,16 @@ table {
       td {
         padding-left: 10px;
         padding-right: 10px;
+        vertical-align: middle;
+
+        i.fas {
+          font-size: 18pt;
+        }
       }
     }
   }
+}
+
+.form-control{
+  font-size: 10pt;
 }
