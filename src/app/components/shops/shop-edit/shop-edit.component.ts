@@ -150,8 +150,8 @@ export class ShopEditComponent implements OnInit {
           );
         });
         this.shopProducts.sort((a, b) =>
-          this.getProductName(a.productBarcode) >
-          this.getProductName(b.productBarcode)
+          this.getProductName(a.productBarcode).toUpperCase() >
+          this.getProductName(b.productBarcode).toUpperCase()
             ? 1
             : -1
         );

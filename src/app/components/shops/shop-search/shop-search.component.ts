@@ -141,8 +141,7 @@ export class ShopSearchComponent implements OnInit, AfterViewInit {
 
     this.shopService.shops.subscribe(
       (_shops) => {
-        console.log(_shops);
-        this.shops = _shops.sort((a, b) => (a.name > b.name ? 1 : -1));
+        this.shops = _shops.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
       }
     );
 
