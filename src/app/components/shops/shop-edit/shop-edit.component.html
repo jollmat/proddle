@@ -201,7 +201,7 @@
                           }}
                         </span>
                         <span
-                          *ngIf="loggedUser.isAdmin && productPrice.createdBy"
+                          *ngIf="loggedUser.admin && productPrice.createdBy"
                           class="user text-start"
                           >({{ productPrice.createdBy.username }})</span
                         >
