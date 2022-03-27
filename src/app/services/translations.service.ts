@@ -5,10 +5,11 @@ import { i18n_CA } from '../../config/i18n/i18n-ca';
 import { i18n_EN } from '../../config/i18n/i18n-en';
 import { i18n_ES } from '../../config/i18n/i18n-es';
 import { i18n_PT } from '../../config/i18n/i18n-pt';
+import { i18n_FR } from '../../config/i18n/i18n-fr';
 
 @Injectable({ providedIn: 'root' })
 export class TranslationsService {
-  languages: string[] = ['ca', 'es', 'en', 'pt'];
+  languages: string[] = ['ca', 'es', 'en', 'pt', 'fr'];
   translationData: {
     name: string;
     language: string;
@@ -58,6 +59,13 @@ export class TranslationsService {
         translations: i18n_PT,
         imageUrl:
           'https://intertradoc.com/wp-content/uploads/2015/05/portuguese.png',
+      },
+      {
+        name: 'Français',
+        language: 'fr',
+        translations: i18n_FR,
+        imageUrl:
+          'https://www.jensen-localization.com/wp-content/uploads/2019/03/France.png',
       },
     ];
 
