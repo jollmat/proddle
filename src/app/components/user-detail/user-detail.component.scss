@@ -17,3 +17,10 @@ i.fa-user {
 label {
   font-weight: 500;
 }
+
+img {
+  &.user-photo {
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
