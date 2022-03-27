@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+  import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { APP_CONFIG } from '../config/app-config.constant';
 import { ProductInterface } from './model/interfaces/product.interface';
@@ -164,9 +164,15 @@ export class AppComponent implements OnInit {
       );
     });
 
-    this.shopsLoaded = this.shopService._shops && this.shopService._shops.length > 0;
-    this.productsLoaded = this.productService._products && this.productService._products.length > 0;
-    this.shopsProductsLoaded = this.shopProductService._shopsProducts && this.shopProductService._shopsProducts.length > 0;
+    this.shopService.loadShops().subscribe(() => {
+      this.shopsLoaded = this.shopService._shops && this.shopService._shops.length > 0;
+    });
+    this.productService.loadProducts().subscribe(() => {
+      this.productsLoaded = this.productService._products && this.productService._products.length > 0;
+    });
+    this.shopProductService.loadShopsProducts().subscribe(() => {
+      this.shopsProductsLoaded = this.shopProductService._shopsProducts && this.shopProductService._shopsProducts.length > 0;
+    });    
 
     // Shopping cart
 
@@ -178,7 +184,7 @@ export class AppComponent implements OnInit {
         this.calcCartItems();
       });
       this.shoppingCartService.buildCartConfig();
-    }, 500);
+    }, 5000);
 
     // Logged user
     this.loggedUser = this.loginService.getLoggedUser();

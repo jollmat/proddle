@@ -27,7 +27,7 @@
           <i class="fas fa-barcode me-0"></i><span>Proddle</span>
         </h3>
 
-        <ng-container *ngIf="loggedUser">
+        <ng-container *ngIf="loggedUser && shopsLoaded && productsLoaded && shopsProductsLoaded">
           <div class="btn-group">
             <button
               type="button"

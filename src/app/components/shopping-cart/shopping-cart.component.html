@@ -157,7 +157,7 @@
   >
   {{'shoppingCart.amountOptimized' | translate}}:
     <span class="badge-total transparent fw-bold ms-2 px-3 py-1 text-end"
-      >{{ getAmountLow() | number: '1.0-2' }} €</span
+      >{{ getAmountLow() | number: '1.2-2' }} €</span
     >
   </div>
 
@@ -174,7 +174,7 @@
   >
   {{'shoppingCart.amountNoOptimized' | translate}}:
     <span class="badge-total transparent fw-bold ms-2 px-3 py-1 text-end"
-      >{{ getAmountHigh() | number: '1.0-2' }} €</span
+      >{{ getAmountHigh() | number: '1.2-2' }} €</span
     >
   </div>
 
@@ -197,7 +197,7 @@
         'text-success': getAmountDiff() > 0
       }"
       >{{
-        getAmountDiff() * (getAmountDiff() > 0 ? -1 : 1) | number: '1.0-2'
+        getAmountDiff() * (getAmountDiff() > 0 ? -1 : 1) | number: '1.2-2'
       }}
       €</span
     >
