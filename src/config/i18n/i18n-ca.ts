@@ -10,7 +10,12 @@ export const i18n_CA = {
     accessGoogle: 'Accedeix amb Google',
     notAccount: 'Encara no tens compte?',
     register: 'Registra\'t',
-    error: 'Usuari o contrasenya incorrectes'
+    registering: 'Registre',
+    doRegister: 'Registrar-me',
+    registerError: 'Ja exiteix un compte amb aquest email',
+    error: 'Usuari o contrasenya incorrectes',
+    passwordRepeat: 'Repeteix contrasenya',
+    passwordsDifferentError: 'La contrasenyes no concideixen'
   },
   carousel: {
     step1: {
@@ -149,6 +154,7 @@ export const i18n_CA = {
     addExistingShopProductConfirm: 'Ja existeix el producte per a la botiga. Desitges actualitzar-lo amb data d\'avui (el preu anterior s\'afegirà a un historial)?'
   },
   commons: {
+    back: 'Torna',
     prices: 'preus',
     price: 'preu',
     noData: 'No hi ha dades',

@@ -24,14 +24,9 @@
   >
     <div class="d-flex w-100 mt-3 mb-2 justify-content-between align-items-center">
       <h3 class="ps-3 m-0 w-100 text-start">
-        {{ 'login.welcome' | translate }}
+        {{ 'login.registering' | translate }}
       </h3>
-      <app-language-selector></app-language-selector>
     </div>
-    
-    <small class="text-start fst-italic px-3">{{
-      'login.welcome.subtitle' | translate
-    }}</small>
   </div>
 
   <div class="d-flex flex-column mb-1 w-100">
@@ -66,47 +61,42 @@
           />
         </div>
 
-        <span class="text-start text-danger mb-2" *ngIf="loginError"><small>{{'login.error' | translate}}</small></span>
+        <div class="form-group mb-3 w-100 text-start">
+            <label for="passwordRepeat" class="fw-bold">{{
+              'login.passwordRepeat' | translate
+            }}</label>
+            <input
+              type="password"
+              class="form-control"
+              id="passwordRepeat"
+              maxlength="20"
+              [(ngModel)]="user.passwordRepeat"
+              placeholder="{{ 'login.passwordRepeat' | translate }}"
+            />
+          </div>
+
+        <span class="text-start text-danger mb-2" *ngIf="canAccess() && (registerError || !validatePasswords())">
+            <small *ngIf="registerError">{{'login.registerError' | translate}}</small>
+            <small *ngIf="!validatePasswords()">{{'login.passwordsDifferentError' | translate}}</small>
+        </span>
       </div>
     </div>
   </div>
 
   <div class="d-flex flex-column px-3 w-100">
     <button
-      class="btn btn-secondary btn-block w-100 mb-1"
+      class="btn btn-secondary btn-block w-100 mb-2"
       [ngClass]="{ disabled: !canAccess() }"
-      (click)="login()"
+      (click)="register()"
     >
-      {{ 'login.access' | translate }}
+      {{ 'login.doRegister' | translate }}
     </button>
 
     <button
-      class="btn btn-white btn-block w-100 mb-1"
-      (click)="loginGoogle()"
+      class="btn btn-white btn-block w-100"
+      (click)="goToLogin()"
     >
-    <img class="me-1" src="https://www.google.es/images/branding/googleg/1x/googleg_standard_color_128dp.png" />
-      {{ 'login.accessGoogle' | translate }}
+      {{ 'commons.back' | translate }}
     </button>
-
-    <label class="mt-2 text-start"><small class="me-2">{{'login.notAccount' | translate}}</small> <a href="#" [routerLink]="['/register']">{{'login.register' | translate}}</a></label>
   </div>
-
-  <ng-template *ngTemplateOutlet="carousel"></ng-template>
 </div>
-
-<ng-template #carousel>
-  <div
-    class="
-      carousel-template-container
-      d-flex
-      justify-content-center
-      align-items-center
-      py-3
-      px-0
-      mt-3
-      w-100
-    "
-  >
-    <app-carousel></app-carousel>
-  </div>
-</ng-template>

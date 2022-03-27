@@ -10,7 +10,12 @@ export const i18n_ES = {
     accessGoogle: 'Accede con Google',
     notAccount: '¿Aún no tienes cuenta?',
     register: 'Regístrate',
-    error: 'Usuario o contraseña incorrectos.'
+    registering: 'Registro',
+    doRegister: 'Registrarme',
+    registerError: 'Ya exite una cuenta con el email indicado',
+    error: 'Usuario o contraseña incorrectos.',
+    passwordRepeat: 'Repetir contraseña',
+    passwordsDifferentError: 'La contraseñas no conciden'
   },
   carousel: {
     step1: {
@@ -149,6 +154,7 @@ export const i18n_ES = {
     addExistingShopProductConfirm: 'Ya existe el producto para la tienda. Deseas actualizarlo con fecha de hoy (el precio anterior se añadirá a un historial)?'
   },
   commons: {
+    back: 'Volver',
     prices: 'precios',
     price: 'precio',
     noData: 'No hay datos',

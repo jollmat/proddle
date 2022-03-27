@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { RegisterComponent } from 'src/app/components/register/register.component';
+import { AuthenticationNoneGuard } from 'src/app/guards/authentication-none.guard';
 import { StatisticsComponent } from '../../components/data-analisis/statistics/statistics.component';
 import { HomeComponent } from '../../components/home/home.component';
 import { LoginComponent } from '../../components/login/login.component';
@@ -12,46 +14,54 @@ import { ShopSearchComponent } from '../../components/shops/shop-search/shop-sea
 import { UserDetailComponent } from '../../components/user-detail/user-detail.component';
 import { ForbiddenComponent } from '../../components/utils/forbidden/forbidden.component';
 import { PageNotFoundComponent } from '../../components/utils/page-not-found/page-not-found.component';
-import { AuthenicationGuard } from '../../guards/authentication.guard';
+import { AuthenticationGuard } from '../../guards/authentication.guard';
 
 export const APP_ROUTES: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [AuthenicationGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
   {
     path: 'user',
     component: UserDetailComponent,
-    canActivate: [AuthenicationGuard],
+    canActivate: [AuthenticationGuard],
   },
-  { path: 'login', component: LoginComponent },
+  { 
+    path: 'login', 
+    component: LoginComponent,
+    canActivate: [AuthenticationNoneGuard] 
+  },
+  { 
+    path: 'register', 
+    component: RegisterComponent,
+    canActivate: [AuthenticationNoneGuard] },
   {
     path: 'scan',
     component: AddProductByBarcodeComponent,
-    canActivate: [AuthenicationGuard],
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'search-products',
     component: ProductSearchComponent,
-    canActivate: [AuthenicationGuard],
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'search-shops',
     component: ShopSearchComponent,
-    canActivate: [AuthenicationGuard],
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'statistics',
     component: StatisticsComponent,
-    canActivate: [AuthenicationGuard],
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'edit-shop/:id',
     component: ShopEditComponent,
-    canActivate: [AuthenicationGuard],
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'new-shop',
     component: ShopCreateComponent,
-    canActivate: [AuthenicationGuard],
+    canActivate: [AuthenticationGuard],
   },
   { path: 'edit-product/:barcode', component: ProductEditComponent },
   {
@@ -62,7 +72,7 @@ export const APP_ROUTES: Routes = [
   {
     path: 'shoppingCart',
     component: ShoppingCartComponent,
-    canActivate: [AuthenicationGuard],
+    canActivate: [AuthenticationGuard],
   },
   { path: 'forbidden', component: ForbiddenComponent },
   { path: '**', component: PageNotFoundComponent },

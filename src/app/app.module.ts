@@ -24,7 +24,8 @@ import { ShopEditComponent } from './components/shops/shop-edit/shop-edit.compon
 import { PageNotFoundComponent } from './components/utils/page-not-found/page-not-found.component';
 import { ShopCreateComponent } from './components/shops/shop-create/shop-create.component';
 import { ProductEditComponent } from './components/products/product-edit/product-edit.component';
-import { AuthenicationGuard } from './guards/authentication.guard';
+import { AuthenticationGuard } from './guards/authentication.guard';
+import { AuthenticationNoneGuard } from './guards/authentication-none.guard';
 import { ForbiddenComponent } from './components/utils/forbidden/forbidden.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
@@ -47,6 +48,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { RegisterComponent } from './components/register/register.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -94,9 +96,11 @@ registerLocaleData(localeEs, 'es');
     ShoppingCartComponent,
     BackofficeProductsComponent,
     LanguageSelectorComponent,
+    RegisterComponent,
   ],
   providers: [
-    AuthenicationGuard, 
+    AuthenticationGuard,
+    AuthenticationNoneGuard,
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }
   ],

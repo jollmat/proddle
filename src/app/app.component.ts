@@ -15,6 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
 import { STORE_KEYS_CONSTANTS } from './model/constants/store-keys.constants';
 import { TranslationsService } from './services/translations.service';
+import { FirestoreAuthService } from './services/firestore-auth.service';
 
 @Component({
   selector: 'my-app',
@@ -58,7 +59,8 @@ export class AppComponent implements OnInit {
     private shoppingCartService: ShoppingCartService,
     private spinner: NgxSpinnerService,
     private translate: TranslateService,
-    private translationsService: TranslationsService
+    private translationsService: TranslationsService,
+    private firestoreAuthService: FirestoreAuthService
   ) {
 
     this.translate.setDefaultLang(APP_CONFIG.defaultLanguage);
@@ -122,6 +124,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.loginService.logout();
+    this.firestoreAuthService.logout();
     this.router.navigate(['login']);
   }
 

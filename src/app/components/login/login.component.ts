@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
       const {email, password} = this.user;
       this.firestoreAuthService.login(email, password).then((res) => {
         if(res) {
-          console.log(res);
           const user = {
             email: this.user.email
           };
@@ -43,12 +42,10 @@ export class LoginComponent implements OnInit {
   }
 
   loginGoogle() {
-    if (this.canAccess()) {
-      this.loginError = false;
+    this.loginError = false;
       const {email, password} = this.user;
       this.firestoreAuthService.loginWithGoogle(email, password).then((res) => {
         if(res) {
-          console.log(res);
           const user = {
             username: res.user.displayName,
             email: this.user.email,
@@ -60,7 +57,6 @@ export class LoginComponent implements OnInit {
           this.loginError = true;
         }
       });
-    }
   }
 
   validateEmail(email) {
