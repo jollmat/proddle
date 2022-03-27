@@ -43,9 +43,10 @@ import { BackofficeProductsComponent } from './components/backoffice/backoffice-
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from './components/utils/language-selector/language-selector.component';
 
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 registerLocaleData(localeEs, 'es');
 
@@ -94,7 +95,11 @@ registerLocaleData(localeEs, 'es');
     BackofficeProductsComponent,
     LanguageSelectorComponent,
   ],
-  providers: [AuthenicationGuard, { provide: LOCALE_ID, useValue: 'es' }],
+  providers: [
+    AuthenicationGuard, 
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

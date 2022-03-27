@@ -126,7 +126,7 @@ export class AppComponent implements OnInit {
   }
 
   checkBackofficeMode() {
-    if (this.loggedUser?.isAdmin) {
+    if (this.loggedUser?.admin) {
       this.backofficeMode = window.innerWidth > 568;
     } else {
       this.backofficeMode = false;
@@ -178,15 +178,15 @@ export class AppComponent implements OnInit {
     }, 500);
 
     // Logged user
-
+    this.loggedUser = this.loginService.getLoggedUser();
     this.loginService.user.subscribe((_user) => {
       this.loggedUser = _user;
-      this.loginService.setIsAdmin(this.loggedUser);
-
-      this.checkBackofficeMode();
+      if (this.loggedUser) {
+        this.loggedUser.admin = this.loginService.checkIsAdmin(this.loggedUser);
+      }      
     });
 
-    this.loginService.refreshUser();
+    this.checkBackofficeMode();
 
     this.spinner.hide();
   }

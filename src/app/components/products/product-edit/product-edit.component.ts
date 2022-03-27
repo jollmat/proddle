@@ -43,7 +43,7 @@ export class ProductEditComponent implements OnInit {
 
   canRemoveShopProduct(shopProduct: ShopProductInterface) {
     return (
-      this.loggedUser.isAdmin ||
+      this.loggedUser.admin ||
       (shopProduct.createdBy &&
         shopProduct.createdBy.email === this.loggedUser.email &&
         shopProduct.createdBy.username === this.loggedUser.username)
@@ -52,7 +52,7 @@ export class ProductEditComponent implements OnInit {
 
   canEdit() {
     return (
-      this.loggedUser.isAdmin ||
+      this.loggedUser.admin ||
       (this.productDetail.createdBy?.email === this.loggedUser.email &&
         this.productDetail.createdBy?.username === this.loggedUser.username)
     );

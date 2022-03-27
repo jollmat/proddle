@@ -5,7 +5,12 @@ export const i18n_PT = {
       'Precisamos de um mínimo de dados para moderar o aplicativo.',
     username: 'Nome do usuário',
     email: 'O email',
+    password: 'Senha',
     access: 'Acesso',
+    accessGoogle: 'Acesse com Google',
+    notAccount: 'Não tem uma conta ainda?',
+    register: 'Inscrever-se',
+    error: 'Usuário ou senha incorretos.'
   },
   carousel: {
     step1: {

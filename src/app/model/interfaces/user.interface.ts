@@ -1,6 +1,8 @@
 export interface UserInterface {
-  username: string;
+  username?: string;
   email: string;
-  isAdmin?: boolean;
+  password?: string;
+  admin?: boolean;
   lastLogin?: number;
+  photoURL?: string;
 }

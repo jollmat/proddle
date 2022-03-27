@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirestoreAuthService } from 'src/app/services/firestore-auth.service';
 import { UserInterface } from '../../model/interfaces/user.interface';
 import { LoginService } from '../../services/login.service';
 
@@ -11,15 +12,54 @@ import { LoginService } from '../../services/login.service';
 export class LoginComponent implements OnInit {
   user: UserInterface = {
     email: '',
-    username: '',
+    password: '',
   };
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  loginError: boolean = false;
+
+  constructor(
+    private loginService: LoginService,
+    private firestoreAuthService: FirestoreAuthService,
+    private router: Router
+    ) {}
 
   login() {
     if (this.canAccess()) {
-      this.loginService.login(this.user);
-      this.router.navigate(['home']);
+      this.loginError = false;
+      const {email, password} = this.user;
+      this.firestoreAuthService.login(email, password).then((res) => {
+        if(res) {
+          console.log(res);
+          const user = {
+            email: this.user.email
+          };
+          this.loginService.login(user);
+          this.router.navigate(['home']);
+        } else {
+          this.loginError = true;
+        }
+      });
+    }
+  }
+
+  loginGoogle() {
+    if (this.canAccess()) {
+      this.loginError = false;
+      const {email, password} = this.user;
+      this.firestoreAuthService.loginWithGoogle(email, password).then((res) => {
+        if(res) {
+          console.log(res);
+          const user = {
+            username: res.user.displayName,
+            email: this.user.email,
+            photoURL: res.user.photoURL
+          };
+          this.loginService.login(user);
+          this.router.navigate(['home']);
+        } else {
+          this.loginError = true;
+        }
+      });
     }
   }
 
@@ -31,15 +71,11 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  isAdmin() {
-    return this.user.email;
-  }
-
   canAccess(): boolean {
     return (
       this.user.email.length > 0 &&
       this.validateEmail(this.user.email) &&
-      this.user.username.length > 0
+      this.user.password.length > 0
     );
   }
 

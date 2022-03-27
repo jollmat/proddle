@@ -119,3 +119,10 @@
 .fa-chart-line {
   color: cadetblue;
 }
+
+img {
+  &.user-photo {
+    max-height: 40px;
+    border-radius:25px;
+  }
+}

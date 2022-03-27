@@ -23,42 +23,24 @@ export class LoginService {
     this.user.next(undefined);
   }
 
+  checkIsAdmin(user: UserInterface): boolean {
+    return user?.email.startsWith('jollmat@') || user?.email.startsWith('joan.lloria@') || user?.email.startsWith('joanlloria@');
+  }
+
   getLoggedUser(): UserInterface {
     let loggedUser = JSON.parse(
       localStorage.getItem(STORE_KEYS_CONSTANTS.PS_LOGGED_USER)
     );
     if (loggedUser) {
       loggedUser = loggedUser as UserInterface;
-      this.setIsAdmin(loggedUser);
+      loggedUser.admin = this.checkIsAdmin(loggedUser);
       return loggedUser;
     }
     return undefined;
   }
 
-  setIsAdmin(user: UserInterface) {
-    if (user) {
-      user.isAdmin = user.username === 'admin1234';
-    }
-  }
-
-  refreshUser() {
-    let loggedUser = JSON.parse(
-      localStorage.getItem(STORE_KEYS_CONSTANTS.PS_LOGGED_USER)
-    );
-    if (loggedUser) {
-      this.setIsAdmin(loggedUser);
-      this.user.next(loggedUser);
-    } else {
-      this.user.next(undefined);
-    }
-  }
-
   isLoggedUser(): boolean {
     const loggedUser = this.getLoggedUser();
     return loggedUser !== undefined && loggedUser !== null;
-  }
-
-  isAdmin(): boolean {
-    return this.getLoggedUser().isAdmin;
   }
 }

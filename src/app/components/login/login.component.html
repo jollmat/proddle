@@ -22,13 +22,13 @@
       mb-2
     "
   >
-    <div class="d-flex w-100 mt-3 mb-0 justify-content-end">
+    <div class="d-flex w-100 mt-3 mb-2 justify-content-between align-items-center">
+      <h3 class="ps-3 m-0 w-100 text-start">
+        {{ 'login.welcome' | translate }}
+      </h3>
       <app-language-selector></app-language-selector>
     </div>
-
-    <h3 class="mb-3 ps-3 mt-0 w-100 text-left">
-      {{ 'login.welcome' | translate }}
-    </h3>
+    
     <small class="text-start fst-italic px-3">{{
       'login.welcome.subtitle' | translate
     }}</small>
@@ -36,43 +36,59 @@
 
   <div class="d-flex flex-column mb-1 w-100">
     <div class="d-flex flex-row">
-      <div class="d-flex flex-column w-100 p-3">
-        <div class="form-group mb-3 w-100">
-          <label for="username" class="fw-bold">{{
-            'login.username' | translate
-          }}</label>
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            [(ngModel)]="user.username"
-            placeholder="{{ 'login.username' | translate }}"
-          />
-        </div>
-        <div class="form-group mb-3 w-100">
+      <div class="d-flex flex-column w-100 p-3 pb-0">
+        
+        <div class="form-group mb-3 w-100 text-start">
           <label for="email" class="fw-bold">{{
             'login.email' | translate
           }}</label>
           <input
             type="email"
             class="form-control"
+            maxlength="125"
             id="email"
             [(ngModel)]="user.email"
             placeholder="{{ 'login.email' | translate }}"
           />
         </div>
+
+        <div class="form-group mb-3 w-100 text-start">
+          <label for="password" class="fw-bold">{{
+            'login.password' | translate
+          }}</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            maxlength="20"
+            [(ngModel)]="user.password"
+            placeholder="{{ 'login.password' | translate }}"
+          />
+        </div>
+
+        <span class="text-start text-danger mb-2" *ngIf="loginError"><small>{{'login.error' | translate}}</small></span>
       </div>
     </div>
   </div>
 
-  <div class="d-flex justify-content-around w-100">
+  <div class="d-flex flex-column px-3 w-100">
     <button
-      class="btn btn-lg btn-secondary"
+      class="btn btn-secondary btn-block w-100 mb-1"
       [ngClass]="{ disabled: !canAccess() }"
       (click)="login()"
     >
       {{ 'login.access' | translate }}
     </button>
+
+    <button
+      class="btn btn-primary btn-block w-100 mb-1"
+      (click)="loginGoogle()"
+    >
+    <img class="me-1" src="https://www.google.es/images/branding/googleg/1x/googleg_standard_color_128dp.png" />
+      {{ 'login.accessGoogle' | translate }}
+    </button>
+
+    <label class="mt-1 text-start"><small>{{'login.notAccount' | translate}} <a href="#">{{'login.register' | translate}}</a></small></label>
   </div>
 
   <ng-template *ngTemplateOutlet="carousel"></ng-template>

@@ -144,7 +144,7 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
 
   canRemoveProduct(product: ProductInterface) {
     return (
-      this.loggedUser.isAdmin ||
+      this.loggedUser.admin ||
       (product.createdBy &&
         product.createdBy.email === this.loggedUser.email &&
         product.createdBy.username === this.loggedUser.username)

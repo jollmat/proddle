@@ -102,7 +102,7 @@ export class ShopSearchComponent implements OnInit, AfterViewInit {
 
   canRemoveShop(shop: ShopInterface) {
     return (
-      this.loggedUser.isAdmin ||
+      this.loggedUser.admin ||
       (shop.createdBy &&
         this.loggedUser.email === shop.createdBy.email &&
         this.loggedUser.username === shop.createdBy.username)

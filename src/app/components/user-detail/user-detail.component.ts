@@ -17,13 +17,6 @@ export class UserDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.spinner.show();
-    this.loginService.user.subscribe((_user) => {
-      this.user = _user;
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 500);
-    });
-    this.loginService.refreshUser();
+    this.user = this.loginService.getLoggedUser();
   }
 }

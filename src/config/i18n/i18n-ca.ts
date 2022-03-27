@@ -5,7 +5,12 @@ export const i18n_CA = {
       "Necessitem un mínim de dades per a poder moderar l'aplicació.",
     username: "Nom d'usuari",
     email: 'Correu electrònic',
+    password: 'Contrasenya',
     access: 'Accedeix',
+    accessGoogle: 'Accedeix amb Google',
+    notAccount: 'Encara no tens compte?',
+    register: 'Registra\'t',
+    error: 'Usuari o contrasenya incorrectes'
   },
   carousel: {
     step1: {

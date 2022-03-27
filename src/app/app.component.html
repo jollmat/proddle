@@ -57,10 +57,11 @@
             <ul class="dropdown-menu">
               <li class="user py-2" (click)="goToUserDetail()">
                 <div
-                  class="d-flex justify-content-start align-items-center mx-3"
+                  class="d-flex justify-content-start align-items-center mx-2"
                 >
                   <div>
-                    <i class="fas fa-user me-1" title="Dades usuari"></i>
+                    <i class="fas fa-user me-1" *ngIf="!loggedUser.photoURL"></i>
+                    <img *ngIf="loggedUser.photoURL" [src]="loggedUser.photoURL" class="user-photo" />
                   </div>
                   <div class="d-flex flex-column ps-2">
                     <span class="wrap">{{ loggedUser?.username }}</span>

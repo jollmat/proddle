@@ -27,24 +27,14 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Marca desconeguda",
     "favourite": true,
     "name": "Acelgas",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/016/3141/front_es.3.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/016/3141/front_es.3.400.jpg"
   },
   {
     "barcode": "8480017574657",
     "brand": "Dia",
     "favourite": false,
     "name": "Acelgas categoría extra",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/848/001/757/4657/front_es.8.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "isAdmin": false
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/848/001/757/4657/front_es.8.400.jpg"
   },
   {
     "barcode": "8437008459042",
@@ -65,12 +55,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Bezoya",
     "favourite": false,
     "name": "Agua mineral natural de mineralización muy débil garrafa",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/841/012/816/0074/front_es.3.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/841/012/816/0074/front_es.3.400.jpg"
   },
   {
     "barcode": "8411002101701",
@@ -84,13 +69,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Ametller Origen",
     "favourite": false,
     "name": "Amanida de cuscús",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/186/1951/front_es.3.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "lastLogin": 1647288058759,
-      "isAdmin": false
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/186/1951/front_es.3.400.jpg"
   },
   {
     "barcode": "8410569615614",
@@ -118,13 +97,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Brillante",
     "favourite": true,
     "name": "Arroz integral",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/841/018/480/0150/front_es.50.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "lastLogin": 1647288058759,
-      "isAdmin": false
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/841/018/480/0150/front_es.50.400.jpg"
   },
   {
     "barcode": "8410184013086",
@@ -138,12 +111,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Schara",
     "favourite": false,
     "name": "Artesano salchichas frankfurt cocidas y ahumadas",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/841/044/800/0913/front_es.4.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "isAdmin": false
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/841/044/800/0913/front_es.4.400.jpg"
   },
   {
     "barcode": "8431707094290",
@@ -157,24 +125,14 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Hacendado",
     "favourite": true,
     "name": "Atún en aceite de girasol",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/018/0926/front_es.35.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/018/0926/front_es.35.400.jpg"
   },
   {
     "barcode": "8436033878095",
     "brand": "guest",
     "favourite": false,
     "name": "Atún en aceite de girasol",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/603/387/8095/front_es.11.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/603/387/8095/front_es.11.400.jpg"
   },
   {
     "barcode": "8410714107735",
@@ -251,12 +209,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Borges",
     "favourite": true,
     "name": "Cacahuete frito",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/841/014/850/9327/front_es.10.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/841/014/850/9327/front_es.10.400.jpg"
   },
   {
     "barcode": "8480000341778",
@@ -284,12 +237,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Hacendado",
     "favourite": true,
     "name": "Capsula cafe classic",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/013/6343/front_es.3.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/013/6343/front_es.3.400.jpg"
   },
   {
     "barcode": "8412945008508",
@@ -338,13 +286,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Ametller Origen",
     "favourite": false,
     "name": "Cremes thai pastanaga i coco",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/452/3979/front_fr.4.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "lastLogin": 1647288058759,
-      "isAdmin": false
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/452/3979/front_fr.4.400.jpg"
   },
   {
     "barcode": "8436583955093",
@@ -400,12 +342,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Carrefour",
     "favourite": false,
     "name": "Emmental râpé",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/356/007/011/9851/front_es.39.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/356/007/011/9851/front_es.39.400.jpg"
   },
   {
     "barcode": "8414516070167",
@@ -447,12 +384,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Barilla",
     "favourite": true,
     "name": "Farfalle",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/807/680/806/0654/front_fr.202.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/807/680/806/0654/front_fr.202.400.jpg"
   },
   {
     "barcode": "3057068056781",
@@ -480,13 +412,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Danone",
     "favourite": false,
     "name": "Font Vella",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/841/005/513/3394/front_es.5.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "lastLogin": 1647615871205,
-      "isAdmin": false
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/841/005/513/3394/front_es.5.400.jpg"
   },
   {
     "barcode": "5029053010052",
@@ -507,12 +433,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Barilla",
     "favourite": true,
     "name": "Fusilli",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/807/680/208/5981/front_fr.217.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/807/680/208/5981/front_fr.217.400.jpg"
   },
   {
     "barcode": "8437019000004",
@@ -533,25 +454,14 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Luengo",
     "favourite": true,
     "name": "Garbanzos con espinacas",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/841/050/551/2267/front_fr.4.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "lastLogin": 1647547444600,
-      "isAdmin": false
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/841/050/551/2267/front_fr.4.400.jpg"
   },
   {
     "barcode": "8420309210115",
     "brand": "Peña Torcal",
     "favourite": true,
     "name": "Habas fritas Mini Baby",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/842/030/921/0115/front_es.15.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/842/030/921/0115/front_es.15.400.jpg"
   },
   {
     "barcode": "8422410387915",
@@ -621,12 +531,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Carrefour",
     "favourite": false,
     "name": "Lenteja a la riojana",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/187/600/5912/front_es.15.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/187/600/5912/front_es.15.400.jpg"
   },
   {
     "barcode": "8426765495240",
@@ -668,12 +573,6 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "name": "Listerine Cuidado Total 500ml",
     "brand": "Johnson & Johnson",
     "favourite": false,
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "lastLogin": 1647615871205,
-      "isAdmin": false
-    },
     "imageUrl": "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
   },
   {
@@ -751,12 +650,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Carrefour",
     "favourite": false,
     "name": "Mini-toasts",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/356/007/034/7438/front_fr.19.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/356/007/034/7438/front_fr.19.400.jpg"
   },
   {
     "barcode": "8436540566942",
@@ -770,12 +664,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Hacendado",
     "favourite": true,
     "name": "Mochi Coco",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/064/4916/front_es.24.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/064/4916/front_es.24.400.jpg"
   },
   {
     "barcode": "8410118041574",
@@ -810,13 +699,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Marca desconeguda",
     "favourite": false,
     "name": "Nom desconegut",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/841/113/500/5037/front_es.3.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "lastLogin": 1647615871205,
-      "isAdmin": false
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/841/113/500/5037/front_es.3.400.jpg"
   },
   {
     "barcode": "4002160092501",
@@ -837,12 +720,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Ametller Origen",
     "favourite": true,
     "name": "Oli d’oliva",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/186/0251/front_es.21.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/186/0251/front_es.21.400.jpg"
   },
   {
     "barcode": "8422410412044",
@@ -863,12 +741,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Ametller Origen",
     "favourite": true,
     "name": "Pa de vidre",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/658/395/4577/front_es.3.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/658/395/4577/front_es.3.400.jpg"
   },
   {
     "barcode": "8436583954539",
@@ -889,12 +762,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Saint Aubert",
     "favourite": true,
     "name": "Palets breton galletas de mantequilla",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/304/532/005/2244/front_es.10.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/304/532/005/2244/front_es.10.400.jpg"
   },
   {
     "barcode": "8412170026896",
@@ -978,11 +846,6 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "name": "Pollastre al ximixurri",
     "brand": "Ametller Orígen",
     "favourite": false,
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    },
     "imageUrl": "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
   },
   {
@@ -1039,23 +902,13 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Hacienda Iberico",
     "favourite": false,
     "name": "Salchichón ibérico",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/058/1518/front_es.3.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/058/1518/front_es.3.400.jpg"
   },
   {
     "barcode": "8436583957134",
     "name": "Salmó amb arròs i edamame",
     "brand": "Ametller Orígen",
     "favourite": false,
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    },
     "imageUrl": "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
   },
   {
@@ -1084,25 +937,14 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Ametller Origen",
     "favourite": false,
     "name": "Saltat de Verdures Mediterrani",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/186/2040/front_es.28.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@cabsa.es",
-      "username": "admin1234",
-      "lastLogin": 1647366041170,
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/186/2040/front_es.28.400.jpg"
   },
   {
     "barcode": "8480000610652",
     "brand": "Hacendado",
     "favourite": true,
     "name": "Salteado de verduras vegetais",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/061/0652/front_es.31.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/848/000/061/0652/front_es.31.400.jpg"
   },
   {
     "barcode": "5011428300035",
@@ -1116,11 +958,6 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "name": "Sensodyne repair & protect",
     "brand": "Sensodyne",
     "favourite": false,
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "Joan",
-      "isAdmin": false
-    },
     "imageUrl": "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
   },
   {
@@ -1163,12 +1000,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "Ametller Origen",
     "favourite": true,
     "name": "Tomaquet de sucar",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/658/395/0449/front_es.3.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/658/395/0449/front_es.3.400.jpg"
   },
   {
     "barcode": "8422410170760",
@@ -1259,12 +1091,7 @@ export const DEFAULT_PRODUCTS: ProductInterface[] = [
     "brand": "ametller origen",
     "favourite": true,
     "name": "brots selectes",
-    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/186/7502/front_es.9.400.jpg",
-    "createdBy": {
-      "email": "joan.lloria@gmail.com",
-      "username": "admin1234",
-      "isAdmin": true
-    }
+    "imageUrl": "https://images.openfoodfacts.org/images/products/843/655/186/7502/front_es.9.400.jpg"
   },
   {
     "barcode": "8003753900438",
