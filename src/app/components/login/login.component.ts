@@ -46,9 +46,10 @@ export class LoginComponent implements OnInit {
       const {email, password} = this.user;
       this.firestoreAuthService.loginWithGoogle(email, password).then((res) => {
         if(res) {
+          console.log(res);
           const user = {
             username: res.user.displayName,
-            email: this.user.email,
+            email: res.user.email,
             photoURL: res.user.photoURL
           };
           this.loginService.login(user);
