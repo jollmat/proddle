@@ -15,7 +15,7 @@ export const i18n_CA = {
     registerError: 'Ja exiteix un compte amb aquest email',
     error: 'Usuari o contrasenya incorrectes',
     passwordRepeat: 'Repeteix contrasenya',
-    passwordsDifferentError: 'La contrasenyes no concideixen'
+    passwordsDifferentError: 'La contrasenyes estan buides o no concideixen'
   },
   carousel: {
     step1: {

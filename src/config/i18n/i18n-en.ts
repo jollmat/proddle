@@ -15,7 +15,7 @@ export const i18n_EN = {
     registerError: 'An account already exists with this email',
     error: 'Incorrect username or password.',
     passwordRepeat: 'Password repeat',
-    passwordsDifferentError: 'Passwords do not match'
+    passwordsDifferentError: 'Passwords are empty or do not match'
   },
   carousel: {
     step1: {

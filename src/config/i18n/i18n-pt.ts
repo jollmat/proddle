@@ -15,7 +15,7 @@ export const i18n_PT = {
     registerError: 'Já existe uma conta com este e-mail',
     error: 'Usuário ou senha incorretos.',
     passwordRepeat: 'Repita a senha',
-    passwordsDifferentError: 'As senhas não coincidem'
+    passwordsDifferentError: 'As senhas estão vazias ou não correspondem'
   },
   carousel: {
     step1: {

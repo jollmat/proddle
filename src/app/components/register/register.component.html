@@ -86,7 +86,7 @@
   <div class="d-flex flex-column px-3 w-100">
     <button
       class="btn btn-secondary btn-block w-100 mb-2"
-      [ngClass]="{ disabled: !canAccess() }"
+      [ngClass]="{ disabled: !canAccess() || !validatePasswords() }"
       (click)="register()"
     >
       {{ 'login.doRegister' | translate }}
