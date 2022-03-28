@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       this.loginError = false;
       const {email, password} = this.user;
       this.firestoreAuthService.login(email, password).then((res) => {
+        console.log(res);
         if(res) {
           const user = {
             email: this.user.email

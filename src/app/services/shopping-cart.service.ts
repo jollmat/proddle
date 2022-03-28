@@ -101,7 +101,7 @@ export class ShoppingCartService {
               this.shopProductService.getProductHighestPrice(product);
             cheaperShops.forEach((_shop) => {
               const shopCartItem = this._cartConfig.items.find((_item) => {
-                return _item.shop?.id === _shop.id;
+                return _item.shop?.id === _shop?.id;
               });
               const productUnits = {
                 product: product,

@@ -88,13 +88,7 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /* TODO: Caching images
-  getImageUrl(imageUrl: string) {
-    return this.imageCacheService.getImageUrl(imageUrl);
-  }
-  */
-
-  getProductPrices(product: ProductInterface) {
+ getProductPrices(product: ProductInterface) {
     let shopsIds: string[] = [];
     this.shopProductService._shopsProducts
       .filter((_shopProduct) => {
@@ -146,20 +140,13 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
     return (
       this.loggedUser.admin ||
       (product.createdBy &&
-        product.createdBy.email === this.loggedUser.email &&
-        product.createdBy.username === this.loggedUser.username)
+        product.createdBy.email === this.loggedUser.email)
     );
   }
 
   addToCart(product: ProductInterface): void {
     this.shoppingCartService.addToCart(product);
   }
-
-  /*
-  removeFromCart(product: ProductInterface): void {
-    this.shoppingCartService.addToCart(product);
-  }
-  */
 
   exit() {
     this.router.navigateByUrl('');

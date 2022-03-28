@@ -153,7 +153,6 @@ export class AppComponent implements OnInit {
 
     this.shopService.shops.subscribe((_shops) => {
       this.shops = _shops.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
-      console.log(this.shops);
     });
     this.productService.products.subscribe((_products) => {
       this.products = _products.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));

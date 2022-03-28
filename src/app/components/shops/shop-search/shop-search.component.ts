@@ -104,8 +104,7 @@ export class ShopSearchComponent implements OnInit, AfterViewInit {
     return (
       this.loggedUser.admin ||
       (shop.createdBy &&
-        this.loggedUser.email === shop.createdBy.email &&
-        this.loggedUser.username === shop.createdBy.username)
+        this.loggedUser.email === shop.createdBy.email)
     );
   }
 

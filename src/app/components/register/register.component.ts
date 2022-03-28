@@ -58,8 +58,8 @@ export class RegisterComponent {
   }
 
   validatePasswords() {
-    return (this.user?.password?.length > 0 && 
-    this.user?.passwordRepeat?.length > 0 &&
+    return (this.user?.password?.length > 5 && 
+    this.user?.passwordRepeat?.length > 5 &&
     this.user?.password === this.user?.passwordRepeat);
   }
 

@@ -131,6 +131,7 @@ export class AddProductByBarcodeComponent implements OnInit {
       .subscribe((barcode: string) => {
         console.log('barcodeInput changed:', barcode);
         this.shopProductDetail.productBarcode = barcode;
+        this.productDetail.barcode = barcode;
 
         this.lockProductEdition = true;
         this.matchingBarcode = true;
@@ -153,7 +154,6 @@ export class AddProductByBarcodeComponent implements OnInit {
           this.openFoodProductLoadSubscription = this.openFoodService
             .loadProduct(barcode)
             .subscribe((_openFoodProductResult) => {
-              console.log(_openFoodProductResult);
               if (_openFoodProductResult.product !== undefined) {
                 this.productDetail.name =
                   _openFoodProductResult.product.product_name;
@@ -191,7 +191,7 @@ export class AddProductByBarcodeComponent implements OnInit {
       this.productDetail.brand?.length > 0 &&
       this.shopProductDetail &&
       this.shopProductDetail.productBarcode?.length > 0 &&
-      this.shopProductDetail.price &&
+      this.shopProductDetail.price>0 &&
       this.shopProductDetail.shopId &&
       this.shopProductDetail.shopId.length > 0
     );

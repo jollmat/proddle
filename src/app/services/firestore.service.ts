@@ -60,6 +60,9 @@ export class FirestoreService {
 
   addProduct(product: ProductInterface): Observable<any> {
     console.log('FirestoreService.addProduct()', product);
+    if(!product.imageUrl) {
+      product.imageUrl = '';
+    }
     const productsRef = collection(this.firestore, 'products');
     return from(addDoc(productsRef, product));
   }
@@ -91,18 +94,18 @@ export class FirestoreService {
     return from(setDoc(productDocRef, product));
   }
 
-
-
   getShopsProducts(): Observable<ShopProductInterface[]> {
     console.log('FirestoreService.getShopsProducts()');
     const shopsProductsRef = collection(this.firestore, 'shopsProducts');
-    return collectionData(shopsProductsRef) as Observable<ShopProductInterface[]>;
+    return collectionData(shopsProductsRef, {idField: 'id'}) as Observable<ShopProductInterface[]>;
   }
 
   deleteShopProduct(shopProduct: ShopProductInterface): Observable<any> {
     console.log('FirestoreService.deleteShopProduct()', shopProduct);
     const shopProductDocRef = doc(this.firestore, `shopsProducts/${shopProduct.id}`);
-    return from(deleteDoc(shopProductDocRef));
+    console.log(shopProductDocRef);
+    return this.deleteShopProducts([shopProduct]);
+    // return from(deleteDoc(shopProductDocRef));
   }
 
   deleteShopProducts(shopProducts: ShopProductInterface[]): Observable<any> {
@@ -110,7 +113,7 @@ export class FirestoreService {
     const batch = writeBatch(this.firestore);
     
     shopProducts.forEach((_shopProduct) => {
-      const colRef = collection(this.firestore, 'shopsProducts');
+      console.log(_shopProduct.id);
       const shopProductDocRef = doc(this.firestore, `shopsProducts/${_shopProduct.id}`);
       batch.delete(shopProductDocRef);
     });

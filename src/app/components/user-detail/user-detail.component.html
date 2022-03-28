@@ -49,6 +49,6 @@
     >
     <span class="divider mx-2">/</span>
     <span class="step fw-bold" *ngIf="user?.username">{{ user?.username }}</span>
-    <span class="step fw-bold" *ngIf="!user?.username">{{ user?.email }}</span>
+    <span class="step fw-bold" *ngIf="!user?.username">{{ user?.email.substr(0, user?.email.indexOf('@')) }}</span>
   </div>
 </ng-template>

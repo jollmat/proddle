@@ -15,7 +15,8 @@ export const i18n_ES = {
     registerError: 'Ya exite una cuenta con el email indicado',
     error: 'Usuario o contraseña incorrectos.',
     passwordRepeat: 'Repetir contraseña',
-    passwordsDifferentError: 'La contraseñas estan vacías o no conciden'
+    passwordsDifferentError: 'La contraseñas estan vacías o no conciden',
+    passwordLengthError: 'Las contraseñas deben tener un mínimo de 6 caracteres.'
   },
   carousel: {
     step1: {

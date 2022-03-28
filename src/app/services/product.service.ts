@@ -34,12 +34,6 @@ export class ProductService {
      this._products = _products;
     });
 
-    this.loadProducts().subscribe(() => {
-
-    }, error => {
-      console.log('Error carregant productes');
-    });
-
   }
 
   loadProducts(): Observable<ProductInterface[]> {

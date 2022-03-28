@@ -120,14 +120,11 @@
       </div>
 
       <ng-container
-        *ngIf="
-          !productDetail?.createdBy?.isAdmin &&
-          productDetail?.createdBy?.username
-        "
+        *ngIf="productDetail?.createdBy"
       >
         <div class="author d-flex justify-content-end w-100 ps-3 pe-4 mb-2">
           <span class="label me-1 fst-italic">{{'product.createdBy' | translate}}:</span>
-          <span class="value">{{ productDetail?.createdBy?.username }}</span>
+          <span class="value">{{ productDetail?.createdBy?.username ? productDetail?.createdBy?.username : productDetail?.createdBy?.email.substr(0, productDetail?.createdBy?.email.indexOf('@')) }}</span>
         </div>
       </ng-container>
 
@@ -205,13 +202,11 @@
 
                     <div class="d-flex align-items-center ms-auto nowrap">
                       <span class="ps-3">
-                        <!--
                         <span
                           *ngIf="canRemoveShopProduct(shopProduct)"
                           class="fas fa-trash cursor-pointer me-3"
                           (click)="removeShopProduct(shopProduct)"
                         ></span>
-                        -->
                         <i
                           [ngClass]="{
                             disabled: !hasHistory(shopProduct)

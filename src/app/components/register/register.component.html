@@ -77,7 +77,8 @@
 
         <span class="text-start text-danger mb-2" *ngIf="canAccess() && (registerError || !validatePasswords())">
             <small *ngIf="registerError">{{'login.registerError' | translate}}</small>
-            <small *ngIf="!validatePasswords()">{{'login.passwordsDifferentError' | translate}}</small>
+            <small *ngIf="!validatePasswords() && user.passwordRepeat.length>5 && user.password.length>5">{{'login.passwordsDifferentError' | translate}}</small>
+            <small *ngIf="!validatePasswords() && (user.passwordRepeat.length<6 || user.password.length<6)">{{'login.passwordLengthError' | translate}}</small>
         </span>
       </div>
     </div>

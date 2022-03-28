@@ -26,8 +26,6 @@ export class ShopProductService {
     this.shopsProducts.subscribe((_shopsProducts) => {
       this._shopsProducts = _shopsProducts;
     });
-
-    this.loadShopsProducts().subscribe();
   }
 
   loadShopsProducts(): Observable<ShopProductInterface[]> {

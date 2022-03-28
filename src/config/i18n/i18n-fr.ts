@@ -15,7 +15,8 @@ export const i18n_FR = {
       registerError: 'Un compte existe déjà avec cet email',
       error: 'Identifiant ou mot de passe incorrect',
       passwordRepeat: 'Répéter le mot de passe',
-      passwordsDifferentError: 'Les mots de passe sont vides ou ne correspondent pas'
+      passwordsDifferentError: 'Les mots de passe sont vides ou ne correspondent pas',
+      passwordLengthError: 'Les mots de passe doivent comporter au moins 6 caractères.'
     },
     carousel: {
       step1: {

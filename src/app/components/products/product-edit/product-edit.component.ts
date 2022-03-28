@@ -45,8 +45,7 @@ export class ProductEditComponent implements OnInit {
     return (
       this.loggedUser.admin ||
       (shopProduct.createdBy &&
-        shopProduct.createdBy.email === this.loggedUser.email &&
-        shopProduct.createdBy.username === this.loggedUser.username)
+        shopProduct.createdBy.email === this.loggedUser.email)
     );
   }
 
@@ -68,6 +67,7 @@ export class ProductEditComponent implements OnInit {
     console.log(shopProduct);
     if (confirm("Estàs apunt d'esborrar el preu en una botiga. Continuar?")) {
       this.shopsProductsService.removeShopProduct(shopProduct).subscribe(() => {
+        this.getShopProducts();
         if (this.historyShopProduct) {
           this.configHistory(shopProduct);
         }
@@ -79,9 +79,6 @@ export class ProductEditComponent implements OnInit {
     const shop = this.shops.find((_shop) => {
       return _shop.id === shopId;
     });
-    console.log(shopId);
-    console.log(this.shops);
-    console.log(shop);
     return shop?.name;
   }
 

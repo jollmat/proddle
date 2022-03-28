@@ -64,8 +64,8 @@
                     <img *ngIf="loggedUser.photoURL" [src]="loggedUser.photoURL" class="user-photo" />
                   </div>
                   <div class="d-flex flex-column ps-2">
-                    <span class="wrap">{{ loggedUser?.username }}</span>
-                    <small class="wrap">{{ loggedUser?.email }}</small>
+                    <span class="wrap">{{ loggedUser?.username?.length>0 ? loggedUser?.username : loggedUser?.email.substr(0, loggedUser?.email.indexOf('@')) }}</span>
+                    <small class="wrap" *ngIf="loggedUser?.username">{{ loggedUser?.email }}</small>
                   </div>
                 </div>
               </li>
