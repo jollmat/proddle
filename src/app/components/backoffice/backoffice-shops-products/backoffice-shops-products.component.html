@@ -1,0 +1,42 @@
+<div class="d-flex w-100">
+    <table class="table table-sm table-hover w-100">
+      <thead>
+        <tr>
+          <th>
+            <span (click)="sort('product')" class="cursor-pointer">Producte</span>
+          </th>
+          <th>
+            <span (click)="sort('shop')" class="cursor-pointer">Botiga</span>
+          </th>
+          <th>
+            <span>Preu</span>
+          </th>
+          <th>
+            <span>Afegit per</span>
+          </th>
+          <th>
+            <span (click)="sort('updateDate')" class="cursor-pointer">Data</span>
+          </th>
+          <th><i class="fas fa-floppy-disk"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let shopProduct of shopsProducts">
+          <ng-container>
+            <tr>
+              <td>{{getProduct(shopProduct.productBarcode).name}}</td>
+              <td>{{getShop(shopProduct.shopId).name}}</td>
+              <td class="text-end">{{shopProduct.price | number: '1.2-2'}} €</td>
+              <td>{{shopProduct.createdBy?.username || shopProduct.createdBy?.email}}</td>
+              <td><span *ngIf="shopProduct.updateDate">{{shopProduct.updateDate | date:'dd.MM.yyyy - HH:mm'}}</span></td>
+              <td>
+                <i *ngIf="!updatingShopProduct || updatingShopProduct.id!==updatingShopProduct.id" class="fas fa-floppy-disk cursor-pointer" (click)="updateShopProduct(shopProduct)"></i>
+                <i *ngIf="updatingShopProduct && updatingShopProduct.id===updatingShopProduct.id" class="fas fa-spinner fa-spin"></i>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  

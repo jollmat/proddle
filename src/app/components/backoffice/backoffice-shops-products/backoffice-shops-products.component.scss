@@ -1,0 +1,41 @@
+img {
+    width: 20px;
+    max-height: 50px;
+  }
+  
+  table {
+    font-size: 9pt;
+    background-color: #fff;
+  
+    thead {
+      position: sticky;
+      top: 0px;
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+      tr {
+        th {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      }
+    }
+  
+    tbody {
+      tr {
+        td {
+          padding-left: 10px;
+          padding-right: 10px;
+          vertical-align: middle;
+  
+          i.fas {
+            font-size: 18pt;
+          }
+        }
+      }
+    }
+  }
+  
+  .form-control{
+    font-size: 10pt;
+  }
+  

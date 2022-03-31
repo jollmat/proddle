@@ -37,8 +37,8 @@
         [ngClass]="{ active: selectedTab === 3 }"
         href="javascript://"
         (click)="selectedTab = 3"
-        >Usuaris<small class="ms-1"
-          >({{ users?.length | number: '1.0-2' }})</small
+        >Preus<small class="ms-1"
+          >({{ shopsProducts?.length | number: '1.0-2' }})</small
         ></a
       >
     </li>
@@ -65,6 +65,13 @@
         (onProductSortEmitter)="sortProducts($event)"
         class="w-100"></app-backoffice-products>
     </div>
-    <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 3">Usuaris</div>
+    <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 3">
+      <app-backoffice-shops-products 
+        [products]="products"
+        [shops]="shops"
+        [shopsProducts]="shopsProducts"
+        (onShopProductSortEmitter)="sortShopsProducts($event)"
+        class="w-100"></app-backoffice-shops-products>
+    </div>
   </div>
 </div>

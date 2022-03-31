@@ -20,7 +20,7 @@
               <td><img class="" [src]="shop.imageUrl.length>0?shop.imageUrl:DEFAULT_IMAGE_URL" /></td>
               <td>
                 <i *ngIf="!updatingShop || updatingShop.id!==shop.id" class="fas fa-floppy-disk cursor-pointer" (click)="updateShop(shop)"></i>
-                <i *ngIf="updatingShop && updatingShop.id===shop.id" class="fas fa-spinner fa-spin" (click)="updateShop(shop)"></i>
+                <i *ngIf="updatingShop && updatingShop.id===shop.id" class="fas fa-spinner fa-spin"></i>
               </td>
             </tr>
           </ng-container>
