@@ -8,4 +8,5 @@ export interface ProductInterface {
   favourite: boolean;
   imageUrl?: string;
   createdBy?: UserInterface;
+  createdOn?: number;
 }

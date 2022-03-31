@@ -2,9 +2,16 @@
   <table class="table table-sm table-hover w-100">
     <thead>
       <tr>
-        <th><span (click)="sort('name')" class="cursor-pointer">Nom</span></th>
-        <th><span (click)="sort('brand')" class="cursor-pointer">Marca</span></th>
-        <th>Creat per</th>
+        <th>
+          <span (click)="sort('name')" class="cursor-pointer">Nom</span><br>
+          <input class="form-control" #nameinput />
+        </th>
+        <th>
+          <span (click)="sort('brand')" class="cursor-pointer">Marca</span><br>
+          <input class="form-control" #brandinput/>
+        </th>
+        <th>Creat per<br><input class="form-control" #createdbyinput /></th>
+        <th><span (click)="sort('createdOn')" class="cursor-pointer">Data creació</span></th>
         <th>URL imatge</th>
         <th>Imatge</th>
         <th><i class="fas fa-floppy-disk"></i></th>
@@ -12,17 +19,20 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let product of products">
-        <tr>
-          <td><input type="text" [value]="product.name" [(ngModel)]="product.name" class="form-control" /></td>
-          <td><input type="text" [value]="product.brand" [(ngModel)]="product.brand" class="form-control" /></td>
-          <td>{{product.createdBy?.username}}</td>
-          <td><input type="text" [value]="product.imageUrl" [(ngModel)]="product.imageUrl" class="form-control" /></td>
-          <td><img class="" [src]="product.imageUrl.length>0?product.imageUrl:DEFAULT_IMAGE_URL" /></td>
-          <td>
-            <i *ngIf="!updatingProduct || updatingProduct.id!==product.id" class="fas fa-floppy-disk cursor-pointer" (click)="updateProduct(product)"></i>
-            <i *ngIf="updatingProduct && updatingProduct.id===product.id" class="fas fa-spinner fa-spin" (click)="updateProduct(product)"></i>
-          </td>
-        </tr>
+        <ng-container *ngIf="matchesSearch(product)">
+          <tr>
+            <td><input type="text" [value]="product.name" [(ngModel)]="product.name" class="form-control" /></td>
+            <td><input type="text" [value]="product.brand" [(ngModel)]="product.brand" class="form-control" /></td>
+            <td>{{product.createdBy?.username || product.createdBy?.email}}</td>
+            <td><span *ngIf="product.createdOn">{{product.createdOn | date:'dd.MM.yyyy'}}</span></td>
+            <td><input type="text" [value]="product.imageUrl" [(ngModel)]="product.imageUrl" class="form-control" /></td>
+            <td><img class="" [src]="product.imageUrl.length>0?product.imageUrl:DEFAULT_IMAGE_URL" /></td>
+            <td>
+              <i *ngIf="!updatingProduct || updatingProduct.id!==product.id" class="fas fa-floppy-disk cursor-pointer" (click)="updateProduct(product)"></i>
+              <i *ngIf="updatingProduct && updatingProduct.id===product.id" class="fas fa-spinner fa-spin" (click)="updateProduct(product)"></i>
+            </td>
+          </tr>
+        </ng-container>
       </ng-container>
     </tbody>
   </table>

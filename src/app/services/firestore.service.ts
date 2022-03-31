@@ -9,7 +9,8 @@ import { ShopProductInterface } from '../model/interfaces/shop-product.interface
 @Injectable({ providedIn: 'root' })
 export class FirestoreService {
 
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore) {
+  }
 
   addShop(shop: ShopInterface): Observable<any> {
     console.log('FirestoreService.addShop()', shop);

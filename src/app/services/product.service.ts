@@ -110,6 +110,7 @@ export class ProductService {
   createProduct(product: ProductInterface): Observable<boolean> {
     console.log('ProductService.createProduct()', product);
     product.createdBy = this.loginService.getLoggedUser();
+    product.createdOn = new Date().getTime();
 
     if (APP_CONFIG.cloudMode) {
       return this.firestoreService.addProduct(product).pipe(tap(() => {
