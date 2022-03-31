@@ -24,6 +24,8 @@ export class BackofficeShopsComponent implements OnInit, OnChanges, AfterViewIni
 
   @ViewChild('nameinput') nameinput: ElementRef;
 
+  DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
+
   constructor(private shopService: ShopService, private spinner: NgxSpinnerService) { }
  
   matchesSearch(shop: ShopInterface) {
