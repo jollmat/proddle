@@ -53,11 +53,16 @@
         [shopsProducts]="shopsProducts"
       ></app-backoffice-dashboard>
     </div>
-    <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 1">Botigues</div>
+    <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 1">
+      <app-backoffice-shops 
+        [shops]="shops"
+        (onShopSortEmitter)="sortShops($event)"
+        class="w-100"></app-backoffice-shops>
+    </div>
     <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 2">
       <app-backoffice-products 
         [products]="products"
-        (onSortEmitter)="sortProducts($event)"
+        (onProductSortEmitter)="sortProducts($event)"
         class="w-100"></app-backoffice-products>
     </div>
     <div class="tab-pane d-flex w-100" *ngIf="selectedTab === 3">Usuaris</div>

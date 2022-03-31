@@ -1,0 +1,31 @@
+<div class="d-flex w-100">
+    <table class="table table-sm table-hover w-100">
+      <thead>
+        <tr>
+          <th>
+            <span (click)="sort('name')" class="cursor-pointer">Nom</span><br>
+            <input class="form-control" #nameinput />
+          </th>
+          <th>URL imatge</th>
+          <th>Imatge</th>
+          <th><i class="fas fa-floppy-disk"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let shop of shops">
+          <ng-container *ngIf="matchesSearch(shop)">
+            <tr>
+              <td><input type="text" [value]="shop.name" [(ngModel)]="shop.name" class="form-control" /></td>
+              <td><input type="text" [value]="shop.imageUrl" [(ngModel)]="shop.imageUrl" class="form-control" /></td>
+              <td><img class="" [src]="shop.imageUrl.length>0?shop.imageUrl:DEFAULT_IMAGE_URL" /></td>
+              <td>
+                <i *ngIf="!updatingShop || updatingShop.id!==shop.id" class="fas fa-floppy-disk cursor-pointer" (click)="updateShop(shop)"></i>
+                <i *ngIf="updatingShop && updatingShop.id===shop.id" class="fas fa-spinner fa-spin" (click)="updateShop(shop)"></i>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  

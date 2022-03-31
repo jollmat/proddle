@@ -13,7 +13,7 @@ import { debounceTime, distinctUntilChanged, filter, fromEvent, Subscription, ta
 export class BackofficeProductsComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() products: ProductInterface[] = [];
 
-  @Output() onSortEmitter = new EventEmitter<{sortBy: string, sortDir: 'ASC' | 'DESC'}>();
+  @Output() onProductSortEmitter = new EventEmitter<{sortBy: string, sortDir: 'ASC' | 'DESC'}>();
 
   DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
 
@@ -46,7 +46,7 @@ export class BackofficeProductsComponent implements OnInit, OnChanges, AfterView
   sort(field: any) {
     this.sortDir = (field!==this.sortBy || this.sortDir === 'ASC') ? 'DESC' : 'ASC';
     this.sortBy = field;
-    this.onSortEmitter.emit({
+    this.onProductSortEmitter.emit({
       sortBy: this.sortBy,
       sortDir: this.sortDir
     })

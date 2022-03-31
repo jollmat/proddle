@@ -32,9 +32,23 @@ export class BackofficeLayoutComponent implements OnInit, OnChanges {
     if (sortConfig) {
       this.products = this.products.sort((a, b) => {
         if (sortConfig.sortDir === 'DESC') {
-          return (a[sortConfig.sortBy] ? a[sortConfig.sortBy] : '').toUpperCase() > (b[sortConfig.sortBy] ? b[sortConfig.sortBy] : '').toUpperCase() ? -1 : 1;
+          return (a[sortConfig.sortBy] ? a[sortConfig.sortBy] : '').toString().toUpperCase() > (b[sortConfig.sortBy] ? b[sortConfig.sortBy] : '').toString().toUpperCase() ? -1 : 1;
         } else {
-          return (a[sortConfig.sortBy] ? a[sortConfig.sortBy] : '').toUpperCase() > (b[sortConfig.sortBy] ? b[sortConfig.sortBy] : '').toUpperCase() ? 1 : -1;
+          return (a[sortConfig.sortBy] ? a[sortConfig.sortBy] : '').toString().toUpperCase() > (b[sortConfig.sortBy] ? b[sortConfig.sortBy] : '').toString().toUpperCase() ? 1 : -1;
+        }
+        
+      });
+    }
+  }
+
+  sortShops(sortConfig: {sortBy: string, sortDir: 'ASC' | 'DESC'}) {
+    console.log('sortShops()', sortConfig);
+    if (sortConfig) {
+      this.shops = this.shops.sort((a, b) => {
+        if (sortConfig.sortDir === 'DESC') {
+          return (a[sortConfig.sortBy] ? a[sortConfig.sortBy] : '').toString().toUpperCase() > (b[sortConfig.sortBy] ? b[sortConfig.sortBy] : '').toString().toUpperCase() ? -1 : 1;
+        } else {
+          return (a[sortConfig.sortBy] ? a[sortConfig.sortBy] : '').toString().toUpperCase() > (b[sortConfig.sortBy] ? b[sortConfig.sortBy] : '').toString().toUpperCase() ? 1 : -1;
         }
         
       });
