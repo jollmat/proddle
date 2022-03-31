@@ -49,6 +49,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { RegisterComponent } from './components/register/register.component';
+import { BackofficeShopsComponent } from './components/backoffice/backoffice-shops/backoffice-shops.component';
+import { BackofficeShopsProductsComponent } from './components/backoffice/backoffice-shops-products/backoffice-shops-products.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -97,6 +99,8 @@ registerLocaleData(localeEs, 'es');
     BackofficeProductsComponent,
     LanguageSelectorComponent,
     RegisterComponent,
+    BackofficeShopsComponent,
+    BackofficeShopsProductsComponent,
   ],
   providers: [
     AuthenticationGuard,

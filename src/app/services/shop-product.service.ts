@@ -9,6 +9,7 @@ import { ShopService } from './shop.service';
 import { v4 as uuidv4 } from 'uuid';
 import { DEFAULT_SHOPS_PRODUCTS } from '../model/constants/default-shops-products.constant';
 import { APP_CONFIG } from 'src/config/app-config.constant';
+import { LoginService } from './login.service';
 
 @Injectable({ providedIn: 'root' })
 export class ShopProductService {
@@ -21,7 +22,8 @@ export class ShopProductService {
   constructor(
     private productService: ProductService,
     private shopService: ShopService,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    private loginService: LoginService
   ) {
     this.shopsProducts.subscribe((_shopsProducts) => {
       this._shopsProducts = _shopsProducts;
@@ -53,6 +55,9 @@ export class ShopProductService {
   addShopProduct(shopProduct: ShopProductInterface) {
     if (!shopProduct.id) {
       shopProduct.id = uuidv4();
+    }
+    if (!shopProduct.createdBy) {
+      shopProduct.createdBy = this.loginService.getLoggedUser();
     }
 
     if (APP_CONFIG.cloudMode) {
