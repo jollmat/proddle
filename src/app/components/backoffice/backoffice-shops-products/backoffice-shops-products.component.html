@@ -24,13 +24,13 @@
         <ng-container *ngFor="let shopProduct of shopsProducts">
           <ng-container>
             <tr>
-              <td>{{getProduct(shopProduct.productBarcode).name}}</td>
-              <td>{{getShop(shopProduct.shopId).name}}</td>
+              <td>{{getProduct(shopProduct.productBarcode)?.name}}<span class="brand ms-2">({{getProduct(shopProduct.productBarcode)?.brand}})</span></td>
+              <td>{{getShop(shopProduct.shopId)?.name}}</td>
               <td class="text-end">{{shopProduct.price | number: '1.2-2'}} €</td>
               <td>{{shopProduct.createdBy?.username || shopProduct.createdBy?.email}}</td>
               <td><span *ngIf="shopProduct.updateDate">{{shopProduct.updateDate | date:'dd.MM.yyyy - HH:mm'}}</span></td>
               <td>
-                <i *ngIf="!updatingShopProduct || updatingShopProduct.id!==updatingShopProduct.id" class="fas fa-floppy-disk cursor-pointer" (click)="updateShopProduct(shopProduct)"></i>
+                <i *ngIf="!updatingShopProduct || updatingShopProduct.id!==updatingShopProduct.id" class="fas fa-trash cursor-pointer" (click)="removeShopProduct(shopProduct)"></i>
                 <i *ngIf="updatingShopProduct && updatingShopProduct.id===updatingShopProduct.id" class="fas fa-spinner fa-spin"></i>
               </td>
             </tr>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AlertsService } from 'src/app/services/alerts.service';
+import { ShopProductService } from 'src/app/services/shop-product.service';
 import { ProductInterface } from '../../model/interfaces/product.interface';
 import { ShopInterface } from '../../model/interfaces/shop.interface';
 import { FirestoreService } from '../../services/firestore.service';
@@ -16,11 +18,15 @@ export class HomeComponent implements OnInit {
   shops: ShopInterface[];
   products: ProductInterface[];
 
+  alerts: number = 0;
+
   constructor(
     private router: Router,
     private productService: ProductService,
     private shopService: ShopService,
-    private spinner: NgxSpinnerService
+    private shopProductService: ShopProductService,
+    private spinner: NgxSpinnerService,
+    private alertService: AlertsService
   ) {}
 
   toggleShopList() {
@@ -58,8 +64,14 @@ export class HomeComponent implements OnInit {
       }, 500);
     });
 
+    this.shopProductService.shopsProducts.subscribe(() => {
+      this.alertService.calculateAlerts(false);
+    });
+
     this.shops = this.shopService._shops;
     this.products = this.productService._products;
+
+    this.alerts = this.alertService.userAlerts.alerts.length;
 
     setTimeout(() => {
       this.spinner.hide();

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { ProductInterface } from 'src/app/model/interfaces/product.interface';
 import { ShopProductInterface } from 'src/app/model/interfaces/shop-product.interface';
 import { ShopInterface } from 'src/app/model/interfaces/shop.interface';
+import { ShopProductService } from 'src/app/services/shop-product.service';
 
 @Component({
   selector: 'app-backoffice-shops-products',
@@ -20,7 +21,7 @@ export class BackofficeShopsProductsComponent implements OnChanges {
   sortBy: string = 'updateDate';
   sortDir: 'ASC' | 'DESC' = 'ASC';
 
-  constructor() { }
+  constructor(private shopProductService: ShopProductService) { }
   
   getShop(shopId: string): ShopInterface {
     return this.shops.find((_shop) => {
@@ -34,8 +35,8 @@ export class BackofficeShopsProductsComponent implements OnChanges {
     });
   }
 
-  updateShopProduct(shopProduct: ShopProductInterface): void {
-
+  removeShopProduct(shopProduct: ShopProductInterface): void {
+    this.shopProductService.removeShopProduct(shopProduct).subscribe(() => {});
   }
 
   sort(field: any) {
@@ -49,7 +50,10 @@ export class BackofficeShopsProductsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes?.products?.firstChange){
+      console.log(this.shopsProducts);
       this.sort('updateDate');
+    } else {
+      console.log(this.shopsProducts);
     }
   }
 

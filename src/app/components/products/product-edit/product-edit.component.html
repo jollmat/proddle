@@ -245,7 +245,7 @@
                         "
                         [ngClass]="{ 'fw-bold': idx === 0 }"
                       >
-                        <div class="d-flex flex-column">
+                        <div class="d-flex flex-column text-start">
                           <span>
                             {{
                               productPrice.updateDate | date: 'dd.MM.YYYY HH:mm'
@@ -254,7 +254,7 @@
                           <span
                             *ngIf="loggedUser.admin && productPrice.createdBy"
                             class="user text-start"
-                            >({{ productPrice.createdBy.username }})</span
+                            >({{ productPrice.createdBy.username || productPrice.createdBy.email }})</span
                           >
                         </div>
                         <div>
