@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AlertsComponent } from 'src/app/components/alerts/alerts.component';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 import { AuthenticationNoneGuard } from 'src/app/guards/authentication-none.guard';
 import { StatisticsComponent } from '../../components/data-analisis/statistics/statistics.component';
@@ -72,6 +73,11 @@ export const APP_ROUTES: Routes = [
   {
     path: 'shoppingCart',
     component: ShoppingCartComponent,
+    canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'alerts',
+    component: AlertsComponent,
     canActivate: [AuthenticationGuard],
   },
   { path: 'forbidden', component: ForbiddenComponent },

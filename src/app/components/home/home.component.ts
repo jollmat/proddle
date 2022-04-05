@@ -41,6 +41,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['statistics']);
   }
 
+  toggleAlerts() {
+    this.router.navigate(['alerts']);
+  }
+
   scan() {
     this.router.navigate(['scan']);
   }
@@ -68,10 +72,14 @@ export class HomeComponent implements OnInit {
       this.alertService.calculateAlerts(false);
     });
 
+    this.alertService.userAlerts.subscribe((_userAlerts) => {
+      this.alerts = _userAlerts.alerts.length;
+    });
+
     this.shops = this.shopService._shops;
     this.products = this.productService._products;
 
-    this.alerts = this.alertService.userAlerts.alerts.length;
+    this.alerts = this.alertService._userAlerts.alerts.length;
 
     setTimeout(() => {
       this.spinner.hide();

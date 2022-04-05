@@ -136,6 +136,15 @@ export class ShopProductService {
     return of(true);
   }
 
+  getShopProductHistory(shopProduct: ShopProductInterface){
+    return this._shopsProducts.filter((_shopProduct) => {
+      return _shopProduct.productBarcode === shopProduct.productBarcode &&
+        _shopProduct.shopId === shopProduct.shopId;
+    }).sort((a,b) => {
+      return a.updateDate > b.updateDate ? 1 : -1;
+    });
+  }
+
   getShopProduct(
     shopId: string,
     productBarcode: string

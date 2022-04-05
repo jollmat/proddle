@@ -65,7 +65,8 @@ export const i18n_PT = {
     shops: 'Lojas',
     products: 'Produtos',
     analysis: 'Análise',
-    shoppingCart: 'Carrinho de compras'
+    shoppingCart: 'Carrinho de compras',
+    alerts:'Alertas'
   },
   shops: {
     noShopAdded: 'Não há lojas',
@@ -164,6 +165,8 @@ export const i18n_PT = {
     role: {
       admin: 'Administrador',
       user: 'Utilizador'
-    }
+    },
+    alert:'Alerta',
+    alerts:'Alertas'
   }
 };

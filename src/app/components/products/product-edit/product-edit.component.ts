@@ -91,7 +91,9 @@ export class ProductEditComponent implements OnInit {
   }
 
   showHistory(shopProduct: ShopProductInterface) {
-    if (this.historyShopProduct) {
+    if (this.historyShopProduct && 
+        this.historyShopProduct.productBarcode===shopProduct.productBarcode && 
+        this.historyShopProduct.shopId===shopProduct.shopId) {
       this.historyShopProduct = undefined;
       this.historyShopProductList = [];
     } else {

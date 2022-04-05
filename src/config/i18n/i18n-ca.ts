@@ -65,7 +65,8 @@ export const i18n_CA = {
     shops: 'Botigues',
     products: 'Productes',
     analysis: 'Anàlisi',
-    shoppingCart: 'Cistella de compra'
+    shoppingCart: 'Cistella de compra',
+    alerts:'Alertes'
   },
   shops: {
     noShopAdded: 'No hi ha botigues',
@@ -164,6 +165,8 @@ export const i18n_CA = {
     role: {
       admin: 'Administrador',
       user: 'Usuari'
-    }
+    },
+    alert:'Alerta',
+    alerts:'Alertes'
   }
 };

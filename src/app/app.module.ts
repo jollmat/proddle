@@ -51,6 +51,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { RegisterComponent } from './components/register/register.component';
 import { BackofficeShopsComponent } from './components/backoffice/backoffice-shops/backoffice-shops.component';
 import { BackofficeShopsProductsComponent } from './components/backoffice/backoffice-shops-products/backoffice-shops-products.component';
+import { AlertsComponent } from './components/alerts/alerts.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -101,6 +102,7 @@ registerLocaleData(localeEs, 'es');
     RegisterComponent,
     BackofficeShopsComponent,
     BackofficeShopsProductsComponent,
+    AlertsComponent,
   ],
   providers: [
     AuthenticationGuard,

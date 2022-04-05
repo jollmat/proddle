@@ -203,5 +203,6 @@ export class ShopStandingsComponent implements OnInit, OnChanges {
       });
 
       this.shopsProducts = this.shopProductService._shopsProducts;
+      this.calculateStandings();
   }
 }

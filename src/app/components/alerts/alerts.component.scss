@@ -1,0 +1,38 @@
+.page-content {
+    overflow: auto;
+    height: calc(100vh - 195px);
+  }
+  
+  .sticky-header {
+    position: sticky;
+    top: 82px;
+    z-index: 1;
+    width: 100% !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #fff;
+    border: 1px solid #ccc;
+  }
+
+  .no-data {
+    height: calc(100vh - 660px) !important;
+  }
+
+  .list-group-item{
+    font-size: 9pt;
+
+    div.left {
+      border-right: 1px solid #ccc;
+      div.icon-container{
+        i {
+          font-size: 22pt;
+        }
+      }
+    }
+  }
+
+  img.shop-logo{
+    max-width:65px;
+    max-height:65px;
+  }
+  

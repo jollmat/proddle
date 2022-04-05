@@ -14,6 +14,7 @@ import {
   fromEvent,
   tap,
 } from 'rxjs';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 import { ProductInterface } from '../../../model/interfaces/product.interface';
 import { UserInterface } from '../../../model/interfaces/user.interface';
@@ -46,7 +47,7 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
     private shopProductService: ShopProductService, //private imageCacheService: ImageCacheService
     private loginService: LoginService,
     private shoppingCartService: ShoppingCartService,
-    private spinner: NgxSpinnerService
+    private alertService: AlertsService
   ) {}
 
   doCreateProduct() {
@@ -63,7 +64,9 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
     });
     product.favourite = !product.favourite;
 
-    this.productService.toggleFavourite(product).subscribe(() => {});
+    this.productService.toggleFavourite(product).subscribe(() => {
+      this.alertService.calculateAlerts(false);
+    });
   }
 
   doRemove(product: ProductInterface) {
