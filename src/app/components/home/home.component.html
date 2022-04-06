@@ -148,9 +148,9 @@
                     w-100
                   "
                 >
-                  <i class="fas fa-triangle-exclamation" [ngClass]="{'mb-3':!alerts}"></i>
-                  <span *ngIf="alerts" class="count">{{
-                    alerts | number: '1.0-2'
+                  <i class="fas fa-triangle-exclamation" [ngClass]="{'mb-3':!alerts_unread}"></i>
+                  <span *ngIf="alerts_unread" class="count">{{
+                    alerts_unread | number: '1.0-2'
                   }}</span>
                   <small class="btn-label">{{'home.alerts' | translate}}</small>
                 </div>

@@ -155,6 +155,9 @@ export const i18n_PT = {
     createUnknownProductConfirm: 'Produto não registrado. O preço da loja indicada será criado e salvo.',
     addExistingShopProductConfirm: 'O produto para a loja já existe. Deseja atualizá-lo com a data de hoje (o preço anterior será adicionado a um histórico)?'
   },
+  alerts: {
+    unreadInfoText: 'Você tem alertas não lidos. Você pode marcá-los como lidos clicando no que deseja.'
+  },
   commons: {
     back: 'Voltar',
     prices: 'preços',

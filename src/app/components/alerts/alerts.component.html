@@ -4,18 +4,16 @@
   
   <ng-container *ngIf="userAlerts?.alerts?.length > 0; else noData">
     <div class="page-content d-flex flex-column mb-4 pt-4 px-3 w-100">
+
+        <div class="alert alert-info d-flex" *ngIf="unreadAlerts > 0">
+          <i class="fas fa-triangle-exclamation me-2 mt-1"></i>
+          <div class="text-start">{{'alerts.unreadInfoText' | translate}}</div>
+        </div>
         
         <div class="card" class="w-100">
-            <!--
-            <div class="card-header text-start">
-                {{userAlerts.alerts.length}}
-                <span class="ms-2" *ngIf="userAlerts.alerts.length===1">{{'commons.alert' | translate}}</span>
-                <span class="ms-2" *ngIf="userAlerts.alerts.length>1">{{'commons.alerts' | translate}}</span>
-            </div>
-            -->
             <ul class="list-group list-group-flush">
                 <ng-container *ngFor="let alert of userAlerts.alerts">
-                    <li class="list-group-item text-start p-0 mb-1">
+                    <li class="list-group-item text-start p-0 mb-1" [ngClass]="{'read': alert.read}" (click)="toggleReadAlert(alert)">
                       <div class="d-flex w-100">
                         <div class="left d-flex flex-column align-items-center justify-content-center w-25 px-2">
                           <div class="icon-container" [ngClass]="{'text-success':alert.lastPrice>alert.currentPrice,'text-danger':alert.lastPrice<alert.currentPrice}">

@@ -4,6 +4,7 @@ export interface AlertInterface {
     lastPrice: number;
     currentPrice: number;
     date: number;
+    read: boolean;
 }
 
 export interface UserAlerts {

@@ -155,6 +155,9 @@ export const i18n_CA = {
     createUnknownProductConfirm: 'Producte no registrat. Es crearà i es desarà el preu per al a botiga indicada.',
     addExistingShopProductConfirm: 'Ja existeix el producte per a la botiga. Desitges actualitzar-lo amb data d\'avui (el preu anterior s\'afegirà a un historial)?'
   },
+  alerts: {
+    unreadInfoText: 'Tens alertes sense llegir. Pots marcar-les com a llegides fent clic a la que desitgis.'
+  },
   commons: {
     back: 'Torna',
     prices: 'preus',

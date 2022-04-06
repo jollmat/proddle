@@ -21,6 +21,11 @@
   .list-group-item{
     font-size: 9pt;
 
+    &.read {
+      text-decoration: line-through;
+      opacity:0.4;
+    }
+
     div.left {
       border-right: 1px solid #ccc;
       div.icon-container{
@@ -34,5 +39,9 @@
   img.shop-logo{
     max-width:65px;
     max-height:65px;
+  }
+
+  div.alert {
+    font-size: 9pt;
   }
   

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserAlerts } from 'src/app/model/interfaces/alert.interface';
+import { AlertInterface, UserAlerts } from 'src/app/model/interfaces/alert.interface';
 import { ProductInterface } from 'src/app/model/interfaces/product.interface';
 import { ShopInterface } from 'src/app/model/interfaces/shop.interface';
 import { AlertsService } from 'src/app/services/alerts.service';
@@ -15,6 +15,8 @@ import { ShopService } from 'src/app/services/shop.service';
 export class AlertsComponent implements OnInit {
 
   userAlerts: UserAlerts;
+
+  unreadAlerts: number = 0;
 
   constructor(
     private router: Router,
@@ -35,6 +37,10 @@ export class AlertsComponent implements OnInit {
     return this.shopService._shops.find((_shop) => _shop.id === shopId);
   }
 
+  toggleReadAlert(alert: AlertInterface) {
+    this.alertService.toggleReadAlert(alert);
+    this.unreadAlerts = this.alertService.getUnreadAlerts();
+  }
 
   sortAlerts() {
     this.userAlerts.alerts.sort((a, b) => {
@@ -45,10 +51,12 @@ export class AlertsComponent implements OnInit {
   ngOnInit(): void {
     this.userAlerts = this.alertService._userAlerts;
     this.sortAlerts();
+    this.unreadAlerts = this.alertService.getUnreadAlerts();
 
     this.alertService.userAlerts.subscribe((_userAlerts) => {
       this.userAlerts = _userAlerts;
       this.sortAlerts();
+      this.unreadAlerts = this.alertService.getUnreadAlerts();
     });
   }
 

@@ -5,7 +5,6 @@ import { AlertsService } from 'src/app/services/alerts.service';
 import { ShopProductService } from 'src/app/services/shop-product.service';
 import { ProductInterface } from '../../model/interfaces/product.interface';
 import { ShopInterface } from '../../model/interfaces/shop.interface';
-import { FirestoreService } from '../../services/firestore.service';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
 
@@ -19,6 +18,7 @@ export class HomeComponent implements OnInit {
   products: ProductInterface[];
 
   alerts: number = 0;
+  alerts_unread: number = 0;
 
   constructor(
     private router: Router,
@@ -74,12 +74,15 @@ export class HomeComponent implements OnInit {
 
     this.alertService.userAlerts.subscribe((_userAlerts) => {
       this.alerts = _userAlerts.alerts.length;
+      this.alerts_unread = this.alertService.getUnreadAlerts();
+      console.log(_userAlerts);
     });
 
     this.shops = this.shopService._shops;
     this.products = this.productService._products;
 
     this.alerts = this.alertService._userAlerts.alerts.length;
+    this.alerts_unread = this.alertService.getUnreadAlerts();
 
     setTimeout(() => {
       this.spinner.hide();
