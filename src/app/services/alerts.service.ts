@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { STORE_KEYS_CONSTANTS } from '../model/constants/store-keys.constants';
 import { AlertInterface, UserAlerts } from '../model/interfaces/alert.interface';
+import { ProductInterface } from '../model/interfaces/product.interface';
 import { ShopProductInterface } from '../model/interfaces/shop-product.interface';
 import { ProductService } from './product.service';
 import { ShopProductService } from './shop-product.service';
@@ -32,6 +33,11 @@ export class AlertsService {
     if (storedUserAlerts) {
       const storedUserAlertsObj = (JSON.parse(storedUserAlerts)) as UserAlerts;
       // TODO Remove user alerts from unexisting products or shops
+      storedUserAlertsObj.alerts.forEach((_alert) => {
+        if (!this.productService._products.find((_product) => _product.barcode === _alert.productBarcode )) {
+          this.removeObsoleteProductAlerts(_alert.productBarcode, storedUserAlertsObj.alerts);
+        }
+      });
       return storedUserAlertsObj;
     }
     return userAlerts;
@@ -40,12 +46,19 @@ export class AlertsService {
   updateAccessDateAlerts() {
     this._userAlerts.updateDate = new Date().getTime();
     this.saveAlerts();
-    
   }
 
   saveAlerts() {
     // TODO Remove user alerts from unexisting products or shops
     localStorage.setItem(STORE_KEYS_CONSTANTS.PS_USER_ALERTS, JSON.stringify(this._userAlerts));
+  }
+
+  removeObsoleteProductAlerts(productBarcode: string, alerts: AlertInterface[]) {
+    if (alerts && alerts.length > 0) {
+      alerts = alerts.filter((_alert) => {
+        return _alert.productBarcode !== productBarcode;
+      });
+    }
   }
 
   toggleReadAlert(alert: AlertInterface) {

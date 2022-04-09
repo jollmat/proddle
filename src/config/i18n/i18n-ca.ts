@@ -12,7 +12,7 @@ export const i18n_CA = {
     register: 'Registra\'t',
     registering: 'Registre',
     doRegister: 'Registrar-me',
-    registerError: 'Ja exiteix un compte amb aquest email',
+    registerError: 'Ja exiteix un compte amb aquest e-mail',
     error: 'Usuari o contrasenya incorrectes',
     passwordRepeat: 'Repeteix contrasenya',
     passwordsDifferentError: 'La contrasenyes estan buides o no concideixen',
@@ -21,7 +21,7 @@ export const i18n_CA = {
   carousel: {
     step1: {
       title: 'Administra',
-      text: 'Confecciona el teu llistat de productes i afegeix o actualitza en el moment que desitgis el preu que tingui en la botiga desitjada.',
+      text: 'Confecciona el teu llistat de productes i afegeix o actualitza en el moment que desitgis el preu que tingui a la botiga desitjada.',
     },
     step2: {
       title: 'Interactua',
@@ -33,7 +33,7 @@ export const i18n_CA = {
     },
     step4: {
       title: 'Planifica i estalvia',
-      text: 'Configura i simula llistes de compra i la aplicació et dirà on comprar cada producte.',
+      text: 'Configura i simula llistes de compra i l\'aplicació et dirà on comprar cada producte.',
     },
   },
   menu: {
@@ -90,7 +90,7 @@ export const i18n_CA = {
     noFavouriteProduct: 'No tens cap producte preferit',
     searchPlaceholder: 'Cerca per nom, marca o codi de barres',
     onlyFavouriteProducts: 'Només favorits',
-    scan: 'Escanejar'
+    scan: 'Escaneja'
   },
   product: {
     detail: 'Detall',
@@ -133,8 +133,8 @@ export const i18n_CA = {
     noFavouriteProducts: 'No tens productes marcats com a favorits'
   },
   scanner: {
-    init: 'Inicialitzant scanner',
-    initError: 'Hi ha hagut un error inicialitzant el scanner',
+    init: 'Inicialitzant l\'escàner',
+    initError: 'Hi ha hagut un error inicialitzant el l\'escàner',
     code: 'Codi',
     name: 'Nom',
     shop: 'Botiga',
@@ -147,12 +147,12 @@ export const i18n_CA = {
     productPriceSave: 'Desa producte i preu',
     save: 'Desa',
     instructions: 'Posiciona el codi de barres del producte davant la càmera.',
-    searchInstructions: 'Cerca un producte mitjançant l\'ecaneig del seu codi de barres per a poder registrar-li un preu en una botiga. En cas que el producte no existeixi, podràs fàcilment registrar-lo al mateix temps que es desarà el preu desitjat.',
+    searchInstructions: 'Cerca un producte mitjançant l\'escaneig del seu codi de barres per a poder registrar-li un preu en una botiga. En cas que el producte no existeixi, podràs fàcilment registrar-lo al mateix temps que es desarà el preu desitjat.',
     productNotFound: 'No s\'ha trobat el producte.',
     searchingProduct: 'Cercant producte...',
-    scanner: 'Scanner',
+    scanner: 'Escàner',
     manual: 'Manual',
-    createUnknownProductConfirm: 'Producte no registrat. Es crearà i es desarà el preu per al a botiga indicada.',
+    createUnknownProductConfirm: 'Producte no registrat. Es crearà i es desarà el preu per a la botiga indicada.',
     addExistingShopProductConfirm: 'Ja existeix el producte per a la botiga. Desitges actualitzar-lo amb data d\'avui (el preu anterior s\'afegirà a un historial)?'
   },
   alerts: {
