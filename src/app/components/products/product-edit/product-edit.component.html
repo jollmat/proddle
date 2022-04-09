@@ -26,6 +26,15 @@
           >({{ shopProducts?.length | number: '1.0-2' }})</small
         >
       </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary"
+        [ngClass]="{ active: selectedTab === 2 }"
+        (click)="selectedTab = 2"
+      >
+        <i class="fas fa-check me-2" *ngIf="selectedTab === 1"></i>
+        {{'product.characteristics' | translate}}
+      </button>
     </div>
   </div>
 
@@ -279,6 +288,56 @@
         </ng-container>
       </div>
     </ng-container>
+
+    <ng-container *ngIf="selectedTab === 2">
+      <div class="characteristics d-flex flex-column w-100 my-3 px-3">
+
+        <ng-container *ngIf="loadingOpenFoodProduct">
+          <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div> 
+        </ng-container>
+
+        <ng-container *ngIf="openFoodProduct?.product?.categories">
+          <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
+            <h5 class="text-start">Categoria</h5>
+            <small class="text-start">{{openFoodProduct?.product?.categories}}</small>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="openFoodProduct?.product?.nutriscore_data?.grade">
+          <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
+            <h5 class="text-start w-100">Nutri-Score</h5>
+            <div class="d-flex align-items-center w-100">
+              <img [src]="'https://static.openfoodfacts.org/images/attributes/nutriscore-' + openFoodProduct.product.nutriscore_data.grade +'.svg'" class="nutriscore">
+              <small class="text-start ms-3">{{'commons.nutriscore.' + openFoodProduct.product.nutriscore_data.grade | translate}}</small>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="openFoodProduct?.product?.nova_group">
+          <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
+            <h5 class="text-start w-100">Nova group</h5>
+            <div class="d-flex align-items-center w-100">
+              <img [src]="'https://static.openfoodfacts.org/images/attributes/nova-group-' + openFoodProduct.product.nova_group +'.svg'" class="novagroup">
+              <small class="text-start ms-3">{{'commons.nova.nova' + openFoodProduct.product.nova_group | translate}}</small>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="openFoodProduct?.product?.ecoscore_grade">
+          <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
+            <h5 class="text-start w-100">Eco-Score</h5>
+            <div class="d-flex align-items-center w-100">
+              <img [src]="'https://static.openfoodfacts.org/images/attributes/ecoscore-' + openFoodProduct.product.ecoscore_grade +'.svg'" class="ecoscore">
+              <small class="text-start ms-3">{{'commons.ecoscore.ecoscore' + openFoodProduct.product.ecoscore_grade.toUpperCase() | translate}}</small>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+    </ng-container>
+
   </ng-container>
 </div>
 

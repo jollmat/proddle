@@ -103,7 +103,8 @@ export const i18n_ES = {
     save: 'Guarda',
     close: 'Cierra',
     pricesInShops: 'Precios en tiendas',
-    noData: 'Sin datos'
+    noData: 'Sin datos',
+    characteristics: 'Características'
   },
   shoppingCart: {
     title: 'Cesta de compra optimizada',
@@ -170,6 +171,27 @@ export const i18n_ES = {
       user: 'Usuario'
     },
     alert:'Alerta',
-    alerts:'Alertas'    
+    alerts:'Alertas',
+    nutriscore: {
+      a: 'Muy saludable',
+      b: 'Saludable',
+      c: 'Aceptable',
+      d: 'Poco saludable',
+      e: 'No saludable'
+    },
+    nova: {
+      nova1: 'Alimentos naturales o mínimamente procesados',
+      nova2: 'Ingredientes culinarios procesados',
+      nova3: 'Alimentos procesados',
+      nova4: 'Alimentos ultraprocesados'
+    },
+    ecoscore: {
+      ecoscoreA: 'Impacto ambiental muy bajo',
+      ecoscoreB: 'Impacto ambiental bajo',
+      ecoscoreC: 'Impacto ambiental moderado',
+      ecoscoreD: 'Impacto ambiental alto',
+      ecoscoreE: 'Impacto ambiental muy alto',
+      ecoscoreUNKNOWN: 'Impacto ambiental desconocido'
+    }
   }
 };

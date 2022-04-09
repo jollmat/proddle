@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OpenFoodProductInterface } from 'src/app/model/interfaces/openfood-product.interface';
+import { OpenFoodService } from 'src/app/services/openfood.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { DEFAULT_IMAGE_URL } from '../../../model/constants/default-image.constant';
 import { ProductInterface } from '../../../model/interfaces/product.interface';
@@ -28,13 +30,17 @@ export class ProductEditComponent implements OnInit {
 
   selectedTab: number = 0;
 
+  loadingOpenFoodProduct: boolean = true;
+  openFoodProduct: OpenFoodProductInterface;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
     private shopService: ShopService,
     private shopsProductsService: ShopProductService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private openfoodService: OpenFoodService
   ) {}
 
   exit() {
@@ -179,6 +185,15 @@ export class ProductEditComponent implements OnInit {
 
     this.productDetail = this.products.find((_product) => {
       return _product.barcode === productBarcode;
+    });
+
+    this.loadingOpenFoodProduct = true;
+    this.openfoodService.loadProduct(productBarcode).subscribe((_openFoodProduct) => {
+      console.log(_openFoodProduct);
+      if (_openFoodProduct?.product) {
+        this.openFoodProduct = _openFoodProduct;
+      }
+      this.loadingOpenFoodProduct = false;
     });
 
     this.getShopProducts();

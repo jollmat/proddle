@@ -103,7 +103,8 @@ export const i18n_CA = {
     save: 'Desa',
     close: 'Tanca',
     pricesInShops: 'Preus a botigues',
-    noData: 'Sense dades'
+    noData: 'Sense dades',
+    characteristics: 'Característiques'
   },
   shoppingCart: {
     title: 'Cistella de compra optimitzada',
@@ -170,6 +171,27 @@ export const i18n_CA = {
       user: 'Usuari'
     },
     alert:'Alerta',
-    alerts:'Alertes'
+    alerts:'Alertes',
+    nutriscore: {
+      a: 'Molt saludable',
+      b: 'Saludable',
+      c: 'Acceptable',
+      d: 'Poc saludable',
+      e: 'No saludable'
+    },
+    nova: {
+      nova1: 'Aliments naturals o mínimament processats',
+      nova2: 'Ingredients culinaris processats',
+      nova3: 'Aliments processats',
+      nova4: 'Aliments ultraprocessats'
+    },
+    ecoscore: {
+      ecoscoreA: 'Impacte ambiental molt baix',
+      ecoscoreB: 'Impacte ambiental baix',
+      ecoscoreC: 'Impacte ambiental moderat',
+      ecoscoreD: 'Impacte ambiental alt',
+      ecoscoreE: 'Impacte ambiental molt alt',
+      ecoscoreUNKNOWN: 'Impacte ambiental desconegut'
+    }
   }
 };

@@ -65,6 +65,16 @@ img.shop-image {
 
 .shop-products {
   height: calc(100vh - 230px);
+  overflow: auto;
+}
+
+.characteristics {
+  height: calc(100vh - 230px);
+  overflow: auto;
+
+  h5 {
+    border-bottom: 1px solid #ccc;
+  }
 }
 
 div.author {
@@ -92,4 +102,16 @@ span.fa-trash {
 i.disabled {
   opacity: 0.1;
   pointer-events: none;
+}
+
+img {
+  &.nutriscore {
+    height: 70px;
+  }
+  &.novagroup {
+    height: 70px;
+  }
+  &.ecoscore {
+    height: 60px;
+  }
 }

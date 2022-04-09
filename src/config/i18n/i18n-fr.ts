@@ -103,7 +103,8 @@ export const i18n_FR = {
       save: 'Enregistrer',
       close: 'Fermer',
       pricesInShops: 'Prix ​​en magasin',
-      noData: 'Pas de données'
+      noData: 'Pas de données',
+      characteristics: 'caractéristiques'
     },
     shoppingCart: {
       title: 'Panier optimisé',
@@ -170,7 +171,28 @@ export const i18n_FR = {
         user: 'Utilisateur'
       },
       alert:'Alerte',
-      alerts:'Alertes'
+      alerts:'Alertes',
+      nutriscore: {
+        a: 'En très bonne santé',
+        b: 'En bonne santé',
+        c: 'Acceptable',
+        d: 'Mauvais pour la santé',
+        e: 'Pas bon pour la santé'
+      },
+      nova: {
+        nova1: 'Aliments naturels ou peu transformés',
+        nova2: 'Ingrédients culinaires transformés',
+        nova3: 'Aliments transformés',
+        nova4: 'Aliments ultra-transformés'
+      },
+      ecoscore: {
+        ecoscoreA: 'Très faible impact environnemental',
+        ecoscoreB: 'Faible impact environnemental',
+        ecoscoreC: 'Impact environnemental modéré',
+        ecoscoreD: 'Impact environnemental élevé',
+        ecoscoreE: 'Impact environnemental très élevé',
+        ecoscoreUNKNOWN: 'Impact environnemental inconnu'
+      }
     }
   };
   

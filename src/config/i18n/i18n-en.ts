@@ -103,7 +103,8 @@ export const i18n_EN = {
     save: 'Save',
     close: 'Close',
     pricesInShops: 'Prices in shops',
-    noData: 'No data'
+    noData: 'No data',
+    characteristics: 'Characteristics'
   },
   shoppingCart: {
     title: 'Optimized shopping cart',
@@ -170,6 +171,27 @@ export const i18n_EN = {
       user: 'User'
     },
     alert:'Alert',
-    alerts:'Alerts'
+    alerts:'Alerts',
+    nutriscore: {
+      a: 'Very healthy',
+      b: 'Healthy',
+      c: 'Acceptable',
+      d: 'Unhealthy',
+      e: 'Not healthy'
+    },
+    nova: {
+      nova1: 'Natural or minimally processed foods',
+      nova2: 'Processed culinary ingredients',
+      nova3: 'Processed foods',
+      nova4: 'Ultra-processed foods'
+    },
+    ecoscore: {
+      ecoscoreA: 'Very low environmental impact',
+      ecoscoreB: 'Low environmental impact',
+      ecoscoreC: 'Moderate environmental impact',
+      ecoscoreD: 'High environmental impact',
+      ecoscoreE: 'Very high environmental impact',
+      ecoscoreUNKNOWN: 'Unknown environmental impact'
+    }
   }
 };
