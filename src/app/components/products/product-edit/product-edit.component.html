@@ -345,25 +345,25 @@
           </div>
         </ng-container>
 
-        <ng-container *ngIf="openFoodProduct?.product?.nutrient_levels?.fat">
+        <ng-container *ngIf="openFoodProduct?.product?.nutrient_levels?.fat || openFoodProduct?.product?.nutrient_levels?.salt || openFoodProduct?.product?.nutrient_levels.saturated-fat || openFoodProduct?.product?.nutrient_levels?.sugars">
           <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
             <h5 class="text-start w-100">{{'product.nutrientLevels' | translate}}</h5>
             <div class="d-flex align-items-center justify-content-between w-100">
               <div class="d-flex flex-column align-items-center justify-content-center">
                 <small>{{'product.nutrients.fat' | translate}}</small>
-                <ng-container [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.fat}"></ng-container>
+                <ng-container *ngIf="openFoodProduct.product.nutrient_levels.fat" [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.fat}"></ng-container>
               </div>
               <div class="d-flex flex-column align-items-center justify-content-center">
                 <small>{{'product.nutrients.salt' | translate}}</small>
-                <ng-container [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.salt}"></ng-container>
+                <ng-container *ngIf="openFoodProduct.product.nutrient_levels.salt" [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.salt}"></ng-container>
               </div>
               <div class="d-flex flex-column align-items-center justify-content-center">
                 <small>{{'product.nutrients.saturedFat' | translate}}</small>
-                <ng-container [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels['saturated-fat']}"></ng-container>
+                <ng-container *ngIf="openFoodProduct.product.nutrient_levels['saturated-fat']" [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels['saturated-fat']}"></ng-container>
               </div>
               <div class="d-flex flex-column align-items-center justify-content-center">
                 <small>{{'product.nutrients.sugars' | translate}}</small>
-                <ng-container [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.sugars}"></ng-container>
+                <ng-container *ngIf="openFoodProduct.product.nutrient_levels.sugars" [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.sugars}"></ng-container>
               </div>
             </div>
           </div>
