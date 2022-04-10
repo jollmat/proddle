@@ -2,6 +2,11 @@
     <table class="table table-sm table-hover w-100">
       <thead>
         <tr>
+          <th colspan="6">
+            <button class="btn btn-secondary btn-sm m-1 w-100" (click)="export()"><i class="fas fa-file-export me-2"></i>Exportar</button>
+          </th>
+        </tr>
+        <tr>
           <th>
             <span (click)="sort('product')" class="cursor-pointer">Producte</span>
           </th>
@@ -26,9 +31,9 @@
             <tr>
               <td>{{getProduct(shopProduct.productBarcode)?.name}}<span class="brand ms-2">({{getProduct(shopProduct.productBarcode)?.brand}})</span></td>
               <td>{{getShop(shopProduct.shopId)?.name}}</td>
-              <td class="text-end">{{shopProduct.price | number: '1.2-2'}} €</td>
-              <td>{{shopProduct.createdBy?.username || shopProduct.createdBy?.email}}</td>
-              <td><span *ngIf="shopProduct.updateDate">{{shopProduct.updateDate | date:'dd.MM.yyyy - HH:mm'}}</span></td>
+              <td class="text-end"><div class="nowrap">{{shopProduct.price | number: '1.2-2'}} €</div></td>
+              <td><div class="nowrap">{{shopProduct.createdBy?.username || shopProduct.createdBy?.email}}</div></td>
+              <td><div *ngIf="shopProduct.updateDate" class="nowrap">{{shopProduct.updateDate | date:'dd.MM.yyyy - HH:mm'}}</div></td>
               <td>
                 <i *ngIf="!updatingShopProduct || updatingShopProduct.id!==updatingShopProduct.id" class="fas fa-trash cursor-pointer" (click)="removeShopProduct(shopProduct)"></i>
                 <i *ngIf="updatingShopProduct && updatingShopProduct.id===updatingShopProduct.id" class="fas fa-spinner fa-spin"></i>

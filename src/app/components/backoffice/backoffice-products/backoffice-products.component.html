@@ -1,6 +1,12 @@
-<div class="d-flex w-100">
+<div class="d-flex flex-column w-100">
+  
   <table class="table table-sm table-hover w-100">
     <thead>
+      <tr>
+        <th colspan="7">
+          <button class="btn btn-secondary btn-sm m-1 w-100" (click)="export()"><i class="fas fa-file-export me-2"></i>Exportar</button>
+        </th>
+      </tr>
       <tr>
         <th>
           <span (click)="sort('name')" class="cursor-pointer">Nom</span><br>

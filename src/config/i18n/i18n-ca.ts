@@ -104,7 +104,38 @@ export const i18n_CA = {
     close: 'Tanca',
     pricesInShops: 'Preus a botigues',
     noData: 'Sense dades',
-    characteristics: 'Característiques'
+    characteristics: 'Característiques',
+    category:'Categoria',
+    allergens:'Al·lèrgens',
+    nutrientLevels: 'Nivells nutrients',
+    nutrients: {
+      fat: 'Greixos',
+      salt: 'Sal',
+      saturedFat: 'Greixos saturats',
+      sugars: 'Sucres'
+    },
+    nutriscore: {
+      a: 'Molt saludable',
+      b: 'Saludable',
+      c: 'Acceptable',
+      d: 'Poc saludable',
+      e: 'No saludable'
+    },
+    nova: {
+      nova1: 'Aliments naturals o mínimament processats',
+      nova2: 'Ingredients culinaris processats',
+      nova3: 'Aliments processats',
+      nova4: 'Aliments ultraprocessats'
+    },
+    ecoscore: {
+      ecoscoreA: 'Impacte ambiental molt baix',
+      ecoscoreB: 'Impacte ambiental baix',
+      ecoscoreC: 'Impacte ambiental moderat',
+      ecoscoreD: 'Impacte ambiental alt',
+      ecoscoreE: 'Impacte ambiental molt alt',
+      ecoscoreUNKNOWN: 'Impacte ambiental desconegut',
+      ecoscoreNOTAPPLICABLE: 'Impacte ambiental desconegut o no es pot calcular'
+    }
   },
   shoppingCart: {
     title: 'Cistella de compra optimitzada',
@@ -172,26 +203,11 @@ export const i18n_CA = {
     },
     alert:'Alerta',
     alerts:'Alertes',
-    nutriscore: {
-      a: 'Molt saludable',
-      b: 'Saludable',
-      c: 'Acceptable',
-      d: 'Poc saludable',
-      e: 'No saludable'
-    },
-    nova: {
-      nova1: 'Aliments naturals o mínimament processats',
-      nova2: 'Ingredients culinaris processats',
-      nova3: 'Aliments processats',
-      nova4: 'Aliments ultraprocessats'
-    },
-    ecoscore: {
-      ecoscoreA: 'Impacte ambiental molt baix',
-      ecoscoreB: 'Impacte ambiental baix',
-      ecoscoreC: 'Impacte ambiental moderat',
-      ecoscoreD: 'Impacte ambiental alt',
-      ecoscoreE: 'Impacte ambiental molt alt',
-      ecoscoreUNKNOWN: 'Impacte ambiental desconegut'
-    }
+    copiedToClipboard:'S\'ha copiat al porta-retalls',
+    levels: {
+      high:'Alt',
+      moderate:'Moderat',
+      low:'Baix'
+    }   
   }
 };

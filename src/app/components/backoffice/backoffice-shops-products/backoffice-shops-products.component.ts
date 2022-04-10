@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ProductInterface } from 'src/app/model/interfaces/product.interface';
 import { ShopProductInterface } from 'src/app/model/interfaces/shop-product.interface';
 import { ShopInterface } from 'src/app/model/interfaces/shop.interface';
@@ -21,7 +22,10 @@ export class BackofficeShopsProductsComponent implements OnChanges {
   sortBy: string = 'updateDate';
   sortDir: 'ASC' | 'DESC' = 'ASC';
 
-  constructor(private shopProductService: ShopProductService) { }
+  constructor(
+    private shopProductService: ShopProductService,
+    private translateService: TranslateService
+  ) { }
   
   getShop(shopId: string): ShopInterface {
     return this.shops.find((_shop) => {
@@ -48,12 +52,15 @@ export class BackofficeShopsProductsComponent implements OnChanges {
     })
   }
 
+  export() {
+    const val = JSON.stringify(this.shopsProducts);
+    navigator.clipboard.writeText(val);
+    alert(this.translateService.instant('commons.copiedToClipboard'));
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if(changes?.products?.firstChange){
-      console.log(this.shopsProducts);
       this.sort('updateDate');
-    } else {
-      console.log(this.shopsProducts);
     }
   }
 

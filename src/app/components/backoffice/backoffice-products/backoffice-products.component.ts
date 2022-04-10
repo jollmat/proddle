@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductInterface } from '../../../model/interfaces/product.interface';
 import { DEFAULT_IMAGE_URL } from 'src/app/model/constants/default-image.constant';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, Subscription, tap } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-backoffice-products',
@@ -22,7 +23,11 @@ export class BackofficeProductsComponent implements OnInit, OnChanges, AfterView
 
   searchConfig: {name: string, brand: string, createdBy: string} = {name:'', brand: '', createdBy:''};
 
-  constructor(private productService: ProductService, private spinner: NgxSpinnerService) {}
+  constructor(
+    private productService: ProductService, 
+    private spinner: NgxSpinnerService,
+    private translateService: TranslateService
+  ) {}
   
   updatingProduct: ProductInterface;
 
@@ -71,6 +76,12 @@ export class BackofficeProductsComponent implements OnInit, OnChanges, AfterView
     this.products.map((_product) => {
       _product.imageUrl = _product.imageUrl === DEFAULT_IMAGE_URL ? '' : _product.imageUrl;
     });
+  }
+
+  export() {
+    const val = JSON.stringify(this.products);
+    navigator.clipboard.writeText(val);
+    alert(this.translateService.instant('commons.copiedToClipboard'));
   }
 
   ngOnInit() {

@@ -31,6 +31,7 @@
         class="btn btn-lg btn-secondary"
         [ngClass]="{ active: selectedTab === 2 }"
         (click)="selectedTab = 2"
+        *ngIf="openFoodProduct"
       >
         <i class="fas fa-check me-2" *ngIf="selectedTab === 1"></i>
         {{'product.characteristics' | translate}}
@@ -300,7 +301,7 @@
 
         <ng-container *ngIf="openFoodProduct?.product?.categories">
           <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
-            <h5 class="text-start">Categoria</h5>
+            <h5 class="text-start">{{'product.category' | translate}}</h5>
             <small class="text-start">{{openFoodProduct?.product?.categories}}</small>
           </div>
         </ng-container>
@@ -310,7 +311,7 @@
             <h5 class="text-start w-100">Nutri-Score</h5>
             <div class="d-flex align-items-center w-100">
               <img [src]="'https://static.openfoodfacts.org/images/attributes/nutriscore-' + openFoodProduct.product.nutriscore_data.grade +'.svg'" class="nutriscore">
-              <small class="text-start ms-3">{{'commons.nutriscore.' + openFoodProduct.product.nutriscore_data.grade | translate}}</small>
+              <small class="text-start ms-3 mt-3">{{'product.nutriscore.' + openFoodProduct.product.nutriscore_data.grade | translate}}</small>
             </div>
           </div>
         </ng-container>
@@ -320,7 +321,7 @@
             <h5 class="text-start w-100">Nova group</h5>
             <div class="d-flex align-items-center w-100">
               <img [src]="'https://static.openfoodfacts.org/images/attributes/nova-group-' + openFoodProduct.product.nova_group +'.svg'" class="novagroup">
-              <small class="text-start ms-3">{{'commons.nova.nova' + openFoodProduct.product.nova_group | translate}}</small>
+              <small class="text-start ms-3 mt-3">{{'product.nova.nova' + openFoodProduct.product.nova_group | translate}}</small>
             </div>
           </div>
         </ng-container>
@@ -329,8 +330,41 @@
           <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
             <h5 class="text-start w-100">Eco-Score</h5>
             <div class="d-flex align-items-center w-100">
-              <img [src]="'https://static.openfoodfacts.org/images/attributes/ecoscore-' + openFoodProduct.product.ecoscore_grade +'.svg'" class="ecoscore">
-              <small class="text-start ms-3">{{'commons.ecoscore.ecoscore' + openFoodProduct.product.ecoscore_grade.toUpperCase() | translate}}</small>
+              <img [src]="'https://static.openfoodfacts.org/images/attributes/ecoscore-' + openFoodProduct.product.ecoscore_grade.replace('not-applicable', 'unknown') +'.svg'" class="ecoscore">
+              <small class="text-start ms-3">{{'product.ecoscore.ecoscore' + openFoodProduct.product.ecoscore_grade.toUpperCase().replace('-', '') | translate}}</small>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="openFoodProduct?.product?.allergens?.length>0">
+          <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
+            <h5 class="text-start w-100">{{'product.allergens' | translate}}</h5>
+            <div class="d-flex align-items-center w-100">
+              <small>{{getAlergens()}}</small>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="openFoodProduct?.product?.nutrient_levels">
+          <div class="d-flex flex-column justify-content-start align-items-start w-100 my-3">
+            <h5 class="text-start w-100">{{'product.nutrientLevels' | translate}}</h5>
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <div class="d-flex flex-column align-items-center justify-content-center">
+                <small>{{'product.nutrients.fat' | translate}}</small>
+                <ng-container [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.fat}"></ng-container>
+              </div>
+              <div class="d-flex flex-column align-items-center justify-content-center">
+                <small>{{'product.nutrients.salt' | translate}}</small>
+                <ng-container [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.salt}"></ng-container>
+              </div>
+              <div class="d-flex flex-column align-items-center justify-content-center">
+                <small>{{'product.nutrients.saturedFat' | translate}}</small>
+                <ng-container [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels['saturated-fat']}"></ng-container>
+              </div>
+              <div class="d-flex flex-column align-items-center justify-content-center">
+                <small>{{'product.nutrients.sugars' | translate}}</small>
+                <ng-container [ngTemplateOutlet]="levelBadge" [ngTemplateOutletContext]="{levelValue:openFoodProduct.product.nutrient_levels.sugars}"></ng-container>
+              </div>
             </div>
           </div>
         </ng-container>
@@ -349,4 +383,12 @@
   <div class="d-flex justify-content-start align-items-center w-100">
     <small class="ps-2">{{'product.noData' | translate}}</small>
   </div>
+</ng-template>
+
+<ng-template #levelBadge let-levelValue="levelValue">
+  <div class="badge" [ngClass]="{
+    'bg-danger': levelValue==='high',
+    'bg-warning': levelValue==='moderate',
+    'bg-success': levelValue==='low'
+  }">{{'commons.levels.' + levelValue | translate}}</div>
 </ng-template>

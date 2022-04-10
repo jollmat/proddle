@@ -115,3 +115,10 @@ img {
     height: 60px;
   }
 }
+
+.badge {
+  font-weight: normal !important;
+  &.bg-danger, &.bg-success{
+    color: #fff !important;
+  }
+}

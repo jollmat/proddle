@@ -166,6 +166,18 @@ export class ProductEditComponent implements OnInit {
     );
   }
 
+  getAlergens(){
+    console.log(this.openFoodProduct.product.allergens);
+    let alergens = this.openFoodProduct.product.allergens.split(',');
+
+    alergens = alergens.map((_alergen) => {
+      const val = _alergen.substring(_alergen.indexOf(':') + 1);
+      return val.charAt(0).toUpperCase() + val.slice(1);
+    });
+
+    return alergens.toString().replace(/,/g, ', ');
+  }
+
   ngOnInit() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 

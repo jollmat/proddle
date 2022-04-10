@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 import { DEFAULT_IMAGE_URL } from 'src/app/model/constants/default-image.constant';
@@ -26,7 +27,11 @@ export class BackofficeShopsComponent implements OnInit, OnChanges, AfterViewIni
 
   DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
 
-  constructor(private shopService: ShopService, private spinner: NgxSpinnerService) { }
+  constructor(
+    private shopService: ShopService, 
+    private spinner: NgxSpinnerService, 
+    private translateService: TranslateService
+  ) { }
  
   matchesSearch(shop: ShopInterface) {
     return shop.name.toUpperCase().indexOf(this.searchConfig.name.toUpperCase()) >= 0;
@@ -54,6 +59,12 @@ export class BackofficeShopsComponent implements OnInit, OnChanges, AfterViewIni
         this.spinner.hide();
       });
     }
+  }
+
+  export() {
+    const val = JSON.stringify(this.shops);
+    navigator.clipboard.writeText(val);
+    alert(this.translateService.instant('commons.copiedToClipboard'));
   }
 
   ngAfterViewInit(): void {

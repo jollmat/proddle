@@ -104,7 +104,38 @@ export const i18n_EN = {
     close: 'Close',
     pricesInShops: 'Prices in shops',
     noData: 'No data',
-    characteristics: 'Characteristics'
+    characteristics: 'Characteristics',
+    category:'Category',
+    allergens:'Allergens',
+    nutrientLevels: 'Nutrient levels',
+    nutrients: {
+      fat: 'Fat',
+      salt: 'Salt',
+      saturedFat: 'Satured fat',
+      sugars: 'Sugars'
+    },
+    nutriscore: {
+      a: 'Very healthy',
+      b: 'Healthy',
+      c: 'Acceptable',
+      d: 'Unhealthy',
+      e: 'Not healthy'
+    },
+    nova: {
+      nova1: 'Natural or minimally processed foods',
+      nova2: 'Processed culinary ingredients',
+      nova3: 'Processed foods',
+      nova4: 'Ultra-processed foods'
+    },
+    ecoscore: {
+      ecoscoreA: 'Very low environmental impact',
+      ecoscoreB: 'Low environmental impact',
+      ecoscoreC: 'Moderate environmental impact',
+      ecoscoreD: 'High environmental impact',
+      ecoscoreE: 'Very high environmental impact',
+      ecoscoreUNKNOWN: 'Unknown environmental impact',
+      ecoscoreNOTAPPLICABLE: 'Environmental impact unknown or cannot be calculated'
+    }
   },
   shoppingCart: {
     title: 'Optimized shopping cart',
@@ -172,26 +203,11 @@ export const i18n_EN = {
     },
     alert:'Alert',
     alerts:'Alerts',
-    nutriscore: {
-      a: 'Very healthy',
-      b: 'Healthy',
-      c: 'Acceptable',
-      d: 'Unhealthy',
-      e: 'Not healthy'
-    },
-    nova: {
-      nova1: 'Natural or minimally processed foods',
-      nova2: 'Processed culinary ingredients',
-      nova3: 'Processed foods',
-      nova4: 'Ultra-processed foods'
-    },
-    ecoscore: {
-      ecoscoreA: 'Very low environmental impact',
-      ecoscoreB: 'Low environmental impact',
-      ecoscoreC: 'Moderate environmental impact',
-      ecoscoreD: 'High environmental impact',
-      ecoscoreE: 'Very high environmental impact',
-      ecoscoreUNKNOWN: 'Unknown environmental impact'
-    }
+    copiedToClipboard:'Copied to clipboard',
+    levels: {
+      high:'High',
+      moderate:'Moderate',
+      low:'Low'
+    }  
   }
 };

@@ -11,5 +11,12 @@ export interface OpenFoodProductInterface {
     },
     nova_group: number;
     ecoscore_grade: string;
+    allergens: string;
+    nutrient_levels: {
+      fat: string;
+      salt: string;
+      'saturated-fat': string;
+      sugars: string;
+    }
   };
 }

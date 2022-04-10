@@ -104,7 +104,38 @@ export const i18n_ES = {
     close: 'Cierra',
     pricesInShops: 'Precios en tiendas',
     noData: 'Sin datos',
-    characteristics: 'Características'
+    characteristics: 'Características',
+    category:'Categoría',
+    allergens:'Alérgenos',
+    nutrientLevels: 'Niveles nutrientes',
+    nutrients: {
+      fat: 'Grasas',
+      salt: 'Sal',
+      saturedFat: 'Grasas saturadas',
+      sugars: 'Azúcares'
+    },
+    nutriscore: {
+      a: 'Muy saludable',
+      b: 'Saludable',
+      c: 'Aceptable',
+      d: 'Poco saludable',
+      e: 'No saludable'
+    },
+    nova: {
+      nova1: 'Alimentos naturales o mínimamente procesados',
+      nova2: 'Ingredientes culinarios procesados',
+      nova3: 'Alimentos procesados',
+      nova4: 'Alimentos ultraprocesados'
+    },
+    ecoscore: {
+      ecoscoreA: 'Impacto ambiental muy bajo',
+      ecoscoreB: 'Impacto ambiental bajo',
+      ecoscoreC: 'Impacto ambiental moderado',
+      ecoscoreD: 'Impacto ambiental alto',
+      ecoscoreE: 'Impacto ambiental muy alto',
+      ecoscoreUNKNOWN: 'Impacto ambiental desconocido',
+      ecoscoreNOTAPPLICABLE: 'Impacto ambiental desconocido o no puede calcularse'
+    }
   },
   shoppingCart: {
     title: 'Cesta de compra optimizada',
@@ -172,26 +203,11 @@ export const i18n_ES = {
     },
     alert:'Alerta',
     alerts:'Alertas',
-    nutriscore: {
-      a: 'Muy saludable',
-      b: 'Saludable',
-      c: 'Aceptable',
-      d: 'Poco saludable',
-      e: 'No saludable'
-    },
-    nova: {
-      nova1: 'Alimentos naturales o mínimamente procesados',
-      nova2: 'Ingredientes culinarios procesados',
-      nova3: 'Alimentos procesados',
-      nova4: 'Alimentos ultraprocesados'
-    },
-    ecoscore: {
-      ecoscoreA: 'Impacto ambiental muy bajo',
-      ecoscoreB: 'Impacto ambiental bajo',
-      ecoscoreC: 'Impacto ambiental moderado',
-      ecoscoreD: 'Impacto ambiental alto',
-      ecoscoreE: 'Impacto ambiental muy alto',
-      ecoscoreUNKNOWN: 'Impacto ambiental desconocido'
-    }
+    copiedToClipboard:'Se ha copiado al portapapeles',
+    levels: {
+      high:'Alto',
+      moderate:'Moderado',
+      low:'Bajo'
+    }  
   }
 };

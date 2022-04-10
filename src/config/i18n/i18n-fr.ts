@@ -104,7 +104,38 @@ export const i18n_FR = {
       close: 'Fermer',
       pricesInShops: 'Prix ​​en magasin',
       noData: 'Pas de données',
-      characteristics: 'caractéristiques'
+      characteristics: 'caractéristiques',
+      category:'Catégorie',
+      allergens:'Allergènes',
+      nutrientLevels: 'Niveaux de nutriments',
+      nutrients: {
+        fat: 'Graisse',
+        salt: 'Sel',
+        saturedFat: 'Gras saturé',
+        sugars: 'Sucres'
+      },
+      nutriscore: {
+        a: 'En très bonne santé',
+        b: 'En bonne santé',
+        c: 'Acceptable',
+        d: 'Mauvais pour la santé',
+        e: 'Pas bon pour la santé'
+      },
+      nova: {
+        nova1: 'Aliments naturels ou peu transformés',
+        nova2: 'Ingrédients culinaires transformés',
+        nova3: 'Aliments transformés',
+        nova4: 'Aliments ultra-transformés'
+      },
+      ecoscore: {
+        ecoscoreA: 'Très faible impact environnemental',
+        ecoscoreB: 'Faible impact environnemental',
+        ecoscoreC: 'Impact environnemental modéré',
+        ecoscoreD: 'Impact environnemental élevé',
+        ecoscoreE: 'Impact environnemental très élevé',
+        ecoscoreUNKNOWN: 'Impact environnemental inconnu',
+        ecoscoreNOTAPPLICABLE: 'Impact environnemental inconnu ou non calculable'
+      }
     },
     shoppingCart: {
       title: 'Panier optimisé',
@@ -172,27 +203,12 @@ export const i18n_FR = {
       },
       alert:'Alerte',
       alerts:'Alertes',
-      nutriscore: {
-        a: 'En très bonne santé',
-        b: 'En bonne santé',
-        c: 'Acceptable',
-        d: 'Mauvais pour la santé',
-        e: 'Pas bon pour la santé'
-      },
-      nova: {
-        nova1: 'Aliments naturels ou peu transformés',
-        nova2: 'Ingrédients culinaires transformés',
-        nova3: 'Aliments transformés',
-        nova4: 'Aliments ultra-transformés'
-      },
-      ecoscore: {
-        ecoscoreA: 'Très faible impact environnemental',
-        ecoscoreB: 'Faible impact environnemental',
-        ecoscoreC: 'Impact environnemental modéré',
-        ecoscoreD: 'Impact environnemental élevé',
-        ecoscoreE: 'Impact environnemental très élevé',
-        ecoscoreUNKNOWN: 'Impact environnemental inconnu'
-      }
+      copiedToClipboard:'Copié dans le presse-papier',
+      levels: {
+        high:'Haut',
+        moderate:'Modéré',
+        low:'Bas'
+      }  
     }
   };
   
