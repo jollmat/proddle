@@ -23,6 +23,7 @@ import { ProductService } from '../../../services/product.service';
 import { ShopProductService } from '../../../services/shop-product.service';
 import { ShopService } from '../../../services/shop.service';
 import { v4 as uuidv4 } from 'uuid';
+import { STORE_KEYS_CONSTANTS } from 'src/app/model/constants/store-keys.constants';
 
 @Component({
   selector: 'app-barcode-scanner',
@@ -251,6 +252,8 @@ export class BarcodeScannerComponent implements AfterViewInit {
     this.loggedUser = this.loginService.getLoggedUser();
     this.barcodeScanner.start();
 
+    const lastShopId = localStorage.getItem(STORE_KEYS_CONSTANTS.PS_LAST_SHOP_ID);
+
     this.newProduct = {
       id: uuidv4(),
       barcode: '',
@@ -264,7 +267,7 @@ export class BarcodeScannerComponent implements AfterViewInit {
     this.shopProduct = {
       price: 0,
       productBarcode: undefined,
-      shopId: undefined,
+      shopId: lastShopId || undefined,
       updateDate: new Date().getTime(),
       createdBy: this.loggedUser
     };

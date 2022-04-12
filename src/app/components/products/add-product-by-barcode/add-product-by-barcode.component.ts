@@ -21,6 +21,7 @@ import { ProductService } from '../../../services/product.service';
 import { ShopProductService } from '../../../services/shop-product.service';
 import { ShopService } from '../../../services/shop.service';
 import { v4 as uuidv4 } from 'uuid';
+import { STORE_KEYS_CONSTANTS } from 'src/app/model/constants/store-keys.constants';
 
 @Component({
   selector: 'app-add-product-by-barcode',
@@ -61,6 +62,8 @@ export class AddProductByBarcodeComponent implements OnInit {
   barcodeChangeSubscription: Subscription;
   openFoodProductLoadSubscription: Subscription;
 
+  lastShopId: string = '';
+
   mode: 'SCANNER' | 'MANUAL' = 'SCANNER';
 
   constructor(
@@ -71,7 +74,9 @@ export class AddProductByBarcodeComponent implements OnInit {
     private shopService: ShopService,
     private openFoodService: OpenFoodService,
     private translate: TranslateService
-  ) {}
+  ) {
+    
+  }
 
   setMode(mode: 'SCANNER' | 'MANUAL') {
     this.mode = mode;
@@ -98,7 +103,7 @@ export class AddProductByBarcodeComponent implements OnInit {
     return {
       price: 0,
       productBarcode: '',
-      shopId: '',
+      shopId: this.lastShopId,
       updateDate: new Date().getTime(),
       createdBy: this.loggedUser,
     };
@@ -202,6 +207,7 @@ export class AddProductByBarcodeComponent implements OnInit {
       console.log('saveShopProduct()', shopProduct);
       shopProduct.createdBy = this.loggedUser;
       this.shopProductService.addShopProduct(shopProduct).subscribe(() => {
+        localStorage.setItem(STORE_KEYS_CONSTANTS.PS_LAST_SHOP_ID, shopProduct.shopId);
         this.exit();
       });
     } else {
@@ -220,6 +226,7 @@ export class AddProductByBarcodeComponent implements OnInit {
       ) {
         this.shopsProducts.push(this.shopProductDetail);
         this.shopProductService.addShopProduct(shopProduct).subscribe(() => {
+          localStorage.setItem(STORE_KEYS_CONSTANTS.PS_LAST_SHOP_ID, shopProduct.shopId);
           this.exit();
         });
       } else {
@@ -238,6 +245,7 @@ export class AddProductByBarcodeComponent implements OnInit {
       this.productService.createProduct(data.product).subscribe(() => {
         if (data.shopProduct) {
           this.shopProductService.addShopProduct(data.shopProduct).subscribe(() => {
+            localStorage.setItem(STORE_KEYS_CONSTANTS.PS_LAST_SHOP_ID, data.shopProduct.shopId);
             this.exit();
           });
         } else {
@@ -246,6 +254,7 @@ export class AddProductByBarcodeComponent implements OnInit {
       });
     } else if (data.shopProduct) {
       this.shopProductService.addShopProduct(data.shopProduct).subscribe(() => {
+        localStorage.setItem(STORE_KEYS_CONSTANTS.PS_LAST_SHOP_ID, data.shopProduct.shopId);
         this.exit();
       });
     } else {
@@ -269,5 +278,11 @@ export class AddProductByBarcodeComponent implements OnInit {
       this.shops = _shops;
     });
     this.shops = this.shopService._shops;
+
+    const lastShopId = localStorage.getItem(STORE_KEYS_CONSTANTS.PS_LAST_SHOP_ID);
+    if (lastShopId) {
+      this.lastShopId = lastShopId;
+      this.shopProductDetail.shopId = lastShopId;
+    }
   }
 }
