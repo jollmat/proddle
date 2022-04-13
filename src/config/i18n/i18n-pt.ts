@@ -35,6 +35,14 @@ export const i18n_PT = {
       title: 'Planeje e economize',
       text: 'Configure e simule listas de compras e o aplicativo informará onde comprar cada produto.',
     },
+    step5: {
+      title: 'Cooperar e compartilhar',
+      text: 'Os dados que você inserir serão usados ​​por outros usuários e os dados de outros usuários serão úteis para você.',
+    },
+    step6: {
+      title: 'Ser informado',
+      text: 'Fique alerta para mudanças no preço de seus produtos favoritos.',
+    },
   },
   menu: {
     home: 'Lar',

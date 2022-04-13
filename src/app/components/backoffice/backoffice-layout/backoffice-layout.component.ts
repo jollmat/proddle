@@ -5,6 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { APP_CONFIG } from 'src/config/app-config.constant';
 import { ProductInterface } from '../../../model/interfaces/product.interface';
 import { ShopProductInterface } from '../../../model/interfaces/shop-product.interface';
 import { ShopInterface } from '../../../model/interfaces/shop.interface';
@@ -22,6 +23,8 @@ export class BackofficeLayoutComponent implements OnInit, OnChanges {
   @Input() shops: ShopInterface[] = [];
   @Input() products: ProductInterface[] = [];
   @Input() shopsProducts: ShopProductInterface[] = [];
+
+  cloudMode: boolean = APP_CONFIG.cloudMode;
 
   users: UserInterface[] = [];
 

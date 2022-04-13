@@ -35,6 +35,14 @@ export const i18n_EN = {
       title: 'Plan and save',
       text: 'Set up and simulate shopping lists and the app will tell you where to buy each product.',
     },
+    step5: {
+      title: 'Cooperate and share',
+      text: 'The data you enter will be used by other users and the data of other users will be useful to you.',
+    },
+    step6: {
+      title: 'Be informed',
+      text: 'Get alert to changes in the price of your favorite products.',
+    },
   },
   menu: {
     home: 'Home',

@@ -35,6 +35,14 @@ export const i18n_FR = {
         title: 'Planifiez et économisez',
         text: 'Configurez et simulez des listes de courses et l\'application vous indiquera où acheter chaque produit.',
       },
+      step5: {
+        title: 'Coopérer et partager',
+        text: 'Les données que vous saisissez seront utilisées par d\'autres utilisateurs et les données d\'autres utilisateurs vous seront utiles.',
+      },
+      step6: {
+        title: 'Être informé',
+        text: 'Soyez alerté des changements de prix de vos produits préférés.',
+      },
     },
     menu: {
       home: 'Démarrer',

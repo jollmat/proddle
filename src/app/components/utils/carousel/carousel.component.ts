@@ -43,6 +43,16 @@ export class CarouselComponent implements OnInit {
         text: 'carousel.step4.text',
         iconClass: 'fas fa-pen-to-square',
       },
+      {
+        title: 'carousel.step5.title',
+        text: 'carousel.step5.text',
+        iconClass: 'fas fa-share-nodes',
+      },
+      {
+        title: 'carousel.step6.title',
+        text: 'carousel.step6.text',
+        iconClass: 'fas fa-bell',
+      }
     ];
   }
 }

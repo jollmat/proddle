@@ -35,6 +35,14 @@ export const i18n_ES = {
       title: 'Planifica y ahorra',
       text: 'Configura y simula listas de compra y la aplicación te dirá dónde comprar cada producto.',
     },
+    step5: {
+      title: 'Coopera y comparte',
+      text: 'Los datos que introduzcas servirán a los demás usuarios y los de los demás usuarios te servirán a ti.',
+    },
+    step6: {
+      title: 'Mantente informado',
+      text: 'Recibe alertas de los cambios de precio de los productos que tengas como favoritos.',
+    },
   },
   menu: {
     home: 'Inicio',

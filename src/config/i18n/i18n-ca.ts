@@ -35,6 +35,14 @@ export const i18n_CA = {
       title: 'Planifica i estalvia',
       text: 'Configura i simula llistes de compra i l\'aplicació et dirà on comprar cada producte.',
     },
+    step5: {
+      title: 'Coopera i comparteix',
+      text: 'Les dades que introdueixis serviran als altres usuaris i les dels altres usuaris et serviran a tu.',
+    },
+    step6: {
+      title: 'Estigues informat',
+      text: 'Reb alertes dels canvis de preu dels productes que tinguis com a favorits.',
+    },
   },
   menu: {
     home: 'Inici',

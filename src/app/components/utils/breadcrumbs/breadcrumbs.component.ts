@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { NavigationService } from '../../../services/navigation.service';
 import { ProductService } from '../../../services/product.service';
@@ -15,6 +15,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private navigationService: NavigationService,
     private shopService: ShopService,
     private productService: ProductService,
@@ -43,13 +44,10 @@ export class BreadcrumbsComponent implements OnInit {
   }
 
   ngOnInit() {
-    const homeRouteIndex = this.navigationService.history.findIndex(
-      (_route) => {
-        return _route === '/' || _route === '/home';
-      }
-    );
-
+   
     let steps = JSON.parse(JSON.stringify(this.navigationService.history));
+
+    console.log(steps);
 
     if (steps.length > 2) {
       steps = steps.slice(0, 2).reverse();
@@ -61,6 +59,22 @@ export class BreadcrumbsComponent implements OnInit {
         pathUrl: _step,
       };
     });
+
+    if (steps.length === 0) {
+      if (window.location.href.match('/edit-shop')) {
+        const shopId = this.route.snapshot.params['id'];
+        this.steps.push({
+          label: this.shopService._shops.find((_shop) => { return _shop.id===shopId }).name,
+          pathUrl: ''
+        });
+      } else if (window.location.href.match('/edit-product')) {
+        const barcode = this.route.snapshot.params['barcode'];
+        this.steps.push({
+          label: this.productService._products.find((_product) => { return _product.barcode===barcode }).name,
+          pathUrl: ''
+        });
+      }
+    }
 
     if (this.steps.length > 1) {
       const lastStep = this.steps[this.steps.length - 1];
