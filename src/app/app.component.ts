@@ -86,6 +86,11 @@ export class AppComponent implements OnInit {
         'Using language: ' +
           localStorage.getItem(STORE_KEYS_CONSTANTS.PS_APP_LANGUAGE)
       );
+
+      console.log('Removing localStorage necessary data');
+      localStorage.removeItem(STORE_KEYS_CONSTANTS.PS_LAST_SHOP_ID);
+      localStorage.removeItem(STORE_KEYS_CONSTANTS.PS_SHOPS_SEARCH_TEXT);
+      localStorage.removeItem(STORE_KEYS_CONSTANTS.PS_PRODUCTS_SEARCH_TEXT);
     });
   }
 

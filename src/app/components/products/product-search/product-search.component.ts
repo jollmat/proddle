@@ -14,6 +14,7 @@ import {
   fromEvent,
   tap,
 } from 'rxjs';
+import { STORE_KEYS_CONSTANTS } from 'src/app/model/constants/store-keys.constants';
 import { AlertsService } from 'src/app/services/alerts.service';
 
 import { ProductInterface } from '../../../model/interfaces/product.interface';
@@ -31,7 +32,7 @@ import { ShoppingCartService } from '../../../services/shopping-cart.service';
 export class ProductSearchComponent implements OnInit, AfterViewInit {
   @ViewChild('productSearchInput') productSearchInput: ElementRef;
 
-  STORED_SEARCH_KEY = 'PS_PRODUCTS_SEARCH_TEXT';
+  STORED_SEARCH_KEY = STORE_KEYS_CONSTANTS.PS_PRODUCTS_SEARCH_TEXT;
 
   loggedUser: UserInterface;
 
