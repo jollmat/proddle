@@ -51,6 +51,7 @@
             id="shopName"
             [(ngModel)]="shopDetail.name"
             placeholder="{{'shop.name' | translate}}"
+            maxlength="200"
           />
           <input
             *ngIf="!canEdit()"

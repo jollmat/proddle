@@ -67,6 +67,7 @@
                   id="productName"
                   [(ngModel)]="productDetail.name"
                   placeholder="{{'product.name' | translate}}"
+                  maxlength="200"
                 />
               </ng-container>
               <ng-container *ngIf="!canEdit()">
@@ -89,6 +90,7 @@
                   id="productBrand"
                   [(ngModel)]="productDetail.brand"
                   placeholder="{{'product.brand' | translate}}"
+                  maxlength="200"
                 />
               </ng-container>
               <ng-container *ngIf="!canEdit()">

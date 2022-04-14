@@ -111,6 +111,7 @@
         value="{{ productDetail?.barcode }}"
         [(ngModel)]="productDetail.barcode"
         placeholder="{{'scanner.code' | translate}}"
+        maxlength="15"
       />
     </div>
     <div class="form-group mb-1 w-100">
@@ -123,6 +124,7 @@
         value="{{ productDetail?.name }}"
         [(ngModel)]="productDetail.name"
         placeholder="{{'scanner.name' | translate}}"
+        maxlength="200"
       />
     </div>
     <div class="form-group mb-1 w-100">
@@ -135,6 +137,7 @@
         value="{{ productDetail?.brand }}"
         [(ngModel)]="productDetail.brand"
         placeholder="{{'scanner.brand' | translate}}"
+        maxlength="200"
       />
     </div>
   </div>
@@ -167,6 +170,7 @@
         value="{{ shopProductDetail?.price }}"
         [(ngModel)]="shopProductDetail.price"
         placeholder="{{'scanner.price' | translate}}"
+        maxlength="15"
       />
     </div>
   </div>
