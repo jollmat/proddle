@@ -8,7 +8,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { AppComponent } from './app.component';
 import { ProductSearchComponent } from './components/products/product-search/product-search.component';
 import { ShopSearchComponent } from './components/shops/shop-search/shop-search.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ShopStandingsComponent } from './components/data-analisis/shop-standings/shop-standings.component';
 
 import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
@@ -52,6 +52,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { BackofficeShopsComponent } from './components/backoffice/backoffice-shops/backoffice-shops.component';
 import { BackofficeShopsProductsComponent } from './components/backoffice/backoffice-shops-products/backoffice-shops-products.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
+import { CustomHTTPInterceptor } from './interceptors/custom-http-interceptor';
+import { EnabledIpGuard } from './guards/enabled-ip.guard';
+import { BannedIpComponent } from './components/utils/banned-ip/banned-ip.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -103,12 +106,15 @@ registerLocaleData(localeEs, 'es');
     BackofficeShopsComponent,
     BackofficeShopsProductsComponent,
     AlertsComponent,
+    BannedIpComponent,
   ],
   providers: [
     AuthenticationGuard,
     AuthenticationNoneGuard,
+    EnabledIpGuard,
     { provide: LOCALE_ID, useValue: 'es' },
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHTTPInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { AlertsComponent } from 'src/app/components/alerts/alerts.component';
 import { RegisterComponent } from 'src/app/components/register/register.component';
+import { BannedIpComponent } from 'src/app/components/utils/banned-ip/banned-ip.component';
 import { AuthenticationNoneGuard } from 'src/app/guards/authentication-none.guard';
+import { EnabledIpGuard } from 'src/app/guards/enabled-ip.guard';
 import { StatisticsComponent } from '../../components/data-analisis/statistics/statistics.component';
 import { HomeComponent } from '../../components/home/home.component';
 import { LoginComponent } from '../../components/login/login.component';
@@ -19,52 +21,56 @@ import { AuthenticationGuard } from '../../guards/authentication.guard';
 
 export const APP_ROUTES: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [EnabledIpGuard, AuthenticationGuard] },
   {
     path: 'user',
     component: UserDetailComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   { 
     path: 'login', 
     component: LoginComponent,
-    canActivate: [AuthenticationNoneGuard] 
+    canActivate: [EnabledIpGuard, AuthenticationNoneGuard] 
   },
   { 
     path: 'register', 
     component: RegisterComponent,
-    canActivate: [AuthenticationNoneGuard] },
+    canActivate: [EnabledIpGuard, AuthenticationNoneGuard] },
   {
     path: 'scan',
     component: AddProductByBarcodeComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   {
     path: 'search-products',
     component: ProductSearchComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   {
     path: 'search-shops',
     component: ShopSearchComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   {
     path: 'statistics',
     component: StatisticsComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   {
     path: 'edit-shop/:id',
     component: ShopEditComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   {
     path: 'new-shop',
     component: ShopCreateComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
-  { path: 'edit-product/:barcode', component: ProductEditComponent },
+  { 
+    path: 'edit-product/:barcode', 
+    component: ProductEditComponent, 
+    canActivate: [EnabledIpGuard, AuthenticationGuard] 
+  },
   {
     path: 'new-product',
     redirectTo: 'scan',
@@ -73,13 +79,14 @@ export const APP_ROUTES: Routes = [
   {
     path: 'shoppingCart',
     component: ShoppingCartComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   {
     path: 'alerts',
     component: AlertsComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   { path: 'forbidden', component: ForbiddenComponent },
+  { path: 'forbiddenIP', component: BannedIpComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

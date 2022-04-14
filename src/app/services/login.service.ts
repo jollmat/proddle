@@ -1,13 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { STORE_KEYS_CONSTANTS } from '../model/constants/store-keys.constants';
 import { UserInterface } from '../model/interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
-  constructor() {}
 
   user: Subject<UserInterface> = new Subject<UserInterface>();
+
+  clientIpData: any;
+
+  constructor(private http:HttpClient) {
+    this.getIpData().subscribe((ipData) => {
+      console.log('IP data', ipData);
+      this.clientIpData = ipData;
+    });
+  }
 
   login(user: UserInterface): void {
     user.lastLogin = new Date().getTime();
@@ -42,5 +51,13 @@ export class LoginService {
   isLoggedUser(): boolean {
     const loggedUser = this.getLoggedUser();
     return loggedUser !== undefined && loggedUser !== null;
+  }
+
+  getClientIp(): Observable<any> {
+    return this.http.get("http://api.ipify.org/?format=json");
+  }
+
+  getIpData(ip?: string): Observable<any> {
+    return this.http.get('http://ip-api.com/json/'+ (ip || ''));
   }
 }

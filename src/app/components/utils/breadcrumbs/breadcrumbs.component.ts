@@ -47,8 +47,6 @@ export class BreadcrumbsComponent implements OnInit {
    
     let steps = JSON.parse(JSON.stringify(this.navigationService.history));
 
-    console.log(steps);
-
     if (steps.length > 2) {
       steps = steps.slice(0, 2).reverse();
     }
