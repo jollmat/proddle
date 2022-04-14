@@ -75,6 +75,8 @@ export class AlertsService {
       });
       storedAlert.read = !storedAlert.read;
       localStorage.setItem(STORE_KEYS_CONSTANTS.PS_USER_ALERTS, JSON.stringify(storedUserAlertsObj));
+      this._userAlerts = this.loadUnreadAlerts();
+      this.userAlerts.next(this._userAlerts);
     }
   }
 

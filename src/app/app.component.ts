@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { STORE_KEYS_CONSTANTS } from './model/constants/store-keys.constants';
 import { TranslationsService } from './services/translations.service';
 import { FirestoreAuthService } from './services/firestore-auth.service';
+import { AlertsService } from './services/alerts.service';
 
 @Component({
   selector: 'my-app',
@@ -50,6 +51,9 @@ export class AppComponent implements OnInit {
   productsLoaded: boolean = false;
   shopsProductsLoaded: boolean = false;
 
+  alerts: number = 0;
+  alerts_unread: number = 0;
+
   constructor(
     private router: Router,
     private shopService: ShopService,
@@ -60,7 +64,8 @@ export class AppComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private translate: TranslateService,
     private translationsService: TranslationsService,
-    private firestoreAuthService: FirestoreAuthService
+    private firestoreAuthService: FirestoreAuthService,
+    private alertService: AlertsService
   ) {
 
     this.translate.setDefaultLang(APP_CONFIG.defaultLanguage);
@@ -198,6 +203,15 @@ export class AppComponent implements OnInit {
         this.loggedUser.admin = this.loginService.checkIsAdmin(this.loggedUser);
       }      
     });
+
+    // Alerts
+    this.alertService.userAlerts.subscribe((_userAlerts) => {
+      console.log('userAlerts changed', _userAlerts);
+      this.alerts = _userAlerts.alerts.length;
+      this.alerts_unread = this.alertService.getUnreadAlerts();
+    });
+    this.alerts = this.alertService._userAlerts.alerts.length;
+    this.alerts_unread = this.alertService.getUnreadAlerts();
 
     this.checkBackofficeMode();
 

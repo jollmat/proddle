@@ -94,6 +94,15 @@
         overflow: hidden !important;
       }
     }
+
+    .badge {
+      border-radius: 25px;
+      font-weight: normal;
+      font-size: 9pt;
+      &.bg-danger {
+        color: #fff !important;
+      }
+    }
   }
 
   small {

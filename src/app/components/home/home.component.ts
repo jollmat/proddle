@@ -75,7 +75,6 @@ export class HomeComponent implements OnInit {
     this.alertService.userAlerts.subscribe((_userAlerts) => {
       this.alerts = _userAlerts.alerts.length;
       this.alerts_unread = this.alertService.getUnreadAlerts();
-      console.log(_userAlerts);
     });
 
     this.shops = this.shopService._shops;
