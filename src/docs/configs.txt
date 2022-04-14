@@ -1,12 +1,12 @@
-JSONBIN (https://jsonbin.io o https://jsonbin.io/dashboard - Google user personal):
-
-  API KEY: $2b$10$dkWkxuxN665A6UyRHzkdT.C4rfq6juwIKr.IcvRwHm7x9a6141qt2
-
-  JSON Bin sample https://stackblitz.com/edit/angular-wrtw6n
-
 
 GIT PAGES DEPLOY
 
   - run: ng build --prod --deploy-url=https://jollmat.github.io/proddle/ --base-href=/proddle
 
-  - run: angular-cli-ghpages --dir=dist/demo
+  - run: angular-cli-ghpages --dir=dist/
+  
+  GIT MERGE INTO MASTER
+
+  1 - Checkout into master -> git checkout master
+  2 - Merge branch into master -> git merge development
+  3 - Push -> git push
