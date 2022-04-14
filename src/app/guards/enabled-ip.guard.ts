@@ -11,15 +11,19 @@ export class EnabledIpGuard implements CanActivate {
   constructor(private loginService: LoginService, private router: Router) {}
 
   canActivate() {
-    // If IP is no accepted, redirect to a specific page
-    return this.loginService.getIpData().pipe(map((ipData) => {
-      let isBannedIP = APP_CONFIG.bannedIPs.some((bannedIp) => { return bannedIp === ipData['query'] })
-      if (isBannedIP) {
-        this.router.navigate(['forbiddenIP']);
-        return false;
-      }
-      return true;
-    }));
+    if(APP_CONFIG.bannedIPs.length > 0){
+      // If IP is no accepted, redirect to a specific page
+      return this.loginService.getIpData().pipe(map((ipData) => {
+        let isBannedIP = APP_CONFIG.bannedIPs.some((bannedIp) => { return bannedIp === ipData['query'] })
+        if (isBannedIP) {
+          this.router.navigate(['forbiddenIP']);
+          return false;
+        }
+        return true;
+      }));
+    } else {
+      return true
+    }
   }
   
 }
