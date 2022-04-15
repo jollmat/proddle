@@ -13,8 +13,8 @@ export class EnabledIpGuard implements CanActivate {
   canActivate() {
     if(APP_CONFIG.bannedIPs.length > 0){
       // If IP is no accepted, redirect to a specific page
-      return this.loginService.getIpData().pipe(map((ipData) => {
-        let isBannedIP = APP_CONFIG.bannedIPs.some((bannedIp) => { return bannedIp === ipData['query'] })
+      return this.loginService.getInternetIp().pipe(map((ipData) => {
+        let isBannedIP = APP_CONFIG.bannedIPs.some((bannedIp) => { return bannedIp === ipData['ip'] })
         if (isBannedIP) {
           this.router.navigate(['forbiddenIP']);
           return false;

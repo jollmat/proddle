@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { async } from 'rxjs';
 import { FirestoreAuthService } from 'src/app/services/firestore-auth.service';
 import { UserInterface } from '../../model/interfaces/user.interface';
 import { LoginService } from '../../services/login.service';
@@ -52,9 +53,9 @@ export class LoginComponent implements OnInit {
             username: res.user.displayName,
             email: res.user.email,
             photoURL: res.user.photoURL
-          };
-          this.loginService.login(user);
+          }
           this.router.navigate(['home']);
+          this.loginService.login(user);
         } else {
           this.loginError = true;
         }
