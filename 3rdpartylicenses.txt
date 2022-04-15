@@ -242,6 +242,9 @@ terms above.
 ngx-barcode-scanner
 MIT
 
+ngx-device-detector
+MIT
+
 ngx-spinner
 MIT
 
