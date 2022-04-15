@@ -8,4 +8,7 @@ export interface UserInterface {
   ip?: any;
   country?: string;
   city?: string;
+  device?: string,
+  os?: string,
+  browser?: string
 }

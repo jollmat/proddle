@@ -31,7 +31,7 @@
         class="btn btn-lg btn-secondary"
         [ngClass]="{ active: selectedTab === 2 }"
         (click)="selectedTab = 2"
-        *ngIf="!loadingOpenFoodProduct && openFoodProduct.product"
+        *ngIf="!loadingOpenFoodProduct && openFoodProduct?.product"
       >
         <i class="fas fa-check me-2" *ngIf="selectedTab === 1"></i>
         {{'product.characteristics' | translate}}

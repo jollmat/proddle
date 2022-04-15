@@ -18,7 +18,7 @@ import { LoginService } from '../../../services/login.service';
   styleUrls: ['./backoffice-layout.component.scss'],
 })
 export class BackofficeLayoutComponent implements OnInit, OnChanges {
-  selectedTab: number = 0;
+  selectedTab: number = 3;
 
   @Input() shops: ShopInterface[] = [];
   @Input() products: ProductInterface[] = [];

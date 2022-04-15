@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { UserInterface } from '../../model/interfaces/user.interface';
 import { LoginService } from '../../services/login.service';
 
@@ -12,8 +11,7 @@ export class UserDetailComponent implements OnInit {
   user: UserInterface;
 
   constructor(
-    private loginService: LoginService,
-    private spinner: NgxSpinnerService
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {

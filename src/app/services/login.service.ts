@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Observable, Subject, throwError } from 'rxjs';
 import { STORE_KEYS_CONSTANTS } from '../model/constants/store-keys.constants';
 import { UserInterface } from '../model/interfaces/user.interface';
@@ -12,7 +13,8 @@ export class LoginService {
 
   constructor(
     private http:HttpClient,
-    private router: Router
+    private router: Router,
+    private deviceService: DeviceDetectorService
   ) {
     /*
     this.getInternetIp().subscribe((res) => {
@@ -26,12 +28,14 @@ export class LoginService {
 
   login(user: UserInterface): void {
     user.lastLogin = new Date().getTime();
+    user.device = this.deviceService.deviceType;
+    user.os = this.deviceService.os;
+    user.browser = this.deviceService.browser;
+
     this.user.next(user);
     this.router.navigate(['home']);
     
     this.getIpData().subscribe((ipData) => {
-      console.log(ipData);
-      
       user.ip = ipData.ip;
       user.city = ipData.city;
       user.country = ipData.country;

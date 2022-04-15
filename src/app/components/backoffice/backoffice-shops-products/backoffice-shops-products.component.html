@@ -2,7 +2,7 @@
     <table class="table table-sm table-hover w-100">
       <thead>
         <tr>
-          <th colspan="6">
+          <th colspan="11">
             <button class="btn btn-secondary btn-sm m-1 w-100" (click)="export()"><i class="fas fa-file-export me-2"></i>Exportar</button>
           </th>
         </tr>
@@ -20,6 +20,21 @@
             <span>Afegit per</span>
           </th>
           <th>
+            <span>IP</span>
+          </th>
+          <th>
+            <span>Ubicació</span>
+          </th>
+          <th>
+            <span>Device</span>
+          </th>
+          <th>
+            <span>OS</span>
+          </th>
+          <th>
+            <span>Browser</span>
+          </th>
+          <th>
             <span (click)="sort('updateDate')" class="cursor-pointer">Data</span>
           </th>
           <th><i class="fas fa-floppy-disk"></i></th>
@@ -33,6 +48,11 @@
               <td>{{getShop(shopProduct.shopId)?.name}}</td>
               <td class="text-end"><div class="nowrap">{{shopProduct.price | number: '1.2-2'}} €</div></td>
               <td><div class="nowrap">{{shopProduct.createdBy?.username || shopProduct.createdBy?.email}}</div></td>
+              <td><div class="nowrap">{{shopProduct.createdBy?.ip || '?'}}</div></td>
+              <td><div class="nowrap">{{shopProduct.createdBy?.city || '?'}}</div></td>
+              <td><div class="nowrap">{{shopProduct.createdBy?.device || '?'}}</div></td>
+              <td><div class="nowrap">{{shopProduct.createdBy?.os || '?'}}</div></td>
+              <td><div class="nowrap">{{shopProduct.createdBy?.browser || '?'}}</div></td>
               <td><div *ngIf="shopProduct.updateDate" class="nowrap">{{shopProduct.updateDate | date:'dd.MM.yyyy - HH:mm'}}</div></td>
               <td>
                 <i *ngIf="!updatingShopProduct || updatingShopProduct.id!==updatingShopProduct.id" class="fas fa-trash cursor-pointer" (click)="removeShopProduct(shopProduct)"></i>

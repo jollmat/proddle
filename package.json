@@ -24,6 +24,7 @@
     "highcharts": "9.3.3",
     "highcharts-angular": "3.0.0",
     "ngx-barcode-scanner": "0.3.0",
+    "ngx-device-detector": "^3.0.0",
     "ngx-spinner": "13.1.1",
     "rxjs": "7.5.5",
     "tslib": "2.3.1",
