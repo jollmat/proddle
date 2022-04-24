@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { DEFAULT_SHOPS_PRODUCTS } from '../model/constants/default-shops-products.constant';
 import { APP_CONFIG } from 'src/config/app-config.constant';
 import { LoginService } from './login.service';
+import { AlertsService } from './alerts.service';
 
 @Injectable({ providedIn: 'root' })
 export class ShopProductService {
@@ -19,6 +20,8 @@ export class ShopProductService {
 
   _shopsProducts: ShopProductInterface[] = [];
 
+  loaded: boolean = false;
+
   constructor(
     private productService: ProductService,
     private shopService: ShopService,
@@ -27,6 +30,7 @@ export class ShopProductService {
   ) {
     this.shopsProducts.subscribe((_shopsProducts) => {
       this._shopsProducts = _shopsProducts;
+      this.loaded = true;
     });
   }
 

@@ -92,7 +92,7 @@ export class AddProductByBarcodeComponent implements OnInit {
       id: uuidv4(),
       barcode: '',
       brand: '',
-      favourite: false,
+      favourite: true,
       name: '',
       createdBy: this.loggedUser,
       imageUrl: DEFAULT_IMAGE_URL,
@@ -165,7 +165,7 @@ export class AddProductByBarcodeComponent implements OnInit {
                 this.productDetail.barcode = barcode;
                 this.productDetail.brand =
                   _openFoodProductResult.product.brands;
-                this.productDetail.favourite = false;
+                this.productDetail.favourite = true;
                 this.productDetail.imageUrl =
                   _openFoodProductResult.product.image_url;
                 this.productDetail.createdBy = this.loggedUser;
@@ -176,7 +176,7 @@ export class AddProductByBarcodeComponent implements OnInit {
                 this.lockProductEdition = false;
                 this.productDetail.name = '';
                 this.productDetail.brand = '';
-                this.productDetail.favourite = false;
+                this.productDetail.favourite = true;
                 this.productDetail.imageUrl = DEFAULT_IMAGE_URL;
               }
             });

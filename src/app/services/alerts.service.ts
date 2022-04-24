@@ -88,58 +88,53 @@ export class AlertsService {
 
   calculateAlerts(doSave: boolean) {
     console.log('AlertsService.calculateAlerts()');
-    const lastCalculateDate = this._userAlerts.updateDate;
-    const favouriteProductBarcodes = this.productService._products.filter((_product) => _product.favourite).map((_product) => _product.barcode);
-    
-    const newShopProducts: ShopProductInterface[] = this.shopProductService._shopsProducts.filter((_shopProduct) => { 
-      if (favouriteProductBarcodes.indexOf(_shopProduct.productBarcode) < 0) {
-        return false;  
-      }
-      return _shopProduct.updateDate>=lastCalculateDate;      
-    });
-    // console.log(newShopProducts);
 
-    // For each new shopProduct, calculate if increase or not in the same shop
-    const shopProducts: ShopProductInterface[] = [];
-    newShopProducts.forEach((_shopProduct) => {
-      if (!shopProducts.find((_sp) => { return _sp.productBarcode===_shopProduct.productBarcode && _sp.shopId===_shopProduct.shopId })) {
-        shopProducts.push(_shopProduct);
-      }
-    });
-    // console.log('Different shopProducts', shopProducts);
-    
-    const shopProductHistories: ShopProductInterface[][] = shopProducts.map((_shopProduct) => {
-      return this.shopProductService.getShopProductHistory(_shopProduct).filter((_sp) => { return _sp.updateDate >= lastCalculateDate;  });
-    });
-    // console.log('Different histories', shopProductHistories);
-
-    shopProductHistories.forEach((shopProductHistory) => {
-      if (shopProductHistory.length > 1 && shopProductHistory[shopProductHistory.length-2].price !== shopProductHistory[shopProductHistory.length-1].price) {
-        const existing = this._userAlerts.alerts.find((_alert) => { 
-          return _alert.date===shopProductHistory[shopProductHistory.length -1].updateDate  &&
-          _alert.shopId===shopProductHistory[shopProductHistory.length -1].shopId && 
-          _alert.productBarcode===shopProductHistory[shopProductHistory.length -1].productBarcode
-        });
-        if (!existing) {
-          this._userAlerts.alerts.push({
-            currentPrice: shopProductHistory[shopProductHistory.length -1].price,
-            date: shopProductHistory[shopProductHistory.length -1].updateDate,
-            lastPrice: shopProductHistory[shopProductHistory.length -2].price,
-            productBarcode: shopProductHistory[shopProductHistory.length -1].productBarcode,
-            shopId: shopProductHistory[shopProductHistory.length -1].shopId,
-            read: false
-          });
-        }        
-      }
-    });
-    console.log(this._userAlerts);
-
-    this.userAlerts.next(this._userAlerts);
-    
-    if (doSave) { 
-      this.updateAccessDateAlerts(); 
+    if (!(this.productService.loaded && this.shopProductService.loaded)) {
+      setTimeout(() => {
+        // console.log('Calculate alerts retry...');
+        this.calculateAlerts(doSave);
+      },5000);
     } else {
-      this.saveAlerts();
+      const productBarcodes = this.productService._products.map((_product) => _product.barcode);
+      const shopProducts: ShopProductInterface[] = this.shopProductService._shopsProducts.filter((_shopProduct) => { 
+        return productBarcodes.indexOf(_shopProduct.productBarcode) >= 0;      
+      });
+      // console.log('Different shopProducts', shopProducts);
+      
+      const shopProductHistories: ShopProductInterface[][] = shopProducts.map((_shopProduct) => {
+        return this.shopProductService.getShopProductHistory(_shopProduct);
+      });
+      // console.log('Different histories', shopProductHistories);
+
+      shopProductHistories.forEach((shopProductHistory) => {
+        if (shopProductHistory.length > 1 && shopProductHistory[shopProductHistory.length-2].price !== shopProductHistory[shopProductHistory.length-1].price) {
+          const existing = this._userAlerts.alerts.find((_alert) => { 
+            return _alert.date===shopProductHistory[shopProductHistory.length -1].updateDate  &&
+            _alert.shopId===shopProductHistory[shopProductHistory.length -1].shopId && 
+            _alert.productBarcode===shopProductHistory[shopProductHistory.length -1].productBarcode
+          });
+          if (!existing) {
+            this._userAlerts.alerts.push({
+              currentPrice: shopProductHistory[shopProductHistory.length -1].price,
+              date: shopProductHistory[shopProductHistory.length -1].updateDate,
+              lastPrice: shopProductHistory[shopProductHistory.length -2].price,
+              productBarcode: shopProductHistory[shopProductHistory.length -1].productBarcode,
+              shopId: shopProductHistory[shopProductHistory.length -1].shopId,
+              read: false
+            });
+          }        
+        }
+      });
+      // console.log(this._userAlerts);
+
+      this.userAlerts.next(this._userAlerts);
+      
+      if (doSave) { 
+        this.updateAccessDateAlerts(); 
+      } else {
+        this.saveAlerts();
+      }
     }
+    
   }
 }

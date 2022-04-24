@@ -5,6 +5,7 @@ import { DEFAULT_IMAGE_URL } from '../model/constants/default-image.constant';
 import { DEFAULT_PRODUCTS } from '../model/constants/default-products.constant';
 import { STORE_KEYS_CONSTANTS } from '../model/constants/store-keys.constants';
 import { ProductInterface } from '../model/interfaces/product.interface';
+import { AlertsService } from './alerts.service';
 import { FirestoreService } from './firestore.service';
 import { LoginService } from './login.service';
 
@@ -15,6 +16,8 @@ export class ProductService {
   _products: ProductInterface[] = [];
 
   _favouriteProductsBarcodes: string[] = [];
+
+  loaded: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -32,6 +35,7 @@ export class ProductService {
 
     this.products.subscribe((_products) => {
      this._products = _products;
+     this.loaded = true;
     });
 
   }

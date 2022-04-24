@@ -206,7 +206,7 @@ export class AppComponent implements OnInit {
 
     // Alerts
     this.alertService.userAlerts.subscribe((_userAlerts) => {
-      console.log('userAlerts changed', _userAlerts);
+      // console.log('userAlerts changed', _userAlerts);
       this.alerts = _userAlerts.alerts.length;
       this.alerts_unread = this.alertService.getUnreadAlerts();
     });
