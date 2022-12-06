@@ -1,9 +1,14 @@
-<div class="d-flex w-100">
+<div class="d-flex w-100" *ngIf="shopsProductsFiltered">
     <table class="table table-sm table-hover w-100">
       <thead>
         <tr>
           <th colspan="11">
             <button class="btn btn-secondary btn-sm m-1 w-100" (click)="export()"><i class="fas fa-file-export me-2"></i>Exportar</button>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="11">
+            <input type="text" class="form-control" placeholder="Search by product name..." #searchInput>
           </th>
         </tr>
         <tr>
@@ -41,7 +46,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let shopProduct of shopsProducts">
+        <ng-container *ngFor="let shopProduct of shopsProductsFiltered">
           <ng-container>
             <tr>
               <td>{{getProduct(shopProduct.productBarcode)?.name}}<span class="brand ms-2">({{getProduct(shopProduct.productBarcode)?.brand}})</span></td>

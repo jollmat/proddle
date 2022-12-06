@@ -71,7 +71,7 @@
       <app-backoffice-shops-products 
         [products]="products"
         [shops]="shops"
-        [shopsProducts]="shopsProducts"
+        [(shopsProducts)]="shopsProducts"
         (onShopProductSortEmitter)="sortShopsProducts($event)"
         class="w-100"></app-backoffice-shops-products>
     </div>

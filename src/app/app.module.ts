@@ -16,7 +16,7 @@ import { BarcodeScannerComponent } from './components/utils/barcode-scanner/barc
 import { ProductScanResultComponent } from './components/products/product-scan-result/product-scan-result.component';
 import { CarouselComponent } from './components/utils/carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule} from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AddProductByBarcodeComponent } from './components/products/add-product-by-barcode/add-product-by-barcode.component';
 import { StatisticsComponent } from './components/data-analisis/statistics/statistics.component';
@@ -74,7 +74,8 @@ registerLocaleData(localeEs, 'es');
       defaultLanguage: APP_CONFIG.defaultLanguage,
     }),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    
   ],
   declarations: [
     AppComponent,
