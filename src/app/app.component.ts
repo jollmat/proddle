@@ -1,5 +1,5 @@
   import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { APP_CONFIG } from '../config/app-config.constant';
 import { ProductInterface } from './model/interfaces/product.interface';
 import { ShopProductInterface } from './model/interfaces/shop-product.interface';
@@ -26,11 +26,6 @@ import { AlertsService } from './services/alerts.service';
 export class AppComponent implements OnInit {
   @ViewChild('appLayout') appLayoutComponent;
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.checkBackofficeMode();
-  }
-
   APP_CONFIG = APP_CONFIG;
   
   shops: ShopInterface[];
@@ -55,6 +50,7 @@ export class AppComponent implements OnInit {
   alerts_unread: number = 0;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private shopService: ShopService,
     private productService: ProductService,
@@ -138,14 +134,6 @@ export class AppComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
-  checkBackofficeMode() {
-    if (this.loggedUser?.admin) {
-      this.backofficeMode = window.innerWidth > 568;
-    } else {
-      this.backofficeMode = false;
-    }
-  }
-
   calcCartItems() {
     if (this.cartConfig?.items) {
       let itemCount = 0;
@@ -160,6 +148,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
+
+    // Check backoffice
+    this.route.queryParams
+      .subscribe(params => {
+        console.log('params', params); // { orderby: "price" }
+        this.backofficeMode = params && params['backoffice']==='true';
+      }
+    );
 
     this.shopService.shops.subscribe((_shops) => {
       this.shops = _shops.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
@@ -212,8 +208,6 @@ export class AppComponent implements OnInit {
     });
     this.alerts = this.alertService._userAlerts.alerts.length;
     this.alerts_unread = this.alertService.getUnreadAlerts();
-
-    this.checkBackofficeMode();
 
     this.spinner.hide();
   }

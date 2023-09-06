@@ -214,6 +214,8 @@ export class BarcodeScannerComponent implements AfterViewInit {
     const product = this.products.find((_product) => {
       return _product.barcode === this.shopProduct.productBarcode;
     });
+    console.log('saveShopProduct()', product);
+    
     if (product) {
       this.onSaveShopProduct.emit(this.shopProduct);
     } else {
@@ -242,6 +244,7 @@ export class BarcodeScannerComponent implements AfterViewInit {
         });
       }
     }
+    
   }
 
   selectPriceInput() {

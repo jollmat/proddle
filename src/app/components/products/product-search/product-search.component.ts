@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {
+  BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
   filter,
@@ -37,6 +38,7 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
   loggedUser: UserInterface;
 
   products: ProductInterface[];
+  productsSearch: ProductInterface[];
   loading: boolean = true;
 
   onlyFavourites: boolean = false;
@@ -159,6 +161,14 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
   setSearchText(text?: string) {
     this.searchText = text || '';
     localStorage.setItem(this.STORED_SEARCH_KEY, this.searchText);
+
+    this.productsSearch = this.products.filter((_product) => {
+      return this.searchText.length===0 ||
+             _product.barcode.indexOf(this.searchText)>-1 ||
+             _product.brand.toLowerCase().indexOf(this.searchText.toLowerCase())>-1 ||
+             _product.name.toLowerCase().indexOf(this.searchText.toLowerCase())>-1
+    });
+
   }
 
   hasFavourites(): boolean {

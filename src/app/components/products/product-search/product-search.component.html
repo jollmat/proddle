@@ -75,7 +75,7 @@
         <ul class="list-group">
           <li
             class="list-group-item py-2"
-            *ngFor="let product of products"
+            *ngFor="let product of productsSearch"
             [hidden]="
               (onlyFavourites && !product.favourite) || !matchesFilter(product)
             "

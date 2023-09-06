@@ -1,11 +1,15 @@
+:host, :root {
+  width: 100% !important;
+}
+
 .product-detail-image {
-  height: 125px;
-  max-width: 100%;
+  max-height: 80px;
+  max-width: 80px;
 }
 
 .sticky-header {
   position: sticky;
-  top: 88px;
+  top: 0px;
   z-index: 1;
   width: 100% !important;
   color: #fff;
@@ -69,7 +73,7 @@ img.shop-image {
 }
 
 .characteristics {
-  height: calc(100vh - 230px);
+  height: calc(100vh - 210px);
   overflow: auto;
 
   h5 {
