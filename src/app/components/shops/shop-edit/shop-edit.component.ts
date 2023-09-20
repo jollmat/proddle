@@ -112,20 +112,20 @@ export class ShopEditComponent implements OnInit {
     const product = this.products.find((_product) => {
       return _product.barcode === productBarcode;
     });
-    return (
+    return product ? (
       '<span>' +
       product.name +
       '</span><span class="brand">' +
       product.brand +
       '</span>'
-    );
+    ) : '?';
   }
 
   getProductImage(productBarcode: string) {
     const product = this.products.find((_product) => {
       return _product.barcode === productBarcode;
     });
-    return product.imageUrl || DEFAULT_IMAGE_URL;
+    return product ? (product.imageUrl || DEFAULT_IMAGE_URL) : DEFAULT_IMAGE_URL;
   }
 
   getLastShopProducts() {

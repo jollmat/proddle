@@ -152,11 +152,6 @@
                   ></a>
                   <div class="d-flex align-items-center ms-auto ps-3 nowrap">
                     <span>
-                      <span
-                        *ngIf="canRemoveShopProduct(shopProduct)"
-                        class="fas fa-trash cursor-pointer me-3"
-                        (click)="removeShopProduct(shopProduct)"
-                      ></span>
                       <i
                         class="fas fa-chart-line pe-2"
                         [ngClass]="{
@@ -166,6 +161,11 @@
                       ></i>
                       {{ shopProduct.price | number: '1.2-2' }} €</span
                     >
+                    <span
+                        *ngIf="canRemoveShopProduct(shopProduct)"
+                        class="fas fa-trash cursor-pointer ms-3"
+                        (click)="removeShopProduct(shopProduct)"
+                      ></span>
                   </div>
                 </div>
               </li>
