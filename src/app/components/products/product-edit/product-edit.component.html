@@ -42,7 +42,7 @@
   <ng-container *ngIf="productDetail">
     <ng-container *ngIf="selectedTab === 0">
       <div
-        class="d-flex card transparent flex-column p-3 w-100"
+        class="d-flex card transparent flex-column p-3 w-100 h-100 overflow-auto"
         [ngClass]="{ 'pb-1': productDetail?.createdBy }"
       >
         <div class="modal-content d-flex flex-row">
@@ -127,6 +127,15 @@
                   [src]="productDetail.imageUrl"
                 /></div
             ></ng-container>
+
+            <input
+              type="text"
+              class="form-control my-2"
+              id="productImageUrl"
+              [(ngModel)]="productDetail.imageUrl"
+              placeholder="URL imatge"
+            />
+
           </div>
         </div>
       </div>
