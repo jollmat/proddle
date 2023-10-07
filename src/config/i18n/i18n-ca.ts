@@ -61,7 +61,8 @@ export const i18n_CA = {
     shops: 'Botigues',
     products: 'Productes',
     alerts: 'Alertes',
-    analysis: 'Anàlisi'
+    analysis: 'Anàlisi',
+    purchases: 'Compres'
   },
   user: {
     username: 'Nom d\'usuari',

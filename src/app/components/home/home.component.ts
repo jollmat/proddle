@@ -7,6 +7,7 @@ import { ProductInterface } from '../../model/interfaces/product.interface';
 import { ShopInterface } from '../../model/interfaces/shop.interface';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
+import { ShopProductInterface } from 'src/app/model/interfaces/shop-product.interface';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { ShopService } from '../../services/shop.service';
 export class HomeComponent implements OnInit {
   shops: ShopInterface[];
   products: ProductInterface[];
+  shopsProducts: ShopProductInterface[];
 
   alerts: number = 0;
   alerts_unread: number = 0;
@@ -39,6 +41,10 @@ export class HomeComponent implements OnInit {
 
   toggleStatistics() {
     this.router.navigate(['statistics']);
+  }
+
+  togglePurchases() {
+    this.router.navigate(['purchases']);
   }
 
   toggleAlerts() {
@@ -68,8 +74,9 @@ export class HomeComponent implements OnInit {
       }, 500);
     });
 
-    this.shopProductService.shopsProducts.subscribe(() => {
+    this.shopProductService.shopsProducts.subscribe((_shopsProducts) => {
       this.alertService.calculateAlerts(false);
+      this.shopsProducts = _shopsProducts;
     });
 
     this.alertService.userAlerts.subscribe((_userAlerts) => {
@@ -79,6 +86,7 @@ export class HomeComponent implements OnInit {
 
     this.shops = this.shopService._shops;
     this.products = this.productService._products;
+    this.shopsProducts = this.shopProductService._shopsProducts;
 
     this.alerts = this.alertService._userAlerts.alerts.length;
     this.alerts_unread = this.alertService.getUnreadAlerts();

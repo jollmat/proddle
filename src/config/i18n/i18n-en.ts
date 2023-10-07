@@ -61,7 +61,8 @@ export const i18n_EN = {
     shops: 'Shops',
     products: 'Products',
     alerts: 'Alerts',
-    analysis: 'Analysis'
+    analysis: 'Analysis',
+    purchases: 'Purchases'
   },
   user: {
     username: 'Username',

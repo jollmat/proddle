@@ -35,10 +35,10 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
   matchesFilter(purchase: ShopProductInterface) {
     const shop: ShopInterface = this.getShop(purchase.shopId);
     const product: ProductInterface = this.getProduct(purchase.productBarcode);
-    return this.searchText.length===0 || 
+    return product && shop && (this.searchText.length===0 || 
       product.brand.toUpperCase().includes(this.searchText.toUpperCase()) ||
       product.name.toUpperCase().includes(this.searchText.toUpperCase()) ||
-      shop.name.toUpperCase().includes(this.searchText.toUpperCase());
+      shop.name.toUpperCase().includes(this.searchText.toUpperCase()));
   }
 
   getShop(shopId: string): ShopInterface {

@@ -159,6 +159,36 @@
           </div>
           <div class="d-flex">
             <button
+              class="bubble-btn sm purchases-btn btn btn-lg w-100 m-1 py-3"
+              (click)="togglePurchases()"
+            >
+              <div
+                class="
+                  d-flex
+                  flex-column
+                  align-items-center
+                  justify-content-center
+                "
+              >
+                <div
+                  class="
+                    d-flex
+                    flex-column
+                    justify-content-center
+                    align-items-center
+                    w-100
+                  "
+                >
+                  <i class="fas fa-bag-shopping"></i>
+                  <span class="count">{{
+                    shopsProducts?.length | number: '1.0-2'
+                  }}</span>
+                  <small class="btn-label">{{'home.purchases' | translate}}</small>
+                </div>
+              </div>
+            </button>
+            <!--
+            <button
               class="bubble-btn sm statistics-btn btn btn-lg w-100 m-1 py-3"
               (click)="toggleStatistics()"
             >
@@ -185,6 +215,7 @@
                 </div>
               </div>
             </button>
+            -->
           </div>
         </ng-container>
       </div>

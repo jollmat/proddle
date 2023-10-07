@@ -75,7 +75,8 @@ export const i18n_PT = {
     products: 'Produtos',
     analysis: 'Análise',
     shoppingCart: 'Carrinho de compras',
-    alerts:'Alertas'
+    alerts:'Alertas',
+    purchases: 'Compras'
   },
   shops: {
     noShopAdded: 'Não há lojas',
