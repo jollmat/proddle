@@ -1,4 +1,5 @@
 /* Add application styles & imports to this file! */
+@import "variables/variables";
 
 body {
   padding: 0;
@@ -56,6 +57,13 @@ body {
 a {
   text-decoration: none !important;
   color: inherit !important;
+}
+
+.text-link {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .w-0 {

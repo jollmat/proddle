@@ -42,8 +42,7 @@
                 <thead>
                     <tr>
                         <th i18n>Data</th>
-                        <th i18n>Producte</th>
-                        <th i18n>Marca</th>
+                        <th i18n>Producte/marca</th>
                         <th class="text-end" i18n>Preu</th>
                         <th i18n>Botiga</th>
                         <th i18n>Comprador</th>
@@ -54,10 +53,14 @@
                         <ng-container *ngIf="matchesFilter(purchase)">
                             <tr>
                                 <td>{{purchase.updateDate | date: 'dd.MM.yyyy'}}</td>
-                                <td>{{(getProduct(purchase.productBarcode)) ? getProduct(purchase.productBarcode).name : 'Barcode not found: ' + purchase.productBarcode}}</td>
-                                <td>{{getProduct(purchase.productBarcode)?.brand}}</td>
+                                <td>
+                                  <div class="d-flex flex-column justify-content-start align-items-start">
+                                    <span class="text-link fw-bold" (click)="viewProduct(purchase.productBarcode)">{{(getProduct(purchase.productBarcode)) ? getProduct(purchase.productBarcode).name : 'Barcode not found: ' + purchase.productBarcode}}</span>
+                                    <small>{{getProduct(purchase.productBarcode)?.brand}}</small>
+                                  </div>                                  
+                                </td>
                                 <td class="text-end">{{purchase.price | number: '1.2-2'}} €</td>
-                                <td>{{getShop(purchase.shopId)?.name}}</td>
+                                <td><span class="text-link fw-bold" (click)="viewShop(purchase.shopId)">{{getShop(purchase.shopId)?.name}}</span></td>
                                 <td>{{(purchase.createdBy) ? purchase.createdBy.username : '-'}}</td>
                             </tr>
                         </ng-container>                    
@@ -73,10 +76,10 @@
                             <div class="d-flex flex-column justify-content-start align-items-start w-100 h-100">
                                 <div class="d-flex w-100 justify-content-between">
                                     <small>{{purchase.updateDate | date: 'dd.MM.yyyy'}}</small>
-                                    <small>{{getShop(purchase.shopId)?.name}}</small>
+                                    <small class="text-link" (click)="viewShop(purchase.shopId)">{{getShop(purchase.shopId)?.name}}</small>
                                 </div>
                                 <div class="d-flex justify-content-start w-100 fw-bold text-start">
-                                    {{(getProduct(purchase.productBarcode)) ? getProduct(purchase.productBarcode).name : 'Barcode not found: ' + purchase.productBarcode}}
+                                    <span class="cursor-pointer" (click)="viewProduct(purchase.productBarcode)">{{(getProduct(purchase.productBarcode)) ? getProduct(purchase.productBarcode).name : 'Barcode not found: ' + purchase.productBarcode}}</span>
                                 </div>
                                 <div class="d-flex justify-content-between w-100 text-start" *ngIf="getProduct(purchase.productBarcode)">
                                     <small class="text-gray">{{getProduct(purchase.productBarcode).brand}}</small>

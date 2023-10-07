@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
+import { STORE_KEYS_CONSTANTS } from 'src/app/model/constants/store-keys.constants';
 import { ProductInterface } from 'src/app/model/interfaces/product.interface';
 import { ShopProductInterface } from 'src/app/model/interfaces/shop-product.interface';
 import { ShopInterface } from 'src/app/model/interfaces/shop.interface';
@@ -17,7 +18,9 @@ import { ShopService } from 'src/app/services/shop.service';
 export class PurchasesComponent implements OnInit, AfterViewInit {
   @ViewChild('purchaseSearchInput') purchaseSearchInput: ElementRef;
 
-  searchText: string = '';
+  STORED_SEARCH_KEY = STORE_KEYS_CONSTANTS.PS_PURCHASES_SEARCH_TEXT;
+
+  searchText: string = localStorage.getItem(this.STORED_SEARCH_KEY) || '';
 
   purchases: ShopProductInterface[];
   purchasesSearch: ShopProductInterface[];
@@ -41,6 +44,11 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
       shop.name.toUpperCase().includes(this.searchText.toUpperCase()));
   }
 
+  setSearchText(text?: string) {
+    this.searchText = text || '';
+    localStorage.setItem(this.STORED_SEARCH_KEY, this.searchText);
+  }
+
   getShop(shopId: string): ShopInterface {
     return this.shopService._shops.find((_shop) => _shop.id === shopId);
   }
@@ -49,11 +57,24 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
     return this.productService._products.find((_product) => _product.barcode === productBarcode);
   }
 
+  viewProduct(barcode: string) {
+    if(barcode) {
+      this.router.navigate(['edit-product/' + barcode]);
+    }    
+  }
+
+  viewShop(shopId: string) {
+    if(shopId) {
+      this.router.navigate(['edit-shop/' + shopId]);
+    }    
+  }
+
   exit() {
     this.router.navigateByUrl('');
   }
 
   ngOnInit(): void {
+    this.searchText = localStorage.getItem(this.STORED_SEARCH_KEY) || '';
 
     this.isMobile = this.deviceDetector.isMobile();
 
@@ -67,6 +88,8 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
     }); 
     this.purchasesSearch = [...this.purchases];
     console.log(this.purchasesSearch);
+
+    this.setSearchText(this.searchText);
   }
 
   ngAfterViewInit(): void {
@@ -76,7 +99,7 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
         debounceTime(300),
         distinctUntilChanged(),
         tap((text: any) => {
-          this.searchText = text?.target?.value;
+          this.setSearchText(text?.target?.value);
         })
       )
       .subscribe();
