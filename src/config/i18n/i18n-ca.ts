@@ -48,6 +48,7 @@ export const i18n_CA = {
     home: 'Inici',
     shops: 'Botigues',
     products: 'Productes',
+    purchases: 'Compres',
     alerts: 'Alertes',
     analysis: 'Anàlisi',
     export: 'Exportar',
@@ -197,6 +198,11 @@ export const i18n_CA = {
   },
   alerts: {
     unreadInfoText: 'Tens alertes sense llegir. Pots marcar-les com a llegides fent clic a la que desitgis.'
+  },
+  purchases: {
+    purchases: 'Compres',
+    searchPlaceholder: 'Cerca per nom, marca o botiga',
+    noData: 'No hi ha compres'
   },
   commons: {
     back: 'Torna',

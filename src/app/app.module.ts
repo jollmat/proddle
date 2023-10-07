@@ -55,6 +55,7 @@ import { AlertsComponent } from './components/alerts/alerts.component';
 import { CustomHTTPInterceptor } from './interceptors/custom-http-interceptor';
 import { EnabledIpGuard } from './guards/enabled-ip.guard';
 import { BannedIpComponent } from './components/utils/banned-ip/banned-ip.component';
+import { PurchasesComponent } from './components/purchases/purchases.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -108,6 +109,7 @@ registerLocaleData(localeEs, 'es');
     BackofficeShopsProductsComponent,
     AlertsComponent,
     BannedIpComponent,
+    PurchasesComponent,
   ],
   providers: [
     AuthenticationGuard,

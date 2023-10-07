@@ -48,6 +48,7 @@ export const i18n_PT = {
     home: 'Lar',
     shops: 'Lojas',
     products: 'Produtos',
+    purchases: 'Compras',
     alerts: 'Alertas',
     analysis: 'Análise',
     export: 'Exportar',
@@ -197,6 +198,11 @@ export const i18n_PT = {
   },
   alerts: {
     unreadInfoText: 'Você tem alertas não lidos. Você pode marcá-los como lidos clicando no que deseja.'
+  },
+  purchases: {
+    purchases: 'Compras',
+    searchPlaceholder: 'Pesquise por nome, marca ou loja',
+    noData: 'Não há compras'
   },
   commons: {
     back: 'Voltar',

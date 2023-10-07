@@ -8,7 +8,7 @@
         class="
           header-container
           d-flex
-          justify-content-around
+          justify-content-between
           align-items-center
           w-100
         "
@@ -21,6 +21,8 @@
             m-0
             py-3
             px-1
+            ms-3
+            cursor-pointer
           "
           (click)="goToHome()"
         >
@@ -28,158 +30,174 @@
         </h3>
 
         <ng-container *ngIf="loggedUser && shopsLoaded && productsLoaded && shopsProductsLoaded">
-          <div class="btn-group">
-            <button
-              type="button"
-              class="btn btn-lg btn-light shadow-none"
-              [ngClass]="{ disabled: !(cartConfig?.items?.length > 0) }"
-              aria-expanded="false"
-              [routerLink]="['/shoppingCart']"
-            >
-              <i
-                class="fas fa-shopping-basket"
-                title="Cistella de la compra"
-              ></i>
-            </button>
-            <div class="badge bg-warning" *ngIf="cartItemCount">
-              {{ cartItemCount | number: '1.0-2' }}
-            </div>
-          </div>
-          <div class="btn-group me-2">
-            <button
-              type="button"
-              class="btn btn-lg btn-light dropdown-toggle shadow-none"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fas fa-bars" title="Opcions"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li class="user py-2" (click)="goToUserDetail()">
-                <div
-                  class="d-flex justify-content-start align-items-center mx-2"
-                >
-                  <div>
-                    <i class="fas fa-user me-1" *ngIf="!loggedUser.photoURL"></i>
-                    <img *ngIf="loggedUser.photoURL" [src]="loggedUser.photoURL" class="user-photo" />
-                  </div>
-                  <div class="d-flex flex-column ps-2">
-                    <span class="wrap">{{ loggedUser?.username?.length>0 ? loggedUser?.username : loggedUser?.email.substr(0, loggedUser?.email.indexOf('@')) }}</span>
-                    <small class="wrap" *ngIf="loggedUser?.username">{{ loggedUser?.email }}</small>
-                  </div>
-                </div>
-              </li>
-
-              <li (click)="goToHome()" class="py-2">
-                <div
-                  class="d-flex justify-content-start align-items-center mx-3"
-                >
-                  <i class="fas fa-home me-1" title="Inici"></i>
-                  <a class="dropdown-item" href="javascript://">{{'menu.home' | translate}}</a>
-                </div>
-              </li>
-
-              <li class="py-2">
-                <div
-                  class="d-flex justify-content-start align-items-center mx-3"
-                >
-                  <i class="fas fa-store me-1 text-info" title="Botigues"></i>
-                  <a
-                    class="dropdown-item"
-                    href="javascript://"
-                    [routerLink]="['/search-shops']"
-                    >{{'menu.shops' | translate}}<small class="ms-2"
-                      >({{ shops?.length | number: '1.0-2' }})</small
-                    ></a
-                  >
-                </div>
-              </li>
-
-              <li class="py-2">
-                <div
-                  class="d-flex justify-content-start align-items-center mx-3"
-                >
-                  <i
-                    class="fas fa-shopping-basket me-1 text-warning"
-                    title="Productes"
-                  ></i>
-                  <a
-                    class="dropdown-item"
-                    href="javascript://"
-                    [routerLink]="['/search-products']"
-                    >{{'menu.products' | translate}}<small class="ms-2"
-                      >({{ products?.length | number: '1.0-2' }})</small
-                    ></a
-                  >
-                </div>
-              </li>
-
-              <li class="py-2" [ngClass]="{'disabled':alerts===0}">
-                <div
-                  class="d-flex justify-content-start align-items-center mx-3"
-                >
-                  <i
-                    class="fas fa-triangle-exclamation text-danger me-1"
-                    title="Alertes"
-                  ></i>
-                  <a
-                    class="dropdown-item"
-                    href="javascript://"
-                    [routerLink]="['/alerts']"
-                    >{{'menu.alerts' | translate}}</a>
-                    <div class="badge bg-danger ms-auto" *ngIf="alerts_unread>0">{{alerts_unread | number: '1.0-2'}}</div>
-                </div>
-              </li>
-
-              <li class="py-2">
-                <div
-                  class="d-flex justify-content-start align-items-center mx-3"
-                >
-                  <i class="fas fa-chart-line me-1" title="Estadístiques"></i>
-                  <a
-                    class="dropdown-item"
-                    href="javascript://"
-                    [routerLink]="['/statistics']"
-                    >{{'menu.analysis' | translate}}</a
-                  >
-                </div>
-              </li>
-
-              <ng-container
-                *ngIf="
-                  !APP_CONFIG.cloudMode &&
-                  loggedUser?.admin
-                "
+          <div class="d-flex justify-content-end align-items-center">
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-lg btn-light shadow-none"
+                [ngClass]="{ disabled: !(cartConfig?.items?.length > 0) }"
+                aria-expanded="false"
+                [routerLink]="['/shoppingCart']"
               >
-                <li><hr class="dropdown-divider" /></li>
-
-                <li (click)="toggleExport()" class="py-2">
+                <i
+                  class="fas fa-shopping-basket"
+                  title="Cistella de la compra"
+                ></i>
+              </button>
+              <div class="badge bg-warning" *ngIf="cartItemCount">
+                {{ cartItemCount | number: '1.0-2' }}
+              </div>
+            </div>
+            <div class="btn-group me-2">
+              <button
+                type="button"
+                class="btn btn-lg btn-light dropdown-toggle shadow-none"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-bars" title="Opcions"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li class="user py-2" (click)="goToUserDetail()">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-2"
+                  >
+                    <div>
+                      <i class="fas fa-user me-1" *ngIf="!loggedUser.photoURL"></i>
+                      <img *ngIf="loggedUser.photoURL" [src]="loggedUser.photoURL" class="user-photo" />
+                    </div>
+                    <div class="d-flex flex-column ps-2">
+                      <span class="wrap">{{ loggedUser?.username?.length>0 ? loggedUser?.username : loggedUser?.email.substr(0, loggedUser?.email.indexOf('@')) }}</span>
+                      <small class="wrap" *ngIf="loggedUser?.username">{{ loggedUser?.email }}</small>
+                    </div>
+                  </div>
+                </li>
+  
+                <li (click)="goToHome()" class="py-2">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-3"
+                  >
+                    <i class="fas fa-home me-1" title="Inici"></i>
+                    <a class="dropdown-item" href="javascript://">{{'menu.home' | translate}}</a>
+                  </div>
+                </li>
+  
+                <li class="py-2">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-3"
+                  >
+                    <i class="fas fa-store me-1 text-info" title="Botigues"></i>
+                    <a
+                      class="dropdown-item"
+                      href="javascript://"
+                      [routerLink]="['/search-shops']"
+                      >{{'menu.shops' | translate}}<small class="ms-2"
+                        >({{ shops?.length | number: '1.0-2' }})</small
+                      ></a
+                    >
+                  </div>
+                </li>
+  
+                <li class="py-2">
                   <div
                     class="d-flex justify-content-start align-items-center mx-3"
                   >
                     <i
-                      class="fas fa-file-export me-1"
-                      title="Exportar dades"
+                      class="fas fa-shopping-basket me-1 text-warning"
+                      title="Productes"
                     ></i>
-                    <a class="dropdown-item" href="javascript://"
-                      >{{'menu.export' | translate}}</a
+                    <a
+                      class="dropdown-item"
+                      href="javascript://"
+                      [routerLink]="['/search-products']"
+                      >{{'menu.products' | translate}}<small class="ms-2"
+                        >({{ products?.length | number: '1.0-2' }})</small
+                      ></a
+                    >
+                  </div>
+                </li>
+  
+                <li class="py-2" [ngClass]="{'disabled':alerts===0}">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-3"
+                  >
+                    <i
+                      class="fas fa-triangle-exclamation text-danger me-1"
+                      title="Alertes"
+                    ></i>
+                    <a
+                      class="dropdown-item"
+                      href="javascript://"
+                      [routerLink]="['/alerts']"
+                      >{{'menu.alerts' | translate}}</a>
+                      <div class="badge bg-danger ms-auto" *ngIf="alerts_unread>0">{{alerts_unread | number: '1.0-2'}}</div>
+                  </div>
+                </li>
+  
+                <li class="py-2">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-3"
+                  >
+                    <i class="fas fa-bag-shopping me-1" title="Compres"></i>
+                    <a
+                      class="dropdown-item"
+                      href="javascript://"
+                      [routerLink]="['/purchases']"
+                      >{{'menu.purchases' | translate}}</a
                     >
                   </div>
                 </li>
 
-              </ng-container>
-
-              <li><hr class="dropdown-divider" /></li>
-
-              <li (click)="logout()" class="py-2">
-                <div
-                  class="d-flex justify-content-start align-items-center mx-3"
+                <li class="py-2">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-3"
+                  >
+                    <i class="fas fa-chart-line me-1" title="Estadístiques"></i>
+                    <a
+                      class="dropdown-item"
+                      href="javascript://"
+                      [routerLink]="['/statistics']"
+                      >{{'menu.analysis' | translate}}</a
+                    >
+                  </div>
+                </li>
+  
+                <ng-container
+                  *ngIf="
+                    !APP_CONFIG.cloudMode &&
+                    loggedUser?.admin
+                  "
                 >
-                  <i class="fas fa-right-from-bracket me-1" title="Logout"></i>
-                  <a class="dropdown-item" href="javascript://">{{'menu.exit' | translate}}</a>
-                </div>
-              </li>
-            </ul>
+                  <li><hr class="dropdown-divider" /></li>
+  
+                  <li (click)="toggleExport()" class="py-2">
+                    <div
+                      class="d-flex justify-content-start align-items-center mx-3"
+                    >
+                      <i
+                        class="fas fa-file-export me-1"
+                        title="Exportar dades"
+                      ></i>
+                      <a class="dropdown-item" href="javascript://"
+                        >{{'menu.export' | translate}}</a
+                      >
+                    </div>
+                  </li>
+  
+                </ng-container>
+  
+                <li><hr class="dropdown-divider" /></li>
+  
+                <li (click)="logout()" class="py-2">
+                  <div
+                    class="d-flex justify-content-start align-items-center mx-3"
+                  >
+                    <i class="fas fa-right-from-bracket me-1" title="Logout"></i>
+                    <a class="dropdown-item" href="javascript://">{{'menu.exit' | translate}}</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </ng-container>
       </div>

@@ -87,11 +87,12 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
   }
 
   matchesFilter(product: ProductInterface) {
-    return (
+    return true;
+    return 
+      this.searchText.length===0 || 
       product.name.toUpperCase().indexOf(this.searchText.toUpperCase()) >= 0 ||
       product.brand.toUpperCase().indexOf(this.searchText.toUpperCase()) >= 0 ||
-      product.barcode.toUpperCase().indexOf(this.searchText.toUpperCase()) >= 0
-    );
+      product.barcode.toUpperCase().indexOf(this.searchText.toUpperCase()) >= 0;
   }
 
  getProductPrices(product: ProductInterface) {
@@ -168,7 +169,6 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
              _product.brand.toLowerCase().indexOf(this.searchText.toLowerCase())>-1 ||
              _product.name.toLowerCase().indexOf(this.searchText.toLowerCase())>-1
     });
-
   }
 
   hasFavourites(): boolean {
@@ -188,6 +188,8 @@ export class ProductSearchComponent implements OnInit, AfterViewInit {
     );
     this.products = this.productService._products;
     this.loading = false;
+
+    this.setSearchText(this.searchText);
   }
 
   ngAfterViewInit(): void {

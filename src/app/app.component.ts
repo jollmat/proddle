@@ -171,13 +171,13 @@ export class AppComponent implements OnInit {
 
     this.shopService.loadShops().subscribe(() => {
       this.shopsLoaded = this.shopService._shops && this.shopService._shops.length > 0;
-    });
+    }, () => { this.shopsLoaded = true; });
     this.productService.loadProducts().subscribe(() => {
       this.productsLoaded = this.productService._products && this.productService._products.length > 0;
-    });
+    }, () => { this.shopsProductsLoaded = true; });
     this.shopProductService.loadShopsProducts().subscribe(() => {
       this.shopsProductsLoaded = this.shopProductService._shopsProducts && this.shopProductService._shopsProducts.length > 0;
-    });    
+    }, () => { this.productsLoaded = true; });    
 
     // Shopping cart
 

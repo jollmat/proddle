@@ -446,3 +446,9 @@ i.fa-times {
 ngx-spinner {
   opacity: 0.3;
 }
+
+small {
+  &.text-gray {
+    color: #888;
+  }
+}

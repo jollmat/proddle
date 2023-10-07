@@ -48,6 +48,7 @@ export const i18n_ES = {
     home: 'Inicio',
     shops: 'Tiendas',
     products: 'Productos',
+    purchases: 'Compras',
     alerts: 'Alertas',
     analysis: 'Análisis',
     export: 'Exportar',
@@ -197,6 +198,11 @@ export const i18n_ES = {
   },
   alerts: {
     unreadInfoText: 'Tienes alertas sin leer. Puedes marcarlas como leídas haciendo clic en la que desees.'
+  },
+  purchases: {
+    purchases: 'Compras',
+    searchPlaceholder: 'Busca por nombre, marca o tienda',
+    noData: 'No hay compras'
   },
   commons: {
     back: 'Volver',

@@ -18,6 +18,7 @@ import { UserDetailComponent } from '../../components/user-detail/user-detail.co
 import { ForbiddenComponent } from '../../components/utils/forbidden/forbidden.component';
 import { PageNotFoundComponent } from '../../components/utils/page-not-found/page-not-found.component';
 import { AuthenticationGuard } from '../../guards/authentication.guard';
+import { PurchasesComponent } from 'src/app/components/purchases/purchases.component';
 
 export const APP_ROUTES: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -84,6 +85,11 @@ export const APP_ROUTES: Routes = [
   {
     path: 'alerts',
     component: AlertsComponent,
+    canActivate: [EnabledIpGuard, AuthenticationGuard],
+  },
+  {
+    path: 'purchases',
+    component: PurchasesComponent,
     canActivate: [EnabledIpGuard, AuthenticationGuard],
   },
   { path: 'forbidden', component: ForbiddenComponent },
