@@ -255,7 +255,7 @@
                   <span class="text-link" (click)="viewProduct(product.barcode)">{{product.name}}</span>
                   <small class="brand">{{product.brand}}</small>
                 </div>
-                <div class="d-flex">
+                <div class="d-flex justify-content-end price">
                   {{getLastProductPurchase(product.barcode).price | number: '1.2-2'}} €
                 </div>
               </div>

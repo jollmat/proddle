@@ -88,3 +88,8 @@ i.disabled {
   opacity: 0.1;
   pointer-events: none;
 }
+
+div.price {
+  min-width: 100px;
+  text-align: right;
+}
