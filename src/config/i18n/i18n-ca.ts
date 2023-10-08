@@ -87,13 +87,15 @@ export const i18n_CA = {
   shop: {
     detail: 'Detall',
     prices: 'Preus',
+    whatToPurchase: 'Qué comprar-hi?',
     name: 'Nom',
     favourite: 'Favorita',
     createdBy: 'Creada per',
     save: 'Desa',
     close: 'Tanca',
     productPrices: 'Preus productes',
-    noProductPrices: 'Sense preus de productes'
+    noProductPrices: 'Sense preus de productes',
+    noRecommendedProducts: 'No hi ha productes recomanats'
   },
   products: {
     noProductAdded: 'No hi ha productes',

@@ -87,13 +87,15 @@ export const i18n_FR = {
     shop: {
       detail: 'Détail',
       prices: 'Des prix',
+      whatToPurchase: 'Qu\'y acheter?',
       name: 'Nom',
       favourite: 'Favori',
       createdBy: 'Créé par',
       save: 'Enregistrer',
       close: 'Fermer',
       productPrices: 'Prix ​​des produits',
-      noProductPrices: 'Pas de prix des produits'
+      noProductPrices: 'Pas de prix des produits',
+      noRecommendedProducts: 'Il n\'y a pas de produits recommandés'
     },
     products: {
       noProductAdded: 'Aucun produit',

@@ -26,6 +26,18 @@
           >({{ shopProducts?.length | number: '1.0-2' }})</small
         >
       </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-secondary"
+        [ngClass]="{ active: selectedTab === 2 }"
+        (click)="selectedTab = 2"
+      >
+        <i class="fas fa-check me-2" *ngIf="selectedTab === 2"></i>
+        {{'shop.whatToPurchase' | translate}}
+        <small class="sm-2"
+          >({{ getProductsToBuy()?.length | number: '1.0-2' }})</small
+        >
+      </button>
     </div>
   </div>
 
@@ -123,12 +135,6 @@
             >({{ shopProducts?.length | number: '1.0-2' }})</small
           >
         </button>
-        <!--
-        <i
-          class="fas fa-plus cursor-pointer p-2 me-1"
-          (click)="newShopProduct()"
-        ></i>
-        -->
       </div>
       <ng-container>
         <ng-container *ngIf="shopProducts?.length > 0; else noShopsProducts">
@@ -229,11 +235,47 @@
       </ng-container>
     </div>
   </ng-container>
+
+  <ng-container *ngIf="selectedTab === 2">
+    <div class="shop-products d-flex flex-column mb-3 px-3 w-100">
+      <div class="d-flex justify-content-between align-items-center px-1">
+        <button class="btn btn-lg btn-lg ps-0">
+          {{'shop.whatToPurchase' | translate}}
+          <small class="sm-2"
+            >({{ getProductsToBuy().length | number: '1.0-2' }})</small
+          >
+        </button>
+      </div>
+      <ng-container *ngIf="getProductsToBuy().length>0; else noRecommendedProducts">
+        <ul class="list-group mt-3">
+          <ng-container *ngFor="let product of getProductsToBuy()">
+            <li class="list-group-item text-start">
+              <div class="d-flex justify-content-between w-100">
+                <div class="d-flex h-100 flex-column">
+                  <span class="text-link" (click)="viewProduct(product.barcode)">{{product.name}}</span>
+                  <small class="brand">{{product.brand}}</small>
+                </div>
+                <div class="d-flex">
+                  {{getLastProductPurchase(product.barcode).price | number: '1.2-2'}} €
+                </div>
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>
 
 <ng-template #noShopsProducts>
   <div class="d-flex justify-content-start align-items-center w-100">
     <small class="ps-2">{{'shop.noProductPrices' | translate}}</small>
+  </div>
+</ng-template>
+
+<ng-template #noRecommendedProducts>
+  <div class="d-flex justify-content-start align-items-center w-100">
+    <small class="ps-2">{{'shop.noRecommendedProducts' | translate}}</small>
   </div>
 </ng-template>
 

@@ -194,6 +194,31 @@ export class ShopEditComponent implements OnInit {
     );
   }
 
+  getProductsToBuy(): ProductInterface[] {
+    let products: ProductInterface[] = [];
+    this.products.forEach((_product) => {
+      const cheaperShops: ShopInterface[] = this.shopsProductsService.getProductCheaperShop(_product);
+      if (cheaperShops.length>=1 && cheaperShops.some((_shop) => _shop.id===this.shopDetail.id )) {
+        products.push(_product);
+      }
+    })
+    products.sort((a, b) => {
+      return a.name>=b.name ? 1 : -1;
+    });
+    return products;
+  }
+
+  getLastProductPurchase(barcode: string): ShopProductInterface {
+    return this.shopsProductsService.getShopProductLast(this.shopDetail.id, barcode);
+  }
+
+  viewProduct(barcode: string) {
+    console.log(barcode);
+    if(barcode) {
+      this.router.navigate(['edit-product/' + barcode]);
+    }    
+  }
+
   ngOnInit() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
