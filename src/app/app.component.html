@@ -164,7 +164,7 @@
   
                 <ng-container
                   *ngIf="
-                    !APP_CONFIG.cloudMode &&
+                    APP_CONFIG.dataSourceType!==DataSourceTypeEnum.FIRESTORE &&
                     loggedUser?.admin
                   "
                 >

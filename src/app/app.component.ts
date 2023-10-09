@@ -17,6 +17,7 @@ import { STORE_KEYS_CONSTANTS } from './model/constants/store-keys.constants';
 import { TranslationsService } from './services/translations.service';
 import { FirestoreAuthService } from './services/firestore-auth.service';
 import { AlertsService } from './services/alerts.service';
+import { DataSourceTypeEnum } from './model/enums/datasource-type.enum';
 
 @Component({
   selector: 'my-app',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
   @ViewChild('appLayout') appLayoutComponent;
 
   APP_CONFIG = APP_CONFIG;
+  DataSourceTypeEnum = DataSourceTypeEnum;
   
   shops: ShopInterface[];
   products: ProductInterface[];
