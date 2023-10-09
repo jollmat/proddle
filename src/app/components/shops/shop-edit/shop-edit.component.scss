@@ -93,3 +93,9 @@ div.price {
   min-width: 100px;
   text-align: right;
 }
+
+div.product-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

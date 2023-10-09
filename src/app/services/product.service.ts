@@ -8,6 +8,7 @@ import { ProductInterface } from '../model/interfaces/product.interface';
 import { AlertsService } from './alerts.service';
 import { FirestoreService } from './firestore.service';
 import { LoginService } from './login.service';
+import { DataSourceTypeEnum } from '../model/enums/datasource-type.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -43,7 +44,7 @@ export class ProductService {
   loadProducts(): Observable<ProductInterface[]> {
     console.log('ProductService.loadProducts()');
 
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.getProducts().pipe(
         tap((products) => {
   
@@ -56,20 +57,20 @@ export class ProductService {
           this.checkFavourites(products);
           this.products.next(products);
         }));
-    } else {
+    } else if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.BASIC_DEFAULT) {
       return of(DEFAULT_PRODUCTS).pipe(
         tap((products) => {
-  
-          if(!products || products.length === 0) {
-            products = DEFAULT_PRODUCTS;
-            this.firestoreService.addProducts(products);
-          }
-  
           this.setDefaultImages(products);
           this.checkFavourites(products);
           this.products.next(products);
         })
       );
+    } else if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.MONGODB_LOCAL) {
+      return of([]).pipe(tap((products) => {
+        this.setDefaultImages(products);
+        this.checkFavourites(products);
+        this.products.next(products);
+      }));
     }
     
   }
@@ -105,7 +106,7 @@ export class ProductService {
     if (!avoidToggleFavourite) {
       this.toggleFavourite(product).subscribe();
     }
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.updateProduct(product).pipe(tap(() => {}));
     }
     return of(true);
@@ -116,7 +117,7 @@ export class ProductService {
     product.createdBy = this.loginService.getLoggedUser();
     product.createdOn = new Date().getTime();
 
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.addProduct(product).pipe(tap(() => {
         this._products.push(product);
         this.products.next(this._products);
@@ -131,7 +132,7 @@ export class ProductService {
   removeProduct(id: string): Observable<boolean> {
     console.log('ProductService.removeProduct()', id);
 
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
     return this.firestoreService.deleteProduct(id).pipe(tap(() => {
       this._products = this._products.filter((_p) => {
         return _p.id !== id

@@ -11,6 +11,7 @@ import { DEFAULT_SHOPS_PRODUCTS } from '../model/constants/default-shops-product
 import { APP_CONFIG } from 'src/config/app-config.constant';
 import { LoginService } from './login.service';
 import { AlertsService } from './alerts.service';
+import { DataSourceTypeEnum } from '../model/enums/datasource-type.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ShopProductService {
@@ -37,7 +38,7 @@ export class ShopProductService {
   loadShopsProducts(): Observable<ShopProductInterface[]> {
     console.log('ShopProductService.loadShopsProducts()');
 
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.getShopsProducts().pipe(tap((shopsProducts) => {
         if(!shopsProducts || shopsProducts.length === 0){
           shopsProducts = DEFAULT_SHOPS_PRODUCTS;
@@ -45,12 +46,12 @@ export class ShopProductService {
         }
         this.shopsProducts.next(shopsProducts);
       }));
-    } else {
+    } else if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.BASIC_DEFAULT) {
       return of(DEFAULT_SHOPS_PRODUCTS).pipe(tap((shopsProducts) => {
-        if(!shopsProducts || shopsProducts.length === 0){
-          shopsProducts = DEFAULT_SHOPS_PRODUCTS;
-          this.firestoreService.addShopProducts(shopsProducts);
-        }
+        this.shopsProducts.next(shopsProducts);
+      }));
+    } else if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.MONGODB_LOCAL) {
+      return of([]).pipe(tap((shopsProducts) => {
         this.shopsProducts.next(shopsProducts);
       }));
     }
@@ -64,7 +65,7 @@ export class ShopProductService {
       shopProduct.createdBy = this.loginService.getLoggedUser();
     }
 
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.addShopProduct(shopProduct).pipe(tap(() => {
         this._shopsProducts.push(shopProduct);
         this.shopsProducts.next(this._shopsProducts);
@@ -78,7 +79,7 @@ export class ShopProductService {
 
   removeShopProduct(shopProduct: ShopProductInterface): Observable<boolean> {
     console.log('ShopProductService.removeShopProduct()', shopProduct);
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.deleteShopProduct(shopProduct).pipe(tap(() => {
         this._shopsProducts = this._shopsProducts.filter((_sp) => {
           return _sp.productBarcode !== shopProduct.productBarcode || _sp.shopId !== shopProduct.shopId;
@@ -105,7 +106,7 @@ export class ShopProductService {
         shopProductsToKeep.push(_shopProduct);
       }
     });
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.deleteShopProducts(shopProductsToRemove).pipe(tap(() => {
         this._shopsProducts = shopProductsToKeep;
         this.shopsProducts.next(this._shopsProducts);
@@ -128,7 +129,7 @@ export class ShopProductService {
         shopProductsToKeep.push(_shopProduct);
       }
     });
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.deleteShopProducts(shopProductsToRemove).pipe(tap(() => {
         this._shopsProducts = shopProductsToKeep;
         this.shopsProducts.next(this._shopsProducts);

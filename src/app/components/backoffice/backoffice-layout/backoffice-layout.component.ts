@@ -11,6 +11,7 @@ import { ShopProductInterface } from '../../../model/interfaces/shop-product.int
 import { ShopInterface } from '../../../model/interfaces/shop.interface';
 import { UserInterface } from '../../../model/interfaces/user.interface';
 import { LoginService } from '../../../services/login.service';
+import { DataSourceTypeEnum } from 'src/app/model/enums/datasource-type.enum';
 
 @Component({
   selector: 'app-backoffice-layout',
@@ -24,7 +25,7 @@ export class BackofficeLayoutComponent implements OnInit, OnChanges {
   @Input() products: ProductInterface[] = [];
   @Input() shopsProducts: ShopProductInterface[] = [];
 
-  cloudMode: boolean = APP_CONFIG.cloudMode;
+  dataSourceType: DataSourceTypeEnum = APP_CONFIG.dataSourceType;
 
   users: UserInterface[] = [];
 

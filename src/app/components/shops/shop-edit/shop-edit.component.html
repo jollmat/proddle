@@ -251,8 +251,8 @@
           <ng-container *ngFor="let product of getProductsToBuy()">
             <li class="list-group-item text-start">
               <div class="d-flex justify-content-between w-100">
-                <div class="d-flex h-100 flex-column">
-                  <span class="text-link" (click)="viewProduct(product.barcode)">{{product.name}}</span>
+                <div class="d-flex h-100 flex-column product">
+                  <div class="text-link" (click)="viewProduct(product.barcode)">{{product.name}}</div>
                   <small class="brand">{{product.brand}}</small>
                 </div>
                 <div class="d-flex justify-content-end price">

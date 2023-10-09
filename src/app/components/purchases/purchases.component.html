@@ -87,6 +87,9 @@
                                         {{purchase.price | number: '1.2-2'}} €
                                     </div>
                                 </div>
+                                <div class="d-flex w-100 justify-content-end w-100 text-end mt-1">
+                                  <small class="font-italic">{{purchase.createdBy?.username}}</small>
+                                </div>
                             </div>
                         </li>
                     </ng-container>                    

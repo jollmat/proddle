@@ -1,6 +1,7 @@
+import { DataSourceTypeEnum } from "../enums/datasource-type.enum";
 
 export interface AppConfigInterface {
   defaultLanguage: string;
-  cloudMode: boolean;
   bannedIPs: string[];
+  dataSourceType: DataSourceTypeEnum;
 }

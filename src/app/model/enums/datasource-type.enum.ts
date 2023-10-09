@@ -1,0 +1,5 @@
+export enum DataSourceTypeEnum {
+    FIRESTORE = 'FIRESTORE',
+    MONGODB_LOCAL = 'MONGODB_LOCAL',
+    BASIC_DEFAULT = 'BASIC_DEFAULT'
+}

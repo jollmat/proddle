@@ -8,6 +8,7 @@ import { LoginService } from './login.service';
 import { DEFAULT_IMAGE_URL } from '../model/constants/default-image.constant';
 import { FirestoreService } from './firestore.service';
 import { APP_CONFIG } from 'src/config/app-config.constant';
+import { DataSourceTypeEnum } from '../model/enums/datasource-type.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ShopService {
@@ -39,7 +40,7 @@ export class ShopService {
 
   loadShops(): Observable<ShopInterface[]> {
     console.log('ShopService.loadShops()');
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.getShops().pipe(
         tap((shops) => {
   
@@ -53,16 +54,18 @@ export class ShopService {
           this.shops.next(shops);
         })
       );
-    } else {
+    } else if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.BASIC_DEFAULT) {
       return of(DEFAULT_SHOPS).pipe(
         tap((shops) => {
-  
-          if(!shops || shops.length === 0) {
-            shops = DEFAULT_SHOPS;
-            this.firestoreService.addShops(shops);          
-          }
-  
-          this.setDefaultImages(shops);
+        this.setDefaultImages(shops);
+          this.checkFavourites(shops);
+          this.shops.next(shops);
+        })
+      );
+    } else if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.MONGODB_LOCAL) {
+      return of([]).pipe(
+        tap((shops) => {
+        this.setDefaultImages(shops);
           this.checkFavourites(shops);
           this.shops.next(shops);
         })
@@ -97,7 +100,7 @@ export class ShopService {
     console.log('ShopService.updateShop()', shop);
     this.toggleFavourite(shop).subscribe();
 
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.updateShop(shop).pipe(tap(() => {}));
     }
     return of (true);
@@ -107,7 +110,7 @@ export class ShopService {
     console.log('ShopService.createShop()', shop);
     shop.createdBy = this.loginService.getLoggedUser();
 
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.addShop(shop).pipe(tap(() => {
         this._shops.push(shop);
         this.shops.next(this._shops);
@@ -121,7 +124,7 @@ export class ShopService {
 
   removeShop(shopId: string): Observable<boolean> {
     console.log('ShopService.removeShop()', shopId);
-    if (APP_CONFIG.cloudMode) {
+    if (APP_CONFIG.dataSourceType===DataSourceTypeEnum.FIRESTORE) {
       return this.firestoreService.deleteShop(shopId).pipe(tap(() => {
         this._shops = this._shops.filter((_s) => { return _s.id !== shopId });
         this.shops.next(this._shops);
